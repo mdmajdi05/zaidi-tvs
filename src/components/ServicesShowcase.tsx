@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRef, type MouseEvent } from "react";
+import { CONTACT } from "@data/site";
 
 type Service = {
   no: string;
@@ -59,7 +60,7 @@ const SERVICES: Service[] = [
     title: "Roadside Assistance",
     desc: "Stuck on the road? Our team helps you get moving again with quick support.",
     points: ["Rapid response", "On-call support", "Peace of mind"],
-    href: "https://wa.me/919009010050",
+    href: CONTACT.whatsappHref,
   },
   {
     no: "S — 07",

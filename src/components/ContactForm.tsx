@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { wa } from "@data/site";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -17,12 +18,10 @@ export default function ContactForm() {
       return;
     }
     setError("");
-    const text = encodeURIComponent(
-      `Hello Zaidi TVS! I'm ${name.trim()} (${phone.trim()}). I'd like to enquire about: ${
-        model.trim() || "TVS vehicles"
-      }. ${message.trim()}`
-    );
-    window.open(`https://wa.me/919009010050?text=${text}`, "_blank", "noopener,noreferrer");
+    const text = `Hello Zaidi TVS! I'm ${name.trim()} (${phone.trim()}). I'd like to enquire about: ${
+      model.trim() || "TVS vehicles"
+    }. ${message.trim()}`;
+    window.open(wa(text), "_blank", "noopener,noreferrer");
     setSent(true);
   };
 

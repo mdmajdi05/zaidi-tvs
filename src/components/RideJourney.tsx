@@ -70,7 +70,7 @@ const ROAD_D = "M " + ROAD.map((p) => `${p.x.toFixed(1)} ${p.y.toFixed(1)}`).joi
 const STATION_T = [0, 1 / 3, 2 / 3, 1];
 const STATIONS = STATION_T.map((t, i) => {
   const p = ROAD[Math.round(t * (ROAD.length - 1))];
-  return { i, x: p.x, y: p.y };
+  return { i, x: +p.x.toFixed(2), y: +p.y.toFixed(2) };
 });
 
 const START = STATIONS[0];
@@ -170,6 +170,18 @@ export default function RideJourney() {
           const active = i === idx;
           el.classList.toggle("active", active);
           el.setAttribute("aria-hidden", active ? "false" : "true");
+          const relP = current * N - i;
+          const lastP = i === N - 1;
+          let eP = Math.max(0, Math.min(1, relP / 0.35));
+          eP = 1 - Math.pow(1 - eP, 3);
+          let xP = lastP ? 0 : Math.max(0, Math.min(1, (relP - 0.65) / 0.35));
+          if (i === 0 && relP <= 0.001) {
+            eP = 1;
+            xP = 0;
+          }
+          el.style.setProperty("--u", (1 - eP).toFixed(3));
+          el.style.setProperty("--x", xP.toFixed(3));
+          el.style.setProperty("--o", Math.max(0, Math.min(1, Math.min(eP, 1 - xP))).toFixed(3));
         });
         if (progressRef.current) {
           progressRef.current.style.transform = `scaleX(${current})`;

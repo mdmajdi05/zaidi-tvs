@@ -1,16 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { ADDRESS_LINE, CONTACT, MAPS_URL, SOCIAL } from "@data/site";
 import { useEffect, useRef, useState } from "react";
 import EngineWorks from "./EngineWorks";
-import ExplodeBike from "./ExplodeBike";
 import Hero3D from "./Hero3D";
+import Bike360 from "./Bike360";
+import BlogTeaser from "./BlogTeaser";
+import BookingModal from "./BookingModal";
+import BranchLocator from "./BranchLocator";
+import FaqAccordion from "./FaqAccordion";
+import GalleryGrid from "./GalleryGrid";
+import OffersHub from "./OffersHub";
+import Reviews from "./Reviews";
 import RideJourney from "./RideJourney";
 import ServiceFloor from "./ServiceFloor";
-import ServicesShowcase from "./ServicesShowcase";
+import FinanceCalculator from "./FinanceCalculator";
 import StatsBand from "./StatsBand";
-import WheelCursor from "./WheelCursor";
+import { BIKES, PRODUCT_IMAGES, vehicleHref } from "@/lib/catalog";
+import { TOP_FAQS } from "@/lib/faqs";
+import { spinFrames } from "@/lib/spinFrames";
 
 type ModelKey = "ntorq" | "jupiter" | "raider";
 
@@ -52,12 +61,40 @@ const COMPARE_ROWS: Array<[string, keyof (typeof MODELS)[ModelKey]]> = [
   ["Price", "price"],
 ];
 
-const RIDE_CARDS = [
-  { filter: "city", bg: "/assets/city-rider.jpg", icon: "▥", title: "CITY RIDER", text: "Daily commute" },
-  { filter: "family", bg: "/assets/family-rider.jpg", icon: "♧", title: "FAMILY RIDE", text: "Comfort & practicality" },
-  { filter: "performance", bg: "/assets/performance-bike.jpg", icon: "ϟ", title: "PERFORMANCE", text: "Power & thrill" },
-  { filter: "style", bg: "/assets/style-scooter.jpg", icon: "☆", title: "STYLE", text: "Looks that stand out" },
-];
+/** "Discover Your Ride" rail — category tabs derived from the catalogue. */
+const RIDE_KIND_LABEL: Record<string, string> = {
+  Motorcycle: "Motorcycles",
+  Scooter: "Scooters",
+  Electric: "Electric",
+  Moped: "Mopeds",
+};
+
+const RIDE_KIND_ICON: Record<string, string> = {
+  Motorcycle: "▲",
+  Scooter: "♧",
+  Electric: "⚡",
+  Moped: "◆",
+};
+
+const RIDE_TABS: Array<{ id: string; label: string }> = Array.from(
+  new Set(BIKES.map((b) => b.kind))
+).map((kind) => ({
+  id: kind,
+  label: RIDE_KIND_LABEL[kind] ?? kind,
+}));
+
+/** Real TVS 360° turntable frames for the featured scooter showcase. */
+const NTORQ_FRAMES = spinFrames("ntorq");
+
+/** Bikes offered in the booking form. */
+const BOOKING_BIKES = BIKES.map((b) => ({
+  slug: b.slug,
+  name: b.name,
+  image: b.image,
+  engine: b.engine,
+  power: b.power,
+  price: b.price,
+}));
 
 const QUIZ_ANSWERS: Record<string, string> = {
   Daily: "TVS Jupiter is a great place to start.",
@@ -72,24 +109,41 @@ const TESTIMONIALS = [
   { initials: "RK", quote: "“Best showroom in Chandpur. Smooth buying process and excellent support.”", name: "Rohit Kumar", tag: "TVS Apache" },
 ];
 
-const MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=Zaidi%20TVS%20Chandpur";
+/** Home hero — real TVS photography that auto cross-fades. */
+const HERO_SLIDES: Array<{ src: string; alt: string }> = [
+  { src: "/assets/hero-bike.jpg", alt: "TVS bike on the open road" },
+  { src: "/assets/performance-bike.jpg", alt: "TVS Apache performance motorcycle" },
+  { src: "/assets/cta-bg.jpg", alt: "TVS Apache ride" },
+  { src: "/assets/featured-bike.jpg", alt: "TVS Ntorq 125 scooter" },
+  { src: "/assets/quiz-rider.jpg", alt: "Rider on a TVS motorcycle" },
+  { src: "/assets/family-rider.jpg", alt: "TVS scooter family ride" },
+  { src: "/assets/city-rider.jpg", alt: "TVS commuter in the city" },
+  { src: "/assets/style-scooter.jpg", alt: "TVS style scooter" },
+];
 
 export default function ZaidiLanding() {
-  const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [modelA, setModelA] = useState<ModelKey>("ntorq");
   const [modelB, setModelB] = useState<ModelKey>("jupiter");
   const [quizResult, setQuizResult] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [dial, setDial] = useState(50);
   const [activeThumb, setActiveThumb] = useState(0);
-  const bikeRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef<{ x: number; d: number } | null>(null);
+  const [heroSlide, setHeroSlide] = useState(0);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [bookingSlug, setBookingSlug] = useState<string | null>(null);
+  const [rideTab, setRideTab] = useState<string>(RIDE_TABS[0].id);
   const startQuizRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const rideRailRef = useRef<HTMLDivElement>(null);
+
+  const rideCards = BIKES.filter((b) => b.kind === rideTab);
+  const scrollRideRail = (dir: number) => {
+    const el = rideRailRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.85, 760), behavior: "smooth" });
+  };
 
   // Reveal on scroll
   useEffect(() => {
@@ -114,6 +168,20 @@ export default function ZaidiLanding() {
     return () => observer.disconnect();
   }, []);
 
+  // Hero background: auto cross-fading slideshow
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+    const id = window.setInterval(() => {
+      setHeroSlide((index) => (index + 1) % HERO_SLIDES.length);
+    }, 5200);
+    return () => window.clearInterval(id);
+  }, []);
+
   // Modal: escape, backdrop click, focus management
   useEffect(() => {
     if (!modalOpen) return;
@@ -136,8 +204,12 @@ export default function ZaidiLanding() {
 
   const openModal = () => {
     setModalOpen(true);
-    setDial(50);
     setActiveThumb(0);
+  };
+
+  const openBooking = (slug?: string | null) => {
+    setBookingSlug(slug ?? null);
+    setBookingOpen(true);
   };
 
   // Body scroll lock while modal is open
@@ -148,23 +220,21 @@ export default function ZaidiLanding() {
     };
   }, [modalOpen]);
 
-  const bikeTransform = () => {
-    const rot = (dial - 50) * 0.9;
-    const scale = 1 + Math.abs(dial - 50) / 600;
-    const tx = (activeThumb - 1.5) * 14;
-    const ty = (activeThumb - 1.5) * 1.5;
-    return `rotateY(${rot}deg) scale(${scale}) translateX(${tx}px) rotate(${ty}deg)`;
-  };
-
   const a = MODELS[modelA];
   const b = MODELS[modelB];
 
   return (
     <div ref={rootRef}>
-      <WheelCursor />
       <section className="hero">
         <div className="hero-pin">
-          <div className="hero-image" aria-hidden="true" />
+          {HERO_SLIDES.map((slide, index) => (
+            <div
+              key={slide.src}
+              className={`hero-image${index === heroSlide ? " active" : ""}`}
+              style={{ backgroundImage: `url('${slide.src}')` }}
+              aria-hidden="true"
+            />
+          ))}
           <div className="hero-overlay" aria-hidden="true" />
           <div className="hero-decor" aria-hidden="true">
             <div className="grid-overlay" />
@@ -195,10 +265,12 @@ export default function ZaidiLanding() {
           </div>
           <div className="hero-bottom">
             <div className="slides" aria-hidden="true">
-              <b>01</b>
+              <b className="active">{String(heroSlide + 1).padStart(2, "0")}</b>
               <span />
-              <b>02</b>
-              <b>03</b>
+              <b>{String(HERO_SLIDES.length).padStart(2, "0")}</b>
+              <i className="slide-bar">
+                <em style={{ width: `${((heroSlide + 1) / HERO_SLIDES.length) * 100}%` }} />
+              </i>
             </div>
             <div className="scroll">
               SCROLL
@@ -240,36 +312,88 @@ export default function ZaidiLanding() {
           </div>
         </div>
 
+
         <section className="ride-picker section-light" id="ride">
           <div className="section-head">
             <div className="eyebrow red">▣ &nbsp; FIND YOUR PERFECT MATCH</div>
-            <h2>CHOOSE YOUR RIDE</h2>
+            <h2>DISCOVER YOUR RIDE</h2>
             <p>Every journey is different. What&apos;s yours?</p>
           </div>
-          <div className="ride-grid">
-            {RIDE_CARDS.map((card) => (
-              <button
-                type="button"
-                key={card.filter}
-                className="ride-card"
-                style={{ ["--bg" as string]: `url('${card.bg}')` }}
-                onClick={() => router.push("/bikes")}
-                aria-label={`${card.title} — ${card.text}`}
-              >
-                <span className="card-shade" aria-hidden="true" />
-                <span className="card-content">
-                  <span className="icon" aria-hidden="true">
-                    {card.icon}
-                  </span>
-                  <h3>{card.title}</h3>
-                  <p>{card.text}</p>
-                </span>
-                <span className="card-arrow" aria-hidden="true">
-                  →
-                </span>
+
+          <div className="ride-bar">
+            <div className="ride-tabs" role="tablist" aria-label="Filter vehicles">
+              {RIDE_TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={rideTab === tab.id}
+                  className={rideTab === tab.id ? "is-active" : undefined}
+                  onClick={() => setRideTab(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+            <span className="ride-loc">⌖ &nbsp; Chandpur</span>
+            <div className="ride-nav">
+              <button type="button" aria-label="Previous vehicles" onClick={() => scrollRideRail(-1)}>
+                ←
               </button>
+              <button type="button" aria-label="Next vehicles" onClick={() => scrollRideRail(1)}>
+                →
+              </button>
+            </div>
+          </div>
+
+          <div className="ride-rail" ref={rideRailRef}>
+            {rideCards.map((bike) => (
+              <article className="pick-card ride-tile" key={bike.slug} aria-label={bike.name}>
+                <div className="pick-card-media">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={PRODUCT_IMAGES[bike.slug] ?? bike.image} alt={bike.name} loading="lazy" />
+                </div>
+                <div className="pick-card-body">
+                  <span className="pick-card-cat">
+                    <i aria-hidden="true">{RIDE_KIND_ICON[bike.kind] ?? "◆"}</i>{" "}
+                    {RIDE_KIND_LABEL[bike.kind] ?? bike.kind}
+                  </span>
+                  <h3>{bike.name}</h3>
+                  <dl className="pick-specs">
+                    <div>
+                      <dt>Engine Capacity</dt>
+                      <dd>{bike.engine}</dd>
+                    </div>
+                    <div>
+                      <dt>Max Power</dt>
+                      <dd>{bike.power}</dd>
+                    </div>
+                    <div>
+                      <dt>Kerb Weight</dt>
+                      <dd>{bike.weight}</dd>
+                    </div>
+                    <div className="is-price">
+                      <dt>Price</dt>
+                      <dd>{bike.price ?? "Contact showroom"}</dd>
+                    </div>
+                  </dl>
+                  <div className="pick-card-actions">
+                    <Link className="btn primary" href={vehicleHref(bike)}>
+                      DETAILS <span>→</span>
+                    </Link>
+                    <button
+                      type="button"
+                      className="pick-text-btn"
+                      onClick={() => openBooking(bike.slug)}
+                    >
+                      BOOK RIDE <span>→</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
+          <p className="price-note">*Indicative ex-showroom price. Exact on-road price ke liye Zaidi TVS showroom se contact karein.</p>
         </section>
 
         <section className="featured dark" id="bikes">
@@ -298,9 +422,7 @@ export default function ZaidiLanding() {
             </div>
           </div>
           <div className="bike-stage">
-            <div ref={bikeRef} className="bike-tilt" style={{ transform: bikeTransform() }}>
-              <ExplodeBike />
-            </div>
+            <Bike360 frames={NTORQ_FRAMES} alt="TVS Ntorq 125 — 360° view" />
             <div className="stage-glow" aria-hidden="true" />
           </div>
           <div className="model-thumbs">
@@ -336,12 +458,12 @@ export default function ZaidiLanding() {
             <span>Repair &amp; Maintenance</span>
             <span>Safety Gear</span>
           </div>
-          <a className="btn primary" href="tel:+919009010050">
+          <a className="btn primary" href={CONTACT.phoneHref}>
             ENQUIRE NOW <span>→</span>
           </a>
         </section>
 
-        <ServicesShowcase />
+        <FinanceCalculator />
 
         <section className="quiz section-light" id="scooters">
           <div className="quiz-copy reveal">
@@ -425,7 +547,7 @@ export default function ZaidiLanding() {
               <strong>Zaidi TVS Showroom</strong>
               <small>Chandpur</small>
             </div>
-            <p>⌖ Main Road, Chandpur, Uttar Pradesh</p>
+            <p>⌖ {ADDRESS_LINE}</p>
             <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">
               View on Map&nbsp; →
             </a>
@@ -463,7 +585,7 @@ export default function ZaidiLanding() {
                 <br />
                 and share your story.
               </p>
-              <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">
+              <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">
                 Upload Your Ride →
               </a>
             </div>
@@ -527,6 +649,64 @@ export default function ZaidiLanding() {
           </div>
         </section>
 
+        {/* ---- New production sections: alternating light / dark ---- */}
+
+        <section className="dark home-new" id="offers">
+          <OffersHub limit={3} />
+        </section>
+
+        <section className="section-light home-new" id="reviews">
+          <Reviews limit={6} />
+        </section>
+
+        <section className="dark home-new" id="gallery">
+          <GalleryGrid limit={8} />
+        </section>
+
+        <section className="section-light home-new" id="blog">
+          <BlogTeaser limit={3} />
+        </section>
+
+        <section className="dark home-new" id="faq">
+          <div className="section-head">
+            <div className="eyebrow red">▣ &nbsp; GOOD TO KNOW</div>
+            <h2
+              style={{
+                fontFamily: "Oswald, Arial, sans-serif",
+                fontStyle: "italic",
+                fontSize: 30,
+                margin: 0,
+              }}
+            >
+              QUESTIONS, ANSWERED.
+            </h2>
+            <p style={{ color: "inherit", opacity: 0.68, fontSize: 13, margin: "8px 0 0" }}>
+              Buying, finance, service and electric — the questions riders ask us most.
+            </p>
+          </div>
+          <FaqAccordion items={TOP_FAQS} defaultOpen={0} />
+        </section>
+
+        <section className="section-light home-new" id="visit">
+          <div className="section-head">
+            <div className="eyebrow red">▣ &nbsp; VISIT &amp; TIMINGS</div>
+            <h2
+              style={{
+                fontFamily: "Oswald, Arial, sans-serif",
+                fontStyle: "italic",
+                fontSize: 30,
+                margin: 0,
+              }}
+            >
+              FIND US IN CHANDPUR.
+            </h2>
+            <p style={{ color: "inherit", opacity: 0.68, fontSize: 13, margin: "8px 0 0" }}>
+              Showroom, service centre and parts counter — with doorstep pickup and drop.
+            </p>
+          </div>
+          <BranchLocator compact />
+        </section>
+
         <RideJourney />
 
         <section className="service dark" id="service">
@@ -542,6 +722,14 @@ export default function ZaidiLanding() {
                 Workshop support, routine maintenance, genuine parts and repair
                 assistance from Zaidi TVS.
               </p>
+              <div className="hero-buttons" style={{ marginTop: 18 }}>
+                <Link className="btn primary" href="/service">
+                  BOOK A SERVICE SLOT <span>→</span>
+                </Link>
+                <Link className="btn ghost" href="/branches">
+                  TIMINGS &amp; LOCATION <span>→</span>
+                </Link>
+              </div>
             </div>
             <div className="service-grid">
               <span>🔧 Periodic Service</span>
@@ -587,51 +775,36 @@ export default function ZaidiLanding() {
           >
             ×
           </button>
-          <div
-            className="modal-image"
-            onPointerDown={(e) => {
-              dragRef.current = { x: e.clientX, d: dial };
-              e.currentTarget.setPointerCapture(e.pointerId);
-            }}
-            onPointerMove={(e) => {
-              const s = dragRef.current;
-              if (!s) return;
-              setDial(Math.max(0, Math.min(100, s.d + (e.clientX - s.x) * 0.25)));
-            }}
-            onPointerUp={() => (dragRef.current = null)}
-            onPointerCancel={() => (dragRef.current = null)}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/featured-bike.jpg"
-              alt="TVS Ntorq showcase"
-              style={{ transform: `rotateY(${(dial - 50) * 0.9}deg) scale(${1 + Math.abs(dial - 50) / 600})` }}
-            />
-          </div>
+          <Bike360 frames={NTORQ_FRAMES} alt="TVS Ntorq 150 — 360° view" autoSpin={false} />
           <div>
             <div className="eyebrow red">INTERACTIVE SHOWCASE</div>
             <h2 id="modalTitle">TVS NTORQ 125</h2>
             <p>
-              Drag the photo or the dial to explore the model. Real photos,
-              real angles — full 360° turntable shoot coming to the showroom soon.
+              Drag left or right to spin the scooter through a real 360°
+              turntable shot — every angle captured straight from TVS.
             </p>
-            <div className="dial">
-              <label className="srOnly" htmlFor="dial">
-                Rotate model
-              </label>
-              <input
-                type="range"
-                id="dial"
-                min={0}
-                max={100}
-                value={dial}
-                onChange={(event) => setDial(Number(event.target.value))}
-              />
-              <span id="dialValue">{dial}°</span>
+            <div className="hero-buttons" style={{ marginTop: 18 }}>
+              <button
+                type="button"
+                className="btn primary"
+                onClick={() => {
+                  setModalOpen(false);
+                  openBooking("ntorq");
+                }}
+              >
+                BOOK RIDE <span>→</span>
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <BookingModal
+        open={bookingOpen}
+        bikes={BOOKING_BIKES}
+        initialSlug={bookingSlug}
+        onClose={() => setBookingOpen(false)}
+      />
     </div>
   );
 }

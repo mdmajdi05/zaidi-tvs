@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { CONTACT } from "@data/site";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import PartsFinder from "@/components/PartsFinder";
+import { BIKES, PARTS, vehicleHref } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Parts & Accessories",
@@ -60,6 +64,45 @@ export default function PartsPage() {
           ))}
         </div>
 
+        <div className="section-head" style={{ marginTop: 70 }}>
+          <div className="eyebrow red">▣ &nbsp; IN STOCK</div>
+          <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
+            POPULAR GENUINE PARTS
+          </h2>
+          <p style={{ fontSize: 12, color: "#aeb5bc", margin: "6px 0 0" }}>
+            A small sample of the fast-moving parts we keep on the shelf.
+          </p>
+        </div>
+        <div className="parts-grid">
+          {PARTS.map((part) => (
+            <Reveal key={part.name}>
+              <div className="part-chip">
+                <span className="part-icon" aria-hidden="true">{part.icon}</span>
+                <b>{part.name}</b>
+                <small>{part.note}</small>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 70 }}>
+          <PartsFinder />
+        </div>
+
+        <div className="section-head" style={{ marginTop: 70 }}>
+          <div className="eyebrow red">▣ &nbsp; SHOP BY MODEL</div>
+          <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
+            FIND PARTS FOR YOUR TVS
+          </h2>
+        </div>
+        <div className="model-chip-wrap">
+          {BIKES.map((b) => (
+            <Link key={b.slug} className="model-chip" href={vehicleHref(b)}>
+              {b.name}
+            </Link>
+          ))}
+        </div>
+
         <Reveal>
           <div className="parts-strip" style={{ border: "1px solid #161c22", borderRadius: 10, marginTop: 45 }}>
             <div>
@@ -78,7 +121,7 @@ export default function PartsPage() {
             </div>
             <a
               className="btn primary"
-              href="https://wa.me/919009010050"
+              href={CONTACT.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
             >

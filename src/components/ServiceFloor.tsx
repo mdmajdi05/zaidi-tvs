@@ -56,6 +56,7 @@ export default function ServiceFloor() {
   const beaconRef = useRef<HTMLDivElement>(null);
   const stageEls = useRef<(HTMLDivElement | null)[]>([]);
   const dotEls = useRef<(HTMLSpanElement | null)[]>([]);
+  const ghostRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const t = window.setInterval(() => {
@@ -116,6 +117,9 @@ export default function ServiceFloor() {
 
         const idx = Math.min(FSTAGES.length - 1, Math.floor(current * 4));
         if (beaconRef.current) beaconRef.current.dataset.stage = String(idx);
+        if (ghostRef.current) {
+          ghostRef.current.textContent = `0${idx + 1}`;
+        }
         if (unitsRef.current) {
           unitsRef.current.textContent = Math.floor(6 + current * 38).toString();
         }
@@ -137,6 +141,18 @@ export default function ServiceFloor() {
           const active = i === idx;
           el.classList.toggle("active", active);
           el.setAttribute("aria-hidden", active ? "false" : "true");
+          const relF = current * 4 - i;
+          const lastF = i === FSTAGES.length - 1;
+          let eF = Math.max(0, Math.min(1, relF / 0.35));
+          eF = 1 - Math.pow(1 - eF, 3);
+          let xF = lastF ? 0 : Math.max(0, Math.min(1, (relF - 0.65) / 0.35));
+          if (i === 0 && relF <= 0.001) {
+            eF = 1;
+            xF = 0;
+          }
+          el.style.setProperty("--u", (1 - eF).toFixed(3));
+          el.style.setProperty("--x", xF.toFixed(3));
+          el.style.setProperty("--o", Math.max(0, Math.min(1, Math.min(eF, 1 - xF))).toFixed(3));
         });
         dotEls.current.forEach((el, i) => {
           if (!el) return;
@@ -281,6 +297,9 @@ export default function ServiceFloor() {
           </div>
 
           <div className="zStageList">
+            <div className="zStageGhost amber" ref={ghostRef} aria-hidden="true">
+              01
+            </div>
             {FSTAGES.map((s, i) => (
               <div
                 key={s.tag}

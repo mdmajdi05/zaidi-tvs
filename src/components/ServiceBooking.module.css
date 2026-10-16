@@ -1,0 +1,213 @@
+.wrap {
+  display: grid;
+  grid-template-columns: 0.9fr 1.4fr;
+  gap: 24px;
+  align-items: start;
+  color: inherit;
+  margin-top: 22px;
+}
+
+.infoCol {
+  display: grid;
+  gap: 14px;
+}
+
+.infoCard {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px;
+  border-radius: 14px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.22);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(239, 41, 49, 0.5);
+}
+
+.infoIcon {
+  font-size: 22px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.infoTitle {
+  margin: 0 0 4px;
+  font-family: var(--font-oswald, "Oswald"), sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: inherit;
+}
+
+.infoText {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: inherit;
+  opacity: 0.68;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.22);
+  color: inherit;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.66;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 11px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: inherit;
+  background: rgba(128, 128, 128, 0.1);
+  border: 1px solid rgba(128, 128, 128, 0.28);
+  border-radius: 9px;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+.radio input:focus-visible {
+  border-color: var(--red, #ef2931);
+  box-shadow: 0 0 0 3px rgba(239, 41, 49, 0.28);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 64px;
+}
+
+.field select option {
+  color: #0a0e15;
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.radioRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(128, 128, 128, 0.1);
+  border: 1px solid rgba(128, 128, 128, 0.28);
+  font-size: 12.5px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.radio input {
+  accent-color: var(--red, #ef2931);
+  margin: 0;
+}
+
+.submit {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--red-grad, linear-gradient(135deg, #ef2931, #ff5e3a));
+  box-shadow: 0 14px 30px rgba(239, 41, 49, 0.28);
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.submit:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+.error {
+  margin: 0;
+  font-size: 12.5px;
+  color: #e7282e;
+}
+
+.success {
+  margin: 0;
+  font-size: 12.5px;
+  color: #2f9e57;
+}
+
+@media (max-width: 900px) {
+  .wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
+    padding: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .infoCard,
+  .submit {
+    transition: none;
+  }
+
+  .infoCard:hover,
+  .submit:hover {
+    transform: none;
+  }
+}

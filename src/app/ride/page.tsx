@@ -49,7 +49,7 @@ export default function RidePage() {
             Pick the category closest to your everyday life.
           </p>
         </div>
-        <div className="ride-grid" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+        <div className="ride-grid">
           {RIDE_CARDS.map((card) => (
             <button
               type="button"

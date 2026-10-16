@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import { ADDRESS_LINE, STATS } from "@data/site";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -14,13 +15,6 @@ const VALUES = [
   { icon: "⚙", title: "Service First", text: "Trained technicians, factory-grade tools and quick turnaround on every service." },
   { icon: "⌁", title: "Always Connected", text: "Helpful support before, during and after your purchase — one call away." },
   { icon: "★", title: "Rider Community", text: "Test rides, service camps and a growing family of happy Zaidi riders." },
-];
-
-const STATS = [
-  { value: "10+", label: "Years in Chandpur" },
-  { value: "5k+", label: "Happy Riders" },
-  { value: "15+", label: "TVS Models" },
-  { value: "4.8★", label: "Customer Rating" },
 ];
 
 export default function AboutPage() {
@@ -45,21 +39,12 @@ export default function AboutPage() {
         </div>
 
         <Reveal>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 60,
-              marginTop: 60,
-              alignItems: "center",
-            }}
-            className="about-story"
-          >
+          <div className="about-story">
             <div className="about-image-card">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/assets/reference.jpg" alt="Inside the Zaidi TVS showroom" />
               <div className="about-photo-cap">
-                <i>●</i> Our showroom — Main Road, Chandpur
+                <i>●</i> Our showroom — {ADDRESS_LINE}
               </div>
             </div>
             <div>
@@ -135,7 +120,7 @@ export default function AboutPage() {
         <Reveal>
           <div className="center" style={{ marginTop: 40 }}>
             <p style={{ fontSize: 12, color: "#666", maxWidth: 480, margin: "0 auto 16px" }}>
-              Visit us on Main Road, Chandpur — or reach us on WhatsApp and we
+              Visit us on {ADDRESS_LINE} — or reach us on WhatsApp and we
               will get back to you right away.
             </p>
             <Link className="btn primary" href="/contact">

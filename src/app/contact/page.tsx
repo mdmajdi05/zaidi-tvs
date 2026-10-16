@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
+import {
+  CONTACT,
+  ADDRESS_LINE,
+  HOURS_SHORT,
+  MAPS_URL,
+  MAP_EMBED_URL,
+} from "@data/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description:
-    "Contact Zaidi TVS, Chandpur — call +91 90090 10050, chat on WhatsApp or visit the showroom on Main Road, Chandpur.",
+  description: `Contact Zaidi TVS, Chandpur — call ${CONTACT.phone}, chat on WhatsApp or visit the showroom on ${ADDRESS_LINE}.`,
 };
-
-const MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=Zaidi%20TVS%20Chandpur";
 
 export default function ContactPage() {
   return (
@@ -36,23 +39,19 @@ export default function ContactPage() {
                 SHOWROOM DETAILS
               </h2>
               <h3>Address</h3>
-              <p>⌖ Main Road, Chandpur, Uttar Pradesh</p>
+              <p>⌖ {ADDRESS_LINE}</p>
               <h3>Phone</h3>
-              <a href="tel:+919009010050">⌕ +91 90090 10050</a>
+              <a href={CONTACT.phoneHref}>⌕ {CONTACT.phone}</a>
               <h3>WhatsApp</h3>
               <a
-                href="https://wa.me/919009010050"
+                href={CONTACT.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 ◉ Chat with us on WhatsApp
               </a>
               <h3>Hours</h3>
-              <p>
-                Mon – Sat: 10:00 AM – 8:00 PM
-                <br />
-                Sunday: 11:00 AM – 5:00 PM
-              </p>
+              <p>{HOURS_SHORT}</p>
               <a className="btn ghost" href={MAPS_URL} target="_blank" rel="noopener noreferrer" style={{ marginTop: 14 }}>
                 VIEW ON MAP <span>→</span>
               </a>
@@ -83,13 +82,13 @@ export default function ContactPage() {
         <Reveal>
           <div className="map-frame">
             <iframe
-              src="https://www.google.com/maps?q=Zaidi+TVS+Chandpur&output=embed"
+              src={MAP_EMBED_URL}
               title="Zaidi TVS showroom location on Google Maps"
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
             />
-            <legend aria-hidden="true">⌖ Zaidi TVS — Main Road, Chandpur</legend>
+            <legend aria-hidden="true">⌖ Zaidi TVS — {ADDRESS_LINE}</legend>
           </div>
         </Reveal>
 
@@ -99,8 +98,8 @@ export default function ContactPage() {
               Prefer talking? Call us directly during showroom hours — real
               people, real answers, no waiting.
             </p>
-            <a className="btn primary" href="tel:+919009010050" style={{ marginTop: 16 }}>
-              CALL +91 90090 10050 <span>→</span>
+            <a className="btn primary" href={CONTACT.phoneHref} style={{ marginTop: 16 }}>
+              CALL {CONTACT.phone} <span>→</span>
             </a>
           </div>
         </Reveal>

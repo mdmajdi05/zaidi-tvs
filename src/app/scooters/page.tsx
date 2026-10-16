@@ -2,46 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import Bike360 from "@/components/Bike360";
+import { SCOOTERS } from "@/lib/catalog";
+import { spinFrames } from "@/lib/spinFrames";
 
 export const metadata: Metadata = {
   title: "Our Scooters",
   description:
-    "Explore TVS scooters at Zaidi TVS, Chandpur — TVS Jupiter, Ntorq 125 and iQube electric with specifications and test rides.",
+    "Explore the TVS scooter line-up at Zaidi TVS, Chandpur — TVS Jupiter, Jupiter 125, Ntorq 125 & 150, Zest 110, plus the iQube, TVS X and Orbiter electrics with specifications and free test rides.",
 };
-
-const SCOOTERS: Array<{
-  name: string;
-  tagline: string;
-  image: string;
-  engine: string;
-  mileage: string;
-  desc: string;
-}> = [
-  {
-    name: "TVS Jupiter",
-    tagline: "FAMILY FAVOURITE",
-    image: "/assets/family-rider.jpg",
-    engine: "113.3 CC",
-    mileage: "Up to 50 km/l*",
-    desc: "India's best-selling family scooter — comfortable seat, big boot and smooth, refined ride quality.",
-  },
-  {
-    name: "TVS Ntorq 125",
-    tagline: "SPORTY & CONNECTED",
-    image: "/assets/featured-bike.jpg",
-    engine: "124.8 CC",
-    mileage: "Up to 40 km/l*",
-    desc: "The sporty scooter with race-inspired looks, a punchy engine and smartphone connectivity.",
-  },
-  {
-    name: "TVS iQube (Electric)",
-    tagline: "GO ELECTRIC",
-    image: "/assets/city-rider.jpg",
-    engine: "Electric",
-    mileage: "Up to 100+ km/charge*",
-    desc: "Silent, smart and stylish — the iQube makes city riding effortless and future-ready.",
-  },
-];
 
 export default function ScootersPage() {
   return (
@@ -61,36 +30,57 @@ export default function ScootersPage() {
           </div>
         </div>
 
-        {SCOOTERS.map((scooter) => (
-          <Reveal key={scooter.name}>
-            <article className="bike-item">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={scooter.image} alt={scooter.name} />
-              <div>
-                <div className="eyebrow red">▣ &nbsp; {scooter.tagline}</div>
-                <h3>{scooter.name}</h3>
-                <div className="spec-row">
-                  <span>◉ {scooter.engine}</span>
-                  <span>✦ {scooter.mileage}</span>
+        <Reveal>
+          <div className="model360-wrap">
+            <div className="eyebrow red" style={{ textAlign: "center" }}>▣ &nbsp; REAL 360° · DRAG TO ROTATE</div>
+            <Bike360 frames={spinFrames("ntorq")} alt="TVS Ntorq 125 — 360° view" />
+            <p className="model360-tag">DRAG · TVS NTORQ 125</p>
+          </div>
+        </Reveal>
+
+        <div className="section-head" style={{ marginTop: 70 }}>
+          <div className="eyebrow red">▣ &nbsp; THE LINE-UP</div>
+          <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 30, margin: 0 }}>
+            {SCOOTERS.length} TVS SCOOTERS
+          </h2>
+        </div>
+
+        <div className="bike-catalog">
+          {SCOOTERS.map((scooter) => (
+            <Reveal key={scooter.slug}>
+              <article className="bike-item">
+                <Link href={`/scooters/${scooter.slug}`} aria-label={`View ${scooter.name} details`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={scooter.image} alt={scooter.name} loading="lazy" />
+                </Link>
+                <div>
+                  <div className="eyebrow red">
+                    ▣ &nbsp; {scooter.tagline}
+                  </div>
+                  <h3>
+                    <Link href={`/scooters/${scooter.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                      {scooter.name}
+                    </Link>
+                  </h3>
+                  <div className="spec-row">
+                    <span>◉ {scooter.engine}</span>
+                    <span>✦ {scooter.mileage}</span>
+                    <span>⌁ {scooter.weight}</span>
+                  </div>
+                  <p>{scooter.desc}</p>
+                  <div className="hero-buttons">
+                    <Link className="btn primary" href={`/scooters/${scooter.slug}`}>
+                      FULL DETAILS <span>→</span>
+                    </Link>
+                    <Link className="btn ghost" href="/contact">
+                      BOOK TEST RIDE <span>→</span>
+                    </Link>
+                  </div>
                 </div>
-                <p>{scooter.desc}</p>
-                <div className="hero-buttons">
-                  <Link className="btn primary" href="/contact">
-                    BOOK TEST RIDE <span>→</span>
-                  </Link>
-                  <a
-                    className="btn ghost"
-                    href="https://wa.me/919009010050"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    GET PRICE <span>→</span>
-                  </a>
-                </div>
-              </div>
-            </article>
-          </Reveal>
-        ))}
+              </article>
+            </Reveal>
+          ))}
+        </div>
 
         <Reveal>
           <div className="center" style={{ marginTop: 45 }}>

@@ -1,0 +1,314 @@
+/* Reviews carousel — neutral translucent surfaces so it reads correctly on
+   both dark (#0a0e15) and light (#f4f2ec) section wrappers. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(128, 128, 128, 0.1);
+  border: 1px solid rgba(128, 128, 128, 0.24);
+  color: inherit;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.badge b {
+  font-family: var(--font-oswald, "Oswald"), Arial, sans-serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.badge span {
+  opacity: 0.7;
+}
+
+/* ---------- carousel ---------- */
+
+.viewport {
+  position: relative;
+}
+
+.track {
+  position: relative;
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 6px 2px 14px;
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 calc(33.333% - 12px);
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+/* ---------- card ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.22);
+  color: inherit;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(239, 41, 49, 0.45);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--red-grad, linear-gradient(135deg, #ef2931, #ff5e3a));
+  color: #fff;
+  font-family: var(--font-oswald, "Oswald"), Arial, sans-serif;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.meta {
+  font-size: 12px;
+  opacity: 0.62;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.starOn {
+  color: var(--gold, #f1c40f);
+}
+
+.starOff {
+  color: rgba(128, 128, 128, 0.42);
+}
+
+.text {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  opacity: 0.86;
+}
+
+.date {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+/* ---------- controls ---------- */
+
+.navBtn {
+  position: absolute;
+  top: calc(50% - 10px);
+  transform: translateY(-50%);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  background: rgba(128, 128, 128, 0.14);
+  color: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.navBtn:hover {
+  background: var(--red, #ef2931);
+  border-color: var(--red, #ef2931);
+  color: #fff;
+}
+
+.navBtn:focus-visible {
+  outline: 2px solid var(--red-2, #ff5e3a);
+  outline-offset: 2px;
+}
+
+.prev {
+  left: -6px;
+}
+
+.next {
+  right: -6px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22px;
+}
+
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(128, 128, 128, 0.45);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, width 0.2s ease;
+}
+
+.dot:hover {
+  border-color: var(--red, #ef2931);
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--red-2, #ff5e3a);
+  outline-offset: 3px;
+}
+
+.dotActive {
+  width: 22px;
+  border-radius: 999px;
+  border-color: var(--red, #ef2931);
+  background: var(--red, #ef2931);
+}
+
+/* ---------- full review grid (page light section) ---------- */
+
+.allGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.allGrid > * {
+  min-width: 0;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 900px) {
+  .slide {
+    flex-basis: calc(50% - 9px);
+  }
+
+  .allGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .slide {
+    flex-basis: 100%;
+  }
+
+  .head {
+    align-items: flex-start;
+  }
+
+  .navBtn {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+  .prev {
+    left: 2px;
+  }
+
+  .next {
+    right: 2px;
+  }
+
+  .allGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .navBtn,
+  .dot {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}

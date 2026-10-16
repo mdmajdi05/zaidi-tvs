@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { CONTACT } from "@data/site";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import ServiceBooking from "@/components/ServiceBooking";
 
 export const metadata: Metadata = {
   title: "Service & Care",
@@ -67,6 +69,17 @@ export default function ServicePage() {
           ))}
         </div>
 
+        <div className="section-head" style={{ marginTop: 70 }}>
+          <div className="eyebrow red">▣ &nbsp; BOOK A SLOT</div>
+          <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
+            BOOK A SERVICE SLOT
+          </h2>
+          <p style={{ fontSize: 12, color: "#aeb5bc", margin: "6px 0 0" }}>
+            Pick a time that suits you — or let us collect your ride from your door.
+          </p>
+        </div>
+        <ServiceBooking />
+
         <Reveal>
           <div
             style={{
@@ -104,7 +117,7 @@ export default function ServicePage() {
             </p>
             <a
               className="btn primary"
-              href="https://wa.me/919009010050"
+              href={CONTACT.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
             >

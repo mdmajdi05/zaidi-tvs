@@ -1,0 +1,238 @@
+.hub {
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+}
+
+/* ---- Offers grid ---- */
+.offerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 20px 18px;
+  border-radius: 16px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.22);
+  color: inherit;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--red, #ef2931);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.icon {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--red, #ef2931);
+  background: rgba(239, 41, 49, 0.12);
+  border: 1px solid rgba(239, 41, 49, 0.32);
+}
+
+.tag {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.85;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  background: rgba(128, 128, 128, 0.1);
+}
+
+.cardTitle {
+  font-family: var(--font-oswald, "Oswald"), Arial, sans-serif;
+  font-style: italic;
+  font-size: 19px;
+  letter-spacing: 0.02em;
+  margin: 0 0 8px;
+  color: inherit;
+}
+
+.cardText {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+  color: inherit;
+  opacity: 0.72;
+}
+
+.valid {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--gold, #f1c40f);
+}
+
+/* ---- Finance 3-up row ---- */
+.financeRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.financeCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.22);
+  color: inherit;
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.financeCard:hover {
+  transform: translateY(-3px);
+  border-color: var(--red, #ef2931);
+}
+
+.financeTitle {
+  font-family: var(--font-oswald, "Oswald"), Arial, sans-serif;
+  font-style: italic;
+  font-size: 18px;
+  margin: 4px 0 0;
+  color: inherit;
+}
+
+.rate {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--red-2, #ff5e3a);
+}
+
+/* ---- Exchange steps strip ---- */
+.stepsStrip {
+  border-radius: 18px;
+  padding: 26px 22px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.22);
+  color: inherit;
+}
+
+.stepsInner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stepsHead {
+  text-align: center;
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(128, 128, 128, 0.06);
+  border: 1px solid rgba(128, 128, 128, 0.18);
+}
+
+.stepNum {
+  font-family: var(--font-oswald, "Oswald"), Arial, sans-serif;
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--red, #ef2931);
+}
+
+.stepTitle {
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: inherit;
+}
+
+/* ---- CTA row ---- */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .hub {
+    gap: 34px;
+  }
+
+  .offerGrid,
+  .financeRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .offerGrid,
+  .financeRow,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .stepsStrip {
+    padding: 20px 16px;
+  }
+
+  .ctaRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaRow :global(.btn) {
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .financeCard {
+    transition: none;
+  }
+
+  .card:hover,
+  .financeCard:hover {
+    transform: none;
+  }
+}
