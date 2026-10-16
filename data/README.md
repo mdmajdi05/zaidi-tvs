@@ -26,6 +26,24 @@ Blog, Chatbot, sitemap — **sab jagah apne aap update ho jayega.**
 `NEXT_PUBLIC_SITE_URL = https://www.zaiditvs.in`
 
 ---
+ 
+## SEO / Sitemap
+
+SEO poori tarah centralised hai — kisi bhi page par metadata ya JSON-LD haath se
+nahi likha jata. Details ke liye repo root ka [`SEO-CHECKLIST.md`](../SEO-CHECKLIST.md)
+dekho.
+
+| File | Kya hai |
+|---|---|
+| `src/lib/sitemap-data.ts` | **Sirf yahan** indexable routes ki list — XML sitemap + HTML sitemap dono isi se bante hain |
+| `src/lib/seo/metadata.ts` | `createMetadata(...)` — title, canonical, robots, OG, Twitter |
+| `src/lib/seo/schemas.ts` | JSON-LD builders (Organization, Product, FAQ, Breadcrumb, …) |
+| `/sitemap.xml` + `/sitemap-html` | Google ke liye XML, users ke liye paginated HTML sitemap (Footer me link hai) |
+
+Naya page banate waqt route ko `src/lib/sitemap-data.ts` me add karo — XML aur
+HTML sitemap apne aap update ho jayenge.
+
+---
 
 ## Baaki files (content)
 

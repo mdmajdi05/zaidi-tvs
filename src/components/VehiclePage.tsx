@@ -11,6 +11,7 @@ import {
   type Vehicle,
 } from "@/lib/catalog";
 import { spinFramesForSlug } from "@/lib/spinFrames";
+import { vehicleFaq } from "@/lib/vehicleFaq";
 import { CONTACT, wa } from "@data/site";
 
 /** "MILEAGE" for petrol models, "RANGE" for electrics. */
@@ -21,34 +22,6 @@ function fuelLabel(kind: Vehicle["kind"]): string {
 /** "BIKES" / "SCOOTERS" — the listing this model lives on. */
 function listLabel(v: Vehicle): string {
   return vehicleListHref(v) === "/scooters" ? "SCOOTERS" : "BIKES";
-}
-
-function faqFor(m: Vehicle): Array<[string, string]> {
-  const priceLine = m.price
-    ? `Ex-showroom starts around ${m.price}.`
-    : "The ex-showroom price is shared on request.";
-  return [
-    [
-      `What is the on-road price of the ${m.shortName}?`,
-      `${priceLine} On-road price depends on the variant, insurance and the offers running today — message us on WhatsApp or call ${CONTACT.phone} for the exact Chandpur price.`,
-    ],
-    [
-      `Can I take a free test ride?`,
-      `Yes — test rides on the ${m.shortName} are free all week at our Chandpur showroom. Bring a valid driving licence and pick any slot on WhatsApp.`,
-    ],
-    [
-      "Do you offer finance and exchange?",
-      "Yes — easy EMI with quick approvals at the showroom, plus the best value for your old two-wheeler on exchange.",
-    ],
-    [
-      `Where do I get the ${m.shortName} serviced?`,
-      "Right here — our in-house workshop uses genuine TVS parts, and periodic service is quick if you book a slot in advance.",
-    ],
-    [
-      "Which colours and variants are available?",
-      `We stock the popular variants of the ${m.shortName}. Message us on WhatsApp to check today's colour availability and delivery time.`,
-    ],
-  ];
 }
 
 export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
@@ -252,9 +225,8 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
           <h2>FAQs</h2>
         </div>
         <Reveal>
-          <Faq items={faqFor(m)} />
-        </Reveal>
-      </section>
+          <Faq items={vehicleFaq(m)} />
+        </Reveal>      </section>
 
       {/* ---------------- related ---------------- */}
       {related.length > 0 ? (

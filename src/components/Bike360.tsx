@@ -23,8 +23,15 @@ type Bike360Props = {
   className?: string;
 };
 
-/** ms between auto-spin steps. */
-const SPIN_INTERVAL = 120;
+/**
+ * Target time for one full idle revolution (ms). A constant duration keeps the
+ * spin speed identical on every model, no matter how many frames its turntable
+ * has (9 → 36 frames), and keeps it slow and easy to read.
+ */
+const AUTO_SPIN_TURN_MS = 8000;
+/** Clamp for the per-frame interval so low/high frame sets stay smooth. */
+const MIN_SPIN_INTERVAL = 80;
+const MAX_SPIN_INTERVAL = 700;
 /** ms to wait after the last interaction before auto-spin resumes. */
 const RESUME_DELAY = 1600;
 
@@ -91,9 +98,13 @@ export default function Bike360({
   // Idle auto-spin — disabled during interaction or reduced motion.
   useEffect(() => {
     if (!autoSpin || reducedMotion || paused || count < 2) return;
+    const interval = Math.max(
+      MIN_SPIN_INTERVAL,
+      Math.min(MAX_SPIN_INTERVAL, Math.round(AUTO_SPIN_TURN_MS / count))
+    );
     const id = window.setInterval(() => {
       setFrame((f) => (f + 1) % count);
-    }, SPIN_INTERVAL);
+    }, interval);
     return () => window.clearInterval(id);
   }, [autoSpin, reducedMotion, paused, count]);
 

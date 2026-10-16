@@ -40,6 +40,7 @@ const FOOTER_GROUPS: Array<{ title: string; links: FooterLink[] }> = [
       { href: "/faq", label: "FAQ & Help" },
       { href: "/branches", label: "Showroom & Timings" },
       { href: "/contact", label: "Contact" },
+      { href: "/sitemap-html", label: "Sitemap" },
     ],
   },
 ];
@@ -176,6 +177,7 @@ export default function Footer() {
           <Link href="/about">About Us</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/faq">FAQ</Link>
+          <Link href="/sitemap-html">Sitemap</Link>
         </span>
       </div>
     </>

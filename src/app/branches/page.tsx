@@ -3,14 +3,22 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import BranchLocator from "@/components/BranchLocator";
+import { breadcrumbSchema, createMetadata, localBusinessSchema } from "@/lib/seo";
 import { ADDRESS, ADDRESS_LINE, CONTACT, MAPS_URL, wa } from "@data/site";
 import { DOORSTEP } from "@/lib/branches";
 
-export const metadata: Metadata = {
-  title: "Showroom & Timings",
+export const metadata: Metadata = createMetadata({
+  title: "Showroom, Timings & Location",
   description:
-    "Visit Zaidi TVS in Chandpur — main showroom, service centre and parts & accessories counter, with timings, directions and doorstep pickup & drop.",
-};
+    "Visit Zaidi TVS in Chandpur, Uttar Pradesh — main showroom, service centre and parts & accessories counter, with timings, directions and doorstep pickup & drop.",
+  path: "/branches",
+  keywords: [
+    "Zaidi TVS address Chandpur",
+    "TVS showroom timings Chandpur",
+    "TVS showroom near me Uttar Pradesh",
+    "TVS showroom location",
+  ],
+});
 
 const WA_LINK = wa(
   "Hi Zaidi TVS, I would like to know more about your showroom and timings."
@@ -43,6 +51,17 @@ const QUICK_ACTIONS = [
 export default function BranchesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Showroom & Timings", url: "/branches" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={localBusinessSchema()}
+      />
       <PageHero
         eyebrow="SHOWROOM & TIMINGS"
         title="FIND US IN CHANDPUR."

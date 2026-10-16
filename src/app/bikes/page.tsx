@@ -3,20 +3,50 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Bike360 from "@/components/Bike360";
-import { MOPEDS, MOTORCYCLES } from "@/lib/catalog";
+import { MOPEDS, MOTORCYCLES, vehicleHref } from "@/lib/catalog";
 import { spinFrames } from "@/lib/spinFrames";
+import { breadcrumbSchema, createMetadata, itemListSchema } from "@/lib/seo";
 import { wa } from "@data/site";
 
-export const metadata: Metadata = {
-  title: "Our Bikes",
+const LINEUP = [...MOTORCYCLES, ...MOPEDS];
+
+export const metadata: Metadata = createMetadata({
+  title: "TVS Bikes & Motorcycles",
   description:
-    "Explore the full TVS motorcycle line-up at Zaidi TVS, Chandpur — TVS Apache, Raider, Ronin, Radeon, Sport and Star City+ with specifications and test rides.",
-};
+    "Explore the full TVS motorcycle line-up at Zaidi TVS, Chandpur — TVS Apache RTR, RR, RTX, Raider, Ronin, Radeon, Sport and Star City+ with specifications, on-road price on request and free test rides across Uttar Pradesh.",
+  path: "/bikes",
+  keywords: [
+    "TVS bikes Chandpur",
+    "TVS motorcycles Uttar Pradesh",
+    "TVS Apache RTR price Chandpur",
+    "TVS Raider 125",
+    "TVS Ronin",
+    "TVS showroom bikes",
+  ],
+});
 
 export default function BikesPage() {
-  const lineUp = [...MOTORCYCLES, ...MOPEDS];
+  const lineUp = LINEUP;
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Our Bikes", url: "/bikes" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={itemListSchema(
+          lineUp.map((bike) => ({
+            name: bike.name,
+            url: vehicleHref(bike),
+            description: bike.desc,
+            image: bike.image,
+          })),
+        )}
+      />
       <PageHero
         eyebrow="OUR BIKES"
         title="FIND YOUR RIDE."

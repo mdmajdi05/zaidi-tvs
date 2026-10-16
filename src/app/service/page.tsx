@@ -3,12 +3,21 @@ import { CONTACT } from "@data/site";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ServiceBooking from "@/components/ServiceBooking";
+import { breadcrumbSchema, createMetadata, serviceSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Service & Care",
+export const metadata: Metadata = createMetadata({
+  title: "TVS Service Centre & Repairs",
   description:
-    "TVS service and care at Zaidi TVS, Chandpur — periodic service, genuine parts, insurance renewal and vehicle exchange.",
-};
+    "TVS service and care at Zaidi TVS, Chandpur (Uttar Pradesh) — periodic service, genuine parts, battery & electrical work, insurance renewal, vehicle exchange and doorstep pickup & drop.",
+  path: "/service",
+  keywords: [
+    "TVS service centre Chandpur",
+    "TVS bike servicing Uttar Pradesh",
+    "TVS periodic service",
+    "TVS doorstep service",
+    "TVS repairs Chandpur",
+  ],
+});
 
 const STEPS = [
   { num: "01", title: "Book a Slot", text: "Call or WhatsApp us — we schedule your service at your convenience." },
@@ -31,6 +40,23 @@ const SERVICES = [
 export default function ServicePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Service & Care", url: "/service" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={serviceSchema(
+          SERVICES.map((service) => ({
+            name: service.replace(/^\S+\s+/, ""),
+            description: `${service.replace(/^\S+\s+/, "")} for your TVS bike or scooter at Zaidi TVS, Chandpur.`,
+            url: "/service",
+          })),
+        )}
+      />
       <PageHero
         eyebrow="SERVICE & CARE"
         title="KEEP YOUR RIDE RUNNING RIGHT."

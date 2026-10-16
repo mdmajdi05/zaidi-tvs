@@ -5,12 +5,21 @@ import Reveal from "@/components/Reveal";
 import OffersHub from "@/components/OffersHub";
 import EmiCalc from "@/components/EmiCalc";
 import Faq from "@/components/Faq";
+import { breadcrumbSchema, createMetadata, faqSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Offers, Finance & Exchange",
   description:
-    "Running offers, easy EMI finance, best-value exchange and insurance — all under one roof at Zaidi TVS, Chandpur. Check your EMI on WhatsApp.",
-};
+    "Running offers, easy EMI finance, best-value exchange and insurance — all under one roof at Zaidi TVS, Chandpur (Uttar Pradesh). Check your EMI on WhatsApp.",
+  path: "/offers",
+  keywords: [
+    "TVS offers Chandpur",
+    "TVS finance EMI Chandpur",
+    "two wheeler loan Uttar Pradesh",
+    "TVS exchange offer",
+    "TVS insurance renewal",
+  ],
+});
 
 const FINANCE_FAQ: Array<[string, string]> = [
   [
@@ -41,6 +50,19 @@ const WA_TEXT =
 export default function OffersPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Offers & Finance", url: "/offers" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={faqSchema(
+          FINANCE_FAQ.map(([question, answer]) => ({ question, answer })),
+        )}
+      />
       <PageHero
         eyebrow="OFFERS & FINANCE"
         title="BUY SMARTER. RIDE SOONER."

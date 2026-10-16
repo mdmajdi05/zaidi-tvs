@@ -4,6 +4,11 @@ import { notFound } from "next/navigation";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { POSTS, getPost, sortedPosts, formatPostDate } from "@/lib/posts";
+import {
+  articleSchema,
+  breadcrumbSchema,
+  createMetadata,
+} from "@/lib/seo";
 import { wa } from "@data/site";
 import styles from "@/components/BlogTeaser.module.css";
 
@@ -21,11 +26,26 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = getPost(slug);
-  if (!post) return { title: "Article not found" };
-  return {
+  if (!post) {
+    return createMetadata({
+      title: "Article not found",
+      description: "This article is no longer available.",
+      path: `/blog/${slug}`,
+      noindex: true,
+    });
+  }
+  return createMetadata({
     title: post.title,
     description: post.excerpt,
-  };
+    path: `/blog/${post.slug}`,
+    type: "article",
+    publishedTime: post.date,
+    authors: [post.author],
+    tags: [post.category],
+    image: post.cover,
+    imageAlt: post.title,
+    keywords: [post.title, post.category, "TVS blog", "two wheeler guide India"],
+  });
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -38,6 +58,26 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={articleSchema({
+          title: post.title,
+          description: post.excerpt,
+          slug: post.slug,
+          publishedAt: post.date,
+          author: post.author,
+          image: post.cover,
+          category: post.category,
+        })}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Blog & Tips", url: "/blog" },
+          { name: post.title, url: `/blog/${post.slug}` },
+        ])}
+      />
       <PageHero eyebrow={post.category.toUpperCase()} title={post.title} subtitle={post.excerpt} />
 
       <section className="page-section dark">

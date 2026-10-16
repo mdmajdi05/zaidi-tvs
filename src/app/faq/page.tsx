@@ -3,6 +3,7 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import FaqAccordion from "@/components/FaqAccordion";
 import { FAQ_GROUPS } from "@/lib/faqs";
+import { breadcrumbSchema, createMetadata, faqSchema } from "@/lib/seo";
 import {
   CONTACT,
   ADDRESS_LINE,
@@ -12,11 +13,20 @@ import {
 } from "@data/site";
 import styles from "@/components/FaqAccordion.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Help & FAQ",
   description:
-    "Answers to common questions about buying, finance, service and electric TVS two-wheelers at Zaidi TVS, Chandpur — plus call, WhatsApp and showroom support.",
-};
+    "Answers to common questions about buying, finance, service and electric TVS two-wheelers at Zaidi TVS, Chandpur (Uttar Pradesh) — plus call, WhatsApp and showroom support.",
+  path: "/faq",
+  keywords: [
+    "TVS buying FAQ",
+    "TVS finance questions",
+    "TVS service questions",
+    "TVS iQube FAQ Chandpur",
+  ],
+});
+
+const ALL_FAQS = FAQ_GROUPS.flatMap((group) => group.items);
 
 const WHATSAPP_URL = wa(
   "Hi Zaidi TVS, I have a question about a TVS two-wheeler."
@@ -32,6 +42,19 @@ const HEADING_STYLE = {
 export default function FaqPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Help & FAQ", url: "/faq" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={faqSchema(
+          ALL_FAQS.map((faq) => ({ question: faq.q, answer: faq.a })),
+        )}
+      />
       <PageHero
         eyebrow="HELP & FAQ"
         title="EVERYTHING YOU WANTED TO ASK."

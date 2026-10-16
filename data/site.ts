@@ -35,6 +35,8 @@ export const SITE = {
   name: "Zaidi TVS",
   /** Chhota naam (mobile/welcome text ke liye). */
   shortName: "Zaidi TVS",
+  /** Legal / registered naam (schema.org Organization me). */
+  legalName: "Zaidi TVS",
   /** Tagline. */
   tagline: "Your Ride. Your Style.",
   /** Footer me dikhne wala chhota parichay (2-3 lines). */
@@ -43,10 +45,43 @@ export const SITE = {
   /** Google / search description. */
   description:
     "Zaidi TVS, Chandpur — authorized TVS dealership for bikes, scooters, genuine spare parts, servicing, finance, insurance and exchange.",
+  /**
+   * Default <title> (home page) — brand + primary keyword + location.
+   * Baaki pages ka title root layout ka "%s | Zaidi TVS" template use karta hai.
+   */
+  defaultTitle:
+    "Zaidi TVS | Authorized TVS Showroom in Chandpur, Uttar Pradesh",
+  /** Default meta description (India ke liye optimized). */
+  defaultDescription:
+    "Zaidi TVS is an authorized TVS showroom in Chandpur, Uttar Pradesh. Buy new TVS bikes & scooters (Apache, Raider, Ronin, Jupiter, Ntorq, iQube), get genuine spare parts, expert service, easy finance, insurance and exchange — all under one roof. Free test rides across India-friendly EMI plans.",
+  /** Default keyword bank for pages that don't pass their own. */
+  defaultKeywords: [
+    "TVS showroom Chandpur",
+    "TVS dealership Chandpur",
+    "TVS bikes Chandpur",
+    "TVS scooters Chandpur",
+    "TVS Apache RTR",
+    "TVS Raider 125",
+    "TVS Ronin",
+    "TVS Jupiter",
+    "TVS Ntorq 125",
+    "TVS iQube electric scooter",
+    "TVS genuine spare parts Chandpur",
+    "TVS service centre Chandpur",
+    "TVS finance and EMI Chandpur",
+    "TVS showroom Uttar Pradesh",
+  ],
   /** SEO me use hota hai. */
   locale: "en_IN",
+  /** Schema.org ke liye — desh India target karta hai. */
+  country: "IN",
   city: "Chandpur",
   state: "Uttar Pradesh",
+  region: "Uttar Pradesh",
+  /** Default social share (OpenGraph/Twitter) image, site-root ke relative. */
+  ogImage: "/assets/hero-bike.jpg",
+  /** Organization logo (schema.org). */
+  logo: "/Website_Logo/Transparent/ZAIDI_TVS_Logo_ZAIDI_White_TVS_Red_Transparent.png",
 };
 
 /* ---------------------------------------------------------------------------
@@ -177,4 +212,13 @@ export function wa(message?: string): string {
 /** Mailto link (email set ho tabhi). */
 export function mailto(subject?: string): string {
   return `mailto:${CONTACT.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`;
+}
+
+/**
+ * Absolute URL helper — "/blog" ko "https://www.zaiditvs.in/blog" banata hai.
+ * Canonical URLs aur JSON-LD schema me har jagah use hota hai.
+ */
+export function absoluteUrl(path: string): string {
+  if (/^https?:\/\//i.test(path)) return path;
+  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }

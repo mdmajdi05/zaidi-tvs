@@ -1,7 +1,20 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import VehiclePage from "@/components/VehiclePage";
-import { SCOOTERS, getVehicle, isScooter, vehicleHref } from "@/lib/catalog";
+import {
+  SCOOTERS,
+  getVehicle,
+  isScooter,
+  vehicleHref,
+  vehicleListHref,
+} from "@/lib/catalog";
+import { vehicleFaqItems } from "@/lib/vehicleFaq";
+import {
+  breadcrumbSchema,
+  createMetadata,
+  faqSchema,
+  productSchema,
+} from "@/lib/seo";
 
 /** These pages read `params`, so they are allowed to block the first render. */
 export const instant = false;
@@ -17,17 +30,29 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { model } = await params;
   const m = getVehicle(model);
-  if (!m) return { title: "Model not found" };
-  return {
-    title: m.name,
-    description: `${m.name} at Zaidi TVS, Chandpur — ${m.desc} Book a free test ride today.`,
-    alternates: { canonical: vehicleHref(m) },
-    openGraph: {
-      title: `${m.name} — Zaidi TVS`,
-      description: m.desc,
-      images: [m.image],
-    },
-  };
+  if (!m) {
+    return createMetadata({
+      title: "Model not found",
+      description: "This TVS scooter is not available on this page.",
+      path: `/scooters/${model}`,
+      noindex: true,
+    });
+  }
+  return createMetadata({
+    title: `${m.name} — Price, Specs & Test Ride`,
+    description: `${m.name} at Zaidi TVS, Chandpur — ${m.desc} Get today's on-road price, EMI options and book a free test ride in Uttar Pradesh.`,
+    path: vehicleHref(m),
+    keywords: [
+      m.name,
+      `${m.name} price in Chandpur`,
+      `${m.name} on-road price`,
+      `${m.shortName} mileage`,
+      `${m.shortName} test ride`,
+      `TVS ${m.shortName} finance`,
+    ],
+    image: m.image,
+    imageAlt: m.name,
+  });
 }
 
 export default async function ScooterModelPage({
@@ -40,5 +65,35 @@ export default async function ScooterModelPage({
   if (!m) notFound();
   // Motorcycles & mopeds live under /bikes.
   if (!isScooter(m)) redirect(vehicleHref(m));
-  return <VehiclePage vehicle={m} />;
+
+  const listHref = vehicleListHref(m);
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Scooters", url: listHref },
+          { name: m.shortName, url: vehicleHref(m) },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={productSchema({
+          name: m.name,
+          description: m.desc,
+          url: vehicleHref(m),
+          image: m.image,
+          price: m.price,
+          category: m.kind,
+          brand: "TVS",
+        })}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={faqSchema(vehicleFaqItems(m))}
+      />
+      <VehiclePage vehicle={m} />
+    </>
+  );
 }

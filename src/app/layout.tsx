@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollBike from "@/components/ScrollBike";
 import ChatWidget from "@/components/ChatWidget";
+import { organizationSchema, websiteSchema } from "@/lib/seo";
 import { SITE, SITE_URL } from "@data/site";
 import "./globals.css";
 
@@ -42,39 +43,43 @@ const TAB_ICONS = (["light", "dark"] as const).flatMap((scheme) =>
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Zaidi TVS | Your Ride. Your Style.",
-    template: "%s | Zaidi TVS",
+    default: SITE.defaultTitle,
+    template: `%s | ${SITE.name}`,
   },
-  description: SITE.description,
-  applicationName: "Zaidi TVS",
-  keywords: [
-    "Zaidi TVS",
-    "TVS showroom Chandpur",
-    "TVS bikes Chandpur",
-    "TVS scooters Chandpur",
-    "TVS Apache",
-    "TVS Ntorq 125",
-    "TVS Jupiter",
-    "TVS Raider",
-    "TVS iQube",
-    "TVS service centre Chandpur",
-    "TVS genuine spare parts",
-    "TVS finance and EMI",
-  ],
-  authors: [{ name: "Zaidi TVS" }],
+  description: SITE.defaultDescription,
+  applicationName: SITE.name,
+  keywords: [...SITE.defaultKeywords],
+  authors: [{ name: SITE.name }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  formatDetection: { telephone: false, address: false, email: false },
+  alternates: { canonical: SITE_URL },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
-    siteName: "Zaidi TVS",
-    locale: "en_IN",
-    title: "Zaidi TVS | Your Ride. Your Style.",
-    description: SITE.description,
+    url: SITE_URL,
+    siteName: SITE.name,
+    locale: SITE.locale,
+    title: SITE.defaultTitle,
+    description: SITE.defaultDescription,
+    images: [{ url: SITE.ogImage, alt: SITE.defaultTitle }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zaidi TVS | Your Ride. Your Style.",
-    description: SITE.description,
+    title: SITE.defaultTitle,
+    description: SITE.defaultDescription,
+    images: [SITE.ogImage],
   },
-  robots: { index: true, follow: true },
   icons: {
     icon: TAB_ICONS,
     // iOS does not support scheme-aware icons; the dark badge reads best.
@@ -109,6 +114,14 @@ export default function RootLayout({
       className={`${inter.variable} ${oswald.variable}`}
     >
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={organizationSchema()}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={websiteSchema()}
+        />
         <a className="skipLink" href="#main-content">
           Skip to main content
         </a>

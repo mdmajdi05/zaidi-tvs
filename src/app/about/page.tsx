@@ -2,13 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import { breadcrumbSchema, createMetadata } from "@/lib/seo";
 import { ADDRESS_LINE, STATS } from "@data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "About Us",
   description:
-    "About Zaidi TVS, Chandpur — an authorized TVS dealership trusted by riders for bikes, scooters, service and genuine support.",
-};
+    "About Zaidi TVS, Chandpur — an authorized TVS dealership in Uttar Pradesh trusted by riders for bikes, scooters, genuine service and support across India-friendly finance options.",
+  path: "/about",
+  keywords: [
+    "about Zaidi TVS",
+    "authorized TVS dealership Chandpur",
+    "TVS showroom Uttar Pradesh",
+    "TVS dealer India",
+  ],
+});
 
 const VALUES = [
   { icon: "✓", title: "Genuine & Trusted", text: "Authorized TVS dealership with 100% genuine products and transparent pricing." },
@@ -20,6 +28,13 @@ const VALUES = [
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "About Us", url: "/about" },
+        ])}
+      />
       <PageHero
         eyebrow="ABOUT ZAIDI TVS"
         title="YOUR RIDE. YOUR STYLE. SINCE DAY ONE."

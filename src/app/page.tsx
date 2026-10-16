@@ -1,5 +1,31 @@
+import type { Metadata } from "next";
 import ZaidiLanding from "@/components/ZaidiLanding";
+import { SITE } from "@data/site";
+import { TOP_FAQS } from "@/lib/faqs";
+import { breadcrumbSchema, createMetadata, faqSchema } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: SITE.defaultTitle,
+  description: SITE.defaultDescription,
+  path: "/",
+  keywords: SITE.defaultKeywords,
+  absolute: true,
+});
 
 export default function Home() {
-  return <ZaidiLanding />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([{ name: "Home", url: "/" }])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={faqSchema(
+          TOP_FAQS.map((faq) => ({ question: faq.q, answer: faq.a })),
+        )}
+      />
+      <ZaidiLanding />
+    </>
+  );
 }

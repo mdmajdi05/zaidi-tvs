@@ -149,6 +149,7 @@ const DRAWER_MORE: NavItem[] = [
   { label: "Blog & Tips", href: "/blog" },
   { label: "FAQ & Help", href: "/faq" },
   { label: "Showroom & Timings", href: "/branches" },
+  { label: "HTML Sitemap", href: "/sitemap-html" },
 ];
 
 export default function Header() {

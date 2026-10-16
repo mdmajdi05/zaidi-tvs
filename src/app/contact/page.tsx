@@ -3,6 +3,11 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
 import {
+  breadcrumbSchema,
+  contactPageSchema,
+  createMetadata,
+} from "@/lib/seo";
+import {
   CONTACT,
   ADDRESS_LINE,
   HOURS_SHORT,
@@ -10,14 +15,32 @@ import {
   MAP_EMBED_URL,
 } from "@data/site";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: `Contact Zaidi TVS, Chandpur — call ${CONTACT.phone}, chat on WhatsApp or visit the showroom on ${ADDRESS_LINE}.`,
-};
+export const metadata: Metadata = createMetadata({
+  title: "Contact & Showroom",
+  description: `Contact Zaidi TVS, Chandpur (Uttar Pradesh) — call ${CONTACT.phone}, chat on WhatsApp or visit the showroom on ${ADDRESS_LINE}. Book a free test ride, service slot or check today's price.`,
+  path: "/contact",
+  keywords: [
+    "contact Zaidi TVS",
+    "TVS showroom address Chandpur",
+    "TVS showroom timing Chandpur",
+    "book TVS test ride Chandpur",
+  ],
+});
 
 export default function ContactPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Contact", url: "/contact" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={contactPageSchema()}
+      />
       <PageHero
         eyebrow="GET IN TOUCH"
         title="WE ARE HERE TO HELP."

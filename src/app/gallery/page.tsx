@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import GalleryGrid from "@/components/GalleryGrid";
+import { breadcrumbSchema, createMetadata, itemListSchema } from "@/lib/seo";
 import { SOCIAL } from "@data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Gallery",
   description:
-    "Photo gallery of Zaidi TVS, Chandpur — our showroom, the TVS line-up, workshop moments and rider events.",
-};
+    "Photo gallery of Zaidi TVS, Chandpur (Uttar Pradesh) — our showroom, the TVS line-up, workshop moments and rider events.",
+  path: "/gallery",
+  keywords: [
+    "Zaidi TVS gallery",
+    "TVS showroom photos Chandpur",
+    "TVS bikes photos",
+  ],
+});
 
 const IG_TILES: Array<{ src: string; alt: string }> = [
   { src: "/assets/city-rider.jpg", alt: "TVS rider in the city" },
@@ -21,6 +28,23 @@ const IG_TILES: Array<{ src: string; alt: string }> = [
 export default function GalleryPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Gallery", url: "/gallery" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={itemListSchema(
+          IG_TILES.map((tile) => ({
+            name: tile.alt,
+            url: "/gallery",
+            image: tile.src,
+          })),
+        )}
+      />
       <PageHero
         eyebrow="GALLERY"
         title="MOMENTS AT ZAIDI TVS."

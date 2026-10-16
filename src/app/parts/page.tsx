@@ -5,12 +5,21 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import PartsFinder from "@/components/PartsFinder";
 import { BIKES, PARTS, vehicleHref } from "@/lib/catalog";
+import { breadcrumbSchema, createMetadata, itemListSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Parts & Accessories",
+export const metadata: Metadata = createMetadata({
+  title: "Genuine TVS Parts & Accessories",
   description:
-    "Genuine TVS spare parts, accessories and safety gear at Zaidi TVS, Chandpur — original parts for your bike or scooter.",
-};
+    "Genuine TVS spare parts, accessories, lubricants and safety gear at Zaidi TVS, Chandpur (Uttar Pradesh) — original parts for your TVS bike or scooter, fitted by trained technicians.",
+  path: "/parts",
+  keywords: [
+    "TVS spare parts Chandpur",
+    "genuine TVS parts",
+    "TVS accessories Chandpur",
+    "TVS engine oil",
+    "TVS bike parts Uttar Pradesh",
+  ],
+});
 
 const CATEGORIES = [
   { icon: "⚙", title: "Engine Parts", text: "Pistons, valves, clutch and engine kits — always genuine TVS." },
@@ -26,6 +35,23 @@ const CATEGORIES = [
 export default function PartsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Parts & Accessories", url: "/parts" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={itemListSchema(
+          CATEGORIES.map((category) => ({
+            name: category.title,
+            url: "/parts",
+            description: category.text,
+          })),
+        )}
+      />
       <PageHero
         eyebrow="PARTS & ACCESSORIES"
         title="GENUINE PARTS. REAL PEACE OF MIND."

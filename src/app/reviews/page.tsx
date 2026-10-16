@@ -4,13 +4,21 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Reviews, { ReviewCard } from "@/components/Reviews";
 import { AGGREGATE, REVIEWS } from "@/lib/reviews";
+import { breadcrumbSchema, createMetadata, reviewsSchema } from "@/lib/seo";
 import styles from "@/components/Reviews.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Customer Reviews",
   description:
-    "Read what riders from Chandpur and nearby towns say about buying and servicing their TVS bikes and scooters at Zaidi TVS.",
-};
+    "Read what riders from Chandpur and nearby towns in Uttar Pradesh say about buying and servicing their TVS bikes and scooters at Zaidi TVS.",
+  path: "/reviews",
+  keywords: [
+    "Zaidi TVS reviews",
+    "TVS showroom Chandpur reviews",
+    "TVS customer feedback",
+    "best TVS dealer Uttar Pradesh",
+  ],
+});
 
 const WHATSAPP = wa(
   "Hi Zaidi TVS! I'd like to share my review / feedback about my experience."
@@ -19,6 +27,25 @@ const WHATSAPP = wa(
 export default function ReviewsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Customer Reviews", url: "/reviews" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={reviewsSchema({
+          rating: AGGREGATE.rating,
+          count: AGGREGATE.count,
+          reviews: REVIEWS.map((review) => ({
+            author: review.name,
+            rating: review.rating,
+            text: review.text,
+          })),
+        })}
+      />
       <PageHero
         eyebrow="CUSTOMER REVIEWS"
         title="TRUSTED BY RIDERS."

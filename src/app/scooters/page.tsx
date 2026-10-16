@@ -3,18 +3,45 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Bike360 from "@/components/Bike360";
-import { SCOOTERS } from "@/lib/catalog";
+import { SCOOTERS, vehicleHref } from "@/lib/catalog";
 import { spinFrames } from "@/lib/spinFrames";
+import { breadcrumbSchema, createMetadata, itemListSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our Scooters",
+export const metadata: Metadata = createMetadata({
+  title: "TVS Scooters & Electric",
   description:
-    "Explore the TVS scooter line-up at Zaidi TVS, Chandpur — TVS Jupiter, Jupiter 125, Ntorq 125 & 150, Zest 110, plus the iQube, TVS X and Orbiter electrics with specifications and free test rides.",
-};
+    "Explore the TVS scooter line-up at Zaidi TVS, Chandpur — TVS Jupiter, Jupiter 125, Ntorq 125 & 150, Zest 110 plus the iQube, TVS X and Orbiter electrics with specifications and free test rides in Uttar Pradesh.",
+  path: "/scooters",
+  keywords: [
+    "TVS scooters Chandpur",
+    "TVS Jupiter price Chandpur",
+    "TVS Ntorq 125",
+    "TVS iQube electric scooter Uttar Pradesh",
+    "TVS electric scooter showroom",
+  ],
+});
 
 export default function ScootersPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Our Scooters", url: "/scooters" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={itemListSchema(
+          SCOOTERS.map((scooter) => ({
+            name: scooter.name,
+            url: vehicleHref(scooter),
+            description: scooter.desc,
+            image: scooter.image,
+          })),
+        )}
+      />
       <PageHero
         eyebrow="OUR SCOOTERS"
         title="SCOOTERS THAT KEEP UP."

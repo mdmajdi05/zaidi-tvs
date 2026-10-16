@@ -3,17 +3,44 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { sortedPosts, formatPostDate } from "@/lib/posts";
+import { breadcrumbSchema, createMetadata, itemListSchema } from "@/lib/seo";
 import styles from "@/components/BlogTeaser.module.css";
 
-export const metadata: Metadata = {
-  title: "Blog & Tips",
+export const metadata: Metadata = createMetadata({
+  title: "Blog, Buying Guides & Tips",
   description:
     "Buying guides, finance explainers, maintenance and monsoon care tips for two-wheeler owners — straight from the Zaidi TVS team in Chandpur, Uttar Pradesh.",
-};
+  path: "/blog",
+  keywords: [
+    "TVS blog",
+    "two wheeler buying guide India",
+    "bike maintenance tips",
+    "TVS EMI explained",
+    "monsoon bike care",
+  ],
+});
 
 export default function BlogPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Blog & Tips", url: "/blog" },
+        ])}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={itemListSchema(
+          sortedPosts.map((post) => ({
+            name: post.title,
+            url: `/blog/${post.slug}`,
+            description: post.excerpt,
+            image: post.cover,
+          })),
+        )}
+      />
       <PageHero
         eyebrow="BLOG & TIPS"
         title="NEWS & TIPS."
