@@ -104,6 +104,10 @@ export default function Footer() {
 
           <p className="footer-about">{SITE.about}</p>
 
+          <Link className="footer-sitemap-link" href="/sitemap-html">
+            Sitemap <span aria-hidden="true">→</span>
+          </Link>
+
           {socials.length > 0 && (
             <div className="footer-social">
               {socials.map(({ key, label, Icon }) => (

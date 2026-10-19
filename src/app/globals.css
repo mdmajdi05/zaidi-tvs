@@ -308,6 +308,8 @@ img { max-width: 100%; display: block; }
 .footer-contact a { color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; }
 .footer-contact a:hover { color: var(--red-2); }
 .footer-directions { display: inline-flex; align-items: center; gap: 7px; color: var(--red-2); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
+.footer-sitemap-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 14px; color: var(--red-2); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; text-decoration: none; }
+.footer-sitemap-link:hover { color: #fff; }
 .footer-bottom { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; justify-content: space-between; padding: 16px clamp(16px, 5vw, 60px) 22px; background: #04060a; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
 .footer-bottom-links { display: flex; flex-wrap: wrap; gap: 16px; }
 .footer-bottom-links a { color: var(--muted); text-decoration: none; }
