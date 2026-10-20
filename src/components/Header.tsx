@@ -115,7 +115,7 @@ const COMPANY_TABS: MegaTab[] = [
     href: "/contact",
     items: [
       { name: "Contact Us", img: "/assets/location-bg.jpg", href: "/contact" },
-      { name: "Book Test Ride", img: "/assets/hero-bike.jpg", href: "/contact" },
+      { name: "Book Test Ride", img: "/assets/hero-bike-clean.jpg", href: "/contact" },
       { name: "Offers & Finance", img: "/assets/city-rider.jpg", href: "/offers" },
       { name: "Service Booking", img: "/assets/performance-bike.jpg", href: "/service" },
       { name: "FAQ & Help", img: "/assets/reference.jpg", href: "/faq" },

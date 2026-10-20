@@ -110,12 +110,18 @@ const TESTIMONIALS = [
 ];
 
 /** Home hero — real TVS photography that auto cross-fades. */
+/**
+ * Hero backgrounds. Only use images WITHOUT baked-in UI text.
+ * `hero-bike-clean.jpg` is `hero-bike.jpg` with the stock site's fake header
+ * (phone number, WhatsApp icon, "Book Test Ride") cropped off the top — using
+ * the raw file made that contact info bleed through behind the real header.
+ * `cta-bg.jpg` (banner text + WhatsApp icon) and `quiz-rider.jpg` (baked
+ * slogan) were removed for the same reason.
+ */
 const HERO_SLIDES: Array<{ src: string; alt: string }> = [
-  { src: "/assets/hero-bike.jpg", alt: "TVS bike on the open road" },
+  { src: "/assets/hero-bike-clean.jpg", alt: "TVS bike on the open road" },
   { src: "/assets/performance-bike.jpg", alt: "TVS Apache performance motorcycle" },
-  { src: "/assets/cta-bg.jpg", alt: "TVS Apache ride" },
   { src: "/assets/featured-bike.jpg", alt: "TVS Ntorq 125 scooter" },
-  { src: "/assets/quiz-rider.jpg", alt: "Rider on a TVS motorcycle" },
   { src: "/assets/family-rider.jpg", alt: "TVS scooter family ride" },
   { src: "/assets/city-rider.jpg", alt: "TVS commuter in the city" },
   { src: "/assets/style-scooter.jpg", alt: "TVS style scooter" },
@@ -242,7 +248,9 @@ export default function ZaidiLanding() {
             <span className="orb orb-2" />
             <Hero3D />
           </div>
-          <div className="hero-copy reveal">
+          {/* No `reveal` here: the hero is above the fold, so it must never
+              depend on JS/IntersectionObserver to become visible. */}
+          <div className="hero-copy">
             <div className="eyebrow">▣ &nbsp; WELCOME TO ZAIDI TVS</div>
             <h1>
               YOUR <em>RIDE.</em>
@@ -250,7 +258,7 @@ export default function ZaidiLanding() {
               YOUR <strong>STYLE.</strong>
             </h1>
             <p>
-              Discover the latest TVS bikes &amp; scooters
+              Discover the latest TVS bikes &amp; scooters{" "}
               <br />
               at Zaidi TVS.
             </p>

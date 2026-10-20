@@ -191,7 +191,7 @@ export default function Bike360({
           src={src}
           alt={i === frame ? alt : ""}
           className={styles.frame + (i === frame ? " " + styles.frameActive : "")}
-          loading="eager"
+          loading={i === frame ? "eager" : "lazy"}
           draggable={false}
           aria-hidden={i === frame ? undefined : true}
         />
