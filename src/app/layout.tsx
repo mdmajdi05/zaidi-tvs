@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollBike from "@/components/ScrollBike";
 import ChatWidget from "@/components/ChatWidget";
+import TimedOfferPopup from "@/components/TimedOfferPopup";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import { SITE, SITE_URL } from "@data/site";
 import "./globals.css";
@@ -130,6 +131,7 @@ export default function RootLayout({
         <main id="main-content">{children}</main>
         <Footer />
         <ChatWidget />
+        <TimedOfferPopup />
       </body>
     </html>
   );
