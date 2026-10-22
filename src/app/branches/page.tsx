@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import BranchLocator from "@/components/BranchLocator";
 import { breadcrumbSchema, createMetadata, localBusinessSchema } from "@/lib/seo";
-import { ADDRESS, ADDRESS_LINE, CONTACT, MAPS_URL, wa } from "@data/site";
+import { ADDRESS_LINE, ADDRESS_SHORT, CONTACT, MAPS_URL, wa } from "@data/site";
 import { DOORSTEP } from "@/lib/branches";
 
 export const metadata: Metadata = createMetadata({
@@ -65,7 +65,7 @@ export default function BranchesPage() {
       <PageHero
         eyebrow="SHOWROOM & TIMINGS"
         title="FIND US IN CHANDPUR."
-        subtitle={`One dealership, three counters — sales, service and genuine parts — all on ${ADDRESS.line1}, ${ADDRESS.city}.`}
+        subtitle={`One dealership, three counters — sales, service and genuine parts — all in ${ADDRESS_SHORT}.`}
       />
 
       <section className="page-section dark">

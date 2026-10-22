@@ -105,7 +105,7 @@ export const CONTACT = {
  *    paste kar do — "mapsQuery" (link) aur "mapEmbed" (website ke andar wala map).
  * -------------------------------------------------------------------------*/
 export const ADDRESS = {
-  line1: "Main Road",
+  line1: "",
   line2: "",
   city: "Chandpur",
   state: "Uttar Pradesh",
@@ -113,13 +113,18 @@ export const ADDRESS = {
   country: "India",
 };
 
-/** Poora address ek line me: "Main Road, Chandpur, Uttar Pradesh" */
+/** Poora address ek line me: "Chandpur, Uttar Pradesh" */
 export const ADDRESS_LINE = [
   ADDRESS.line1,
   ADDRESS.line2,
   ADDRESS.city,
   [ADDRESS.state, ADDRESS.postalCode].filter(Boolean).join(" "),
 ]
+  .filter(Boolean)
+  .join(", ");
+
+/** Chhota address — street ho to uske saath, warna sirf sheher: "Chandpur". */
+export const ADDRESS_SHORT = [ADDRESS.line1, ADDRESS.city]
   .filter(Boolean)
   .join(", ");
 

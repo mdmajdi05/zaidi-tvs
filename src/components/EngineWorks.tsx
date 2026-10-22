@@ -309,7 +309,7 @@ export default function EngineWorks() {
           <div className="zEngineWrap" aria-hidden="true">
             <div className="zEngineGlow" ref={glowRef} />
             <div className="zEngine3d" ref={engineRef}>
-              <svg className="zEngineSvg" viewBox="0 0 400 600" role="img" aria-label="TVS four-stroke engine cutaway">
+              <svg className="zEngineSvg" viewBox="0 0 400 550" role="img" aria-label="TVS four-stroke engine cutaway">
                 <defs>
                   <linearGradient id="zeBore" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor="#05070b" />

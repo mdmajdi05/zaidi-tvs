@@ -40,7 +40,7 @@ const STATS: Stat[] = [
     comma: true,
   },
   {
-    value: 4.9,
+    value: 4.8,
     decimals: 1,
     suffix: "/5",
     label: "Customer Rating",

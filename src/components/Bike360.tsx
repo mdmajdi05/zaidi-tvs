@@ -197,10 +197,6 @@ export default function Bike360({
         />
       ))}
 
-      <div className={styles.counter} aria-hidden="true">
-        {frame + 1} / {count}
-      </div>
-
       <div className={styles.hint} aria-hidden="true">
         <span className={styles.hintGlyph}>↻</span>
         Drag to rotate 360°

@@ -6,7 +6,7 @@ import {
   useSyncExternalStore,
   type KeyboardEvent,
 } from "react";
-import { ADDRESS, wa } from "@data/site";
+import { ADDRESS_SHORT, wa } from "@data/site";
 import { BRANCHES, DOORSTEP, type Branch } from "@/lib/branches";
 import styles from "./BranchLocator.module.css";
 
@@ -165,7 +165,7 @@ export default function BranchLocator({ compact = false }: { compact?: boolean }
           <div className={styles.mapFrame}>
             <iframe
               src={branch.mapEmbed}
-              title={`Map of ${branch.name} — ${ADDRESS.line1}, ${ADDRESS.city}`}
+              title={`Map of ${branch.name} — ${ADDRESS_SHORT}`}
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
