@@ -145,21 +145,12 @@ export default function Footer() {
           <h2 className="footer-col-title">Contact</h2>
           <ul className="footer-contact-list">
             <li>
-              <span className="footer-ico" aria-hidden="true">
-                ⌖
-              </span>
               <span>{ADDRESS_LINE}</span>
             </li>
             <li>
-              <span className="footer-ico" aria-hidden="true">
-                ⌕
-              </span>
               <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
             </li>
             <li>
-              <span className="footer-ico" aria-hidden="true">
-                ◷
-              </span>
               <span>{HOURS_SHORT}</span>
             </li>
           </ul>

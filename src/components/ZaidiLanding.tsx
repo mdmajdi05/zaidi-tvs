@@ -231,6 +231,33 @@ export default function ZaidiLanding() {
 
   return (
     <div ref={rootRef}>
+      {/* Mobile-only hero — static, no animation. Desktop hero below is untouched. */}
+      <section className="hero-mobile" aria-label="Zaidi TVS">
+        <div
+          className="hero-mobile-bg"
+          style={{ backgroundImage: "url('/assets/hero-bike-clean.jpg')" }}
+          aria-hidden="true"
+        />
+        <div className="hero-mobile-shade" aria-hidden="true" />
+        <div className="hero-mobile-inner">
+          <div className="eyebrow">▣ &nbsp; WELCOME TO ZAIDI TVS</div>
+          <h1>
+            YOUR <em>RIDE.</em>
+            <br />
+            YOUR <strong>STYLE.</strong>
+          </h1>
+          <p>Discover the latest TVS bikes &amp; scooters at Zaidi TVS.</p>
+          <div className="hero-mobile-cta">
+            <Link className="btn primary" href="/bikes">
+              EXPLORE BIKES <span>→</span>
+            </Link>
+            <Link className="btn ghost" href="/scooters">
+              EXPLORE SCOOTERS <span>→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="hero">
         <div className="hero-pin">
           {HERO_SLIDES.map((slide, index) => (

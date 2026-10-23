@@ -95,6 +95,8 @@ export const CONTACT = {
   phoneHref: "tel:+919009010050",
   whatsapp: "919009010050",
   whatsappHref: "https://wa.me/919009010050",
+  /** VISIT & TIMES / branch cards me dikhne wala number. */
+  visitPhone: "+91 74029 62786",
   /** Email add karna ho to yahan likho (khaali chhodne par kahin nahi dikhega). */
   email: "",
 };
@@ -105,15 +107,15 @@ export const CONTACT = {
  *    paste kar do — "mapsQuery" (link) aur "mapEmbed" (website ke andar wala map).
  * -------------------------------------------------------------------------*/
 export const ADDRESS = {
-  line1: "",
-  line2: "",
+  line1: "1 Km Milestone, Gajraula Road",
+  line2: "District Bijnor",
   city: "Chandpur",
   state: "Uttar Pradesh",
-  postalCode: "",
+  postalCode: "246725",
   country: "India",
 };
 
-/** Poora address ek line me: "Chandpur, Uttar Pradesh" */
+/** Poora address ek line me: "1 Km Milestone, Gajraula Road, District Bijnor, Chandpur, Uttar Pradesh 246725" */
 export const ADDRESS_LINE = [
   ADDRESS.line1,
   ADDRESS.line2,
@@ -158,7 +160,7 @@ export const HOURS_SHORT = "Mon – Sat: 10:00 AM – 8:00 PM · Sun: 11:00 AM �
  *    Apna asli page URL daalo — khaali chhodne par link kahin nahi aayega.
  * -------------------------------------------------------------------------*/
 export const SOCIAL = {
-  instagram: "https://instagram.com/",
+  instagram: "https://www.instagram.com/zaiditvs_",
   facebook: "",
   youtube: "",
 };

@@ -130,7 +130,11 @@ img { max-width: 100%; display: block; }
 .h3d-badge { position: absolute; left: 60%; top: 72%; border: 1px solid var(--line); background: rgba(0,0,0,.6); border-radius: 12px; padding: 10px 16px; text-align: center; }
 .h3d-badge b { font-family: var(--font-oswald); font-size: 26px; display: block; }
 .h3d-badge small { color: var(--muted); font-size: 10px; letter-spacing: .3em; }
-@media (max-width: 1024px) { .h3d-ring.r1, .h3d-ring.r2, .h3d-meter { left: 50%; } }
+@media (max-width: 1024px) {
+  .h3d-ring.r1, .h3d-ring.r2, .h3d-meter { left: 50%; }
+  /* Meter (speedometer cluster) is desktop-only — hide on phones/tablets */
+  .hero-3d { display: none; }
+}
 
 .hero-copy { position: relative; z-index: 2; max-width: 760px; }
 .eyebrow { letter-spacing: .4em; font-size: 12px; color: var(--muted); text-transform: uppercase; }
@@ -305,8 +309,7 @@ img { max-width: 100%; display: block; }
 .footer-col a:hover { color: #fff; }
 .footer-contact { display: grid; gap: 14px; justify-items: start; text-align: left; }
 .footer-contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.footer-contact-list li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 9px; align-items: start; color: var(--muted); font-size: 13px; line-height: 1.6; }
-.footer-ico { color: var(--red-2); font-size: 13px; line-height: 1.55; }
+.footer-contact-list li { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .footer-contact a { color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; }
 .footer-contact a:hover { color: var(--red-2); }
 .footer-directions { display: inline-flex; align-items: center; gap: 7px; color: var(--red-2); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
@@ -1878,6 +1881,87 @@ img { max-width: 100%; }
    ============================================================ */
 .site-header { flex-wrap: nowrap; }
 .header-actions { flex-shrink: 0; }
+
+/* ============================================================
+   MOBILE-ONLY HERO — static, no animation
+   Desktop hero (.hero) is untouched and stays exactly as-is;
+   this block only swaps it out below 768px.
+   ============================================================ */
+.hero-mobile { display: none; }
+
+@media (max-width: 768px) {
+  /* Hide the animated desktop hero on phones only */
+  .hero { display: none; }
+
+  .hero-mobile {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: 100svh;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .hero-mobile-bg {
+    position: absolute;
+    inset: 0;
+    background-position: 62% center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .hero-mobile-shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(5,7,11,.74) 0%, rgba(5,7,11,.28) 34%, rgba(5,7,11,.82) 76%, var(--bg) 100%),
+      linear-gradient(90deg, rgba(5,7,11,.78) 0%, rgba(5,7,11,.18) 70%);
+  }
+  .hero-mobile-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 clamp(18px, 6vw, 32px) clamp(30px, 7vh, 52px);
+  }
+  .hero-mobile-inner .eyebrow {
+    color: rgba(255,255,255,.78);
+    font-size: 11px;
+    letter-spacing: .26em;
+    margin-bottom: 12px;
+  }
+  .hero-mobile-inner h1 {
+    font-size: clamp(40px, 12vw, 60px);
+    line-height: .92;
+    color: #fff;
+    margin: 0;
+    font-weight: 700;
+  }
+  .hero-mobile-inner h1 em {
+    color: transparent;
+    -webkit-text-stroke: 1.5px #fff;
+    font-style: italic;
+  }
+  .hero-mobile-inner h1 strong {
+    background: var(--red-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-mobile-inner p {
+    color: rgba(255,255,255,.72);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 12px 0 0;
+  }
+  .hero-mobile-cta {
+    display: grid;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .hero-mobile-cta .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+}
 .nav-desktop { min-width: 0; }
 
 /* Between the drawer breakpoint (1200px) and comfortable desktop room,

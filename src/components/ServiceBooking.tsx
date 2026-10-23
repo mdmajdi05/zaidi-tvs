@@ -14,7 +14,7 @@ const SERVICE_TYPES = [
   "Insurance Renewal",
 ];
 
-const TIME_SLOTS = ["10-12", "12-2", "2-4", "4-6", "6-8"];
+const TIME_SLOTS = ["10-12", "12-2", "2-4", "4-6"];
 
 const INFO_CARDS = [
   {
