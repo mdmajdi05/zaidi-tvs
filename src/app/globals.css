@@ -2137,7 +2137,7 @@ img { max-width: 100%; }
 /* ============================================================
    SERVICE FLOOR — clean, static, professional (no scroll tricks)
    ============================================================ */
-.service-floor { position: relative; overflow: hidden; }
+.service-floor { position: relative; overflow: hidden; background: var(--bg); }
 .sf-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 clamp(16px, 5vw, 60px); }
 .sf-head { max-width: 720px; margin: 0 auto 40px; text-align: center; }
 .sf-eyebrow { color: var(--red-2); font-size: 12px; letter-spacing: .3em; text-transform: uppercase; margin-bottom: 16px; display: block; }

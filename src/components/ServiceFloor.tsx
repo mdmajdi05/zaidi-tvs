@@ -33,7 +33,7 @@ const SERVICE_STAGES = [
 
 export default function ServiceFloor() {
   return (
-    <section className="service-floor section-light" aria-label="Zaidi TVS service floor">
+    <section className="service-floor" aria-label="Zaidi TVS service floor">
       <div className="sf-inner">
         <div className="sf-head">
           <div className="sf-eyebrow">▣ &nbsp; 01.8 / ZAIDI TVS SERVICE FLOOR</div>
