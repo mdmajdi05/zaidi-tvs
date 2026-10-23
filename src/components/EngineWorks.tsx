@@ -38,41 +38,6 @@ const ESTAGES = [
   },
 ];
 
-const CARDS = [
-  {
-    img: "/assets/performance-bike.jpg",
-    alt: "TVS performance bike at the showroom",
-    no: "ENG — 01",
-    title: "Engine & Drivetrain",
-    desc: "Regular oil, air-filter and chain care to keep power smooth and fuel figures strong.",
-    stat: "Smooth power delivery",
-  },
-  {
-    img: "/assets/featured-bike.jpg",
-    alt: "TVS scooter service and diagnostics",
-    no: "ENG — 02",
-    title: "Computer Diagnostics",
-    desc: "Fault codes read and cleared on modern TVS models — the electronics sorted, not guessed.",
-    stat: "Accurate fault finding",
-  },
-  {
-    img: "/assets/family-rider.jpg",
-    alt: "TVS scooter ready for the road",
-    no: "ENG — 03",
-    title: "Tune & Road Test",
-    desc: "Carb or injection tuned, brakes and tyres checked, then a real road test before handover.",
-    stat: "Road-tested handover",
-  },
-  {
-    img: "/assets/city-rider.jpg",
-    alt: "TVS rider on the road",
-    no: "ENG — 04",
-    title: "Mileage Care",
-    desc: "Fuel-system cleaning and correct-grade oil to protect the mileage you rely on every day.",
-    stat: "Everyday economy",
-  },
-];
-
 export default function EngineWorks() {
   const sectionRef = useRef<HTMLElement>(null);
   const engineRef = useRef<HTMLDivElement>(null);
@@ -88,9 +53,6 @@ export default function EngineWorks() {
   const dotEls = useRef<(HTMLSpanElement | null)[]>([]);
   const progressRef = useRef<HTMLDivElement>(null);
   const ghostRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const cardsBarRef = useRef<HTMLDivElement>(null);
   const stagesWrapRef = useRef<HTMLDivElement>(null);
   const ropesRef = useRef<SVGSVGElement[]>([]);
 
@@ -217,20 +179,6 @@ export default function EngineWorks() {
         if (progressRef.current) {
           progressRef.current.style.transform = `scaleX(${current})`;
         }
-
-        // cards strip: vertical scroll -> horizontal slide (right to left)
-        const cs = cardsRef.current;
-        const tr = trackRef.current;
-        if (cs && tr) {
-          const cr = cs.getBoundingClientRect();
-          const cmax = Math.max(1, cs.offsetHeight - window.innerHeight);
-          const cp = Math.max(0, Math.min(1, -cr.top / cmax));
-          const maxX = Math.max(0, tr.scrollWidth - window.innerWidth * 0.94);
-          tr.style.transform = `translate3d(${(-cp * maxX).toFixed(1)}px, 0, 0)`;
-          if (cardsBarRef.current) {
-            cardsBarRef.current.style.transform = `scaleX(${cp})`;
-          }
-        }
       }
 
       frame = requestAnimationFrame(render);
@@ -241,48 +189,6 @@ export default function EngineWorks() {
   }, []);
 
   return (
-    <>
-    <section className="zEngineCards light" ref={cardsRef} aria-label="Engine care at Zaidi TVS">
-      <div className="zEngineCardsPin">
-          <div className="zEngineCardsHead reveal">
-            <div className="eyebrow red">▣ &nbsp; REAL RIDES. REAL CARE.</div>
-            <h2>
-              BUILT TO PERFORM.
-              <br />
-              <span>KEPT TO LAST.</span>
-            </h2>
-          </div>
-          <div className="zEngineTrackWrap">
-            <div className="zEngineCardGrid" ref={trackRef}>
-              {CARDS.map((c) => (
-                <article key={c.no} className="zEngineCard">
-                  <div className="zEngineImg">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.img} alt={c.alt} loading="lazy" />
-                    <span className="zEngineShine" aria-hidden="true" />
-                    <span className="zEngineNo">{c.no}</span>
-                  </div>
-                  <div className="zEngineCardText">
-                    <h3>{c.title}</h3>
-                    <p>{c.desc}</p>
-                    <div className="zEngineStat">
-                      <i aria-hidden="true" />
-                      {c.stat}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-          <div className="zEngineCardsHint" aria-hidden="true">
-            <span>SCROLL — CARDS SLIDE →</span>
-            <div className="zEngineCardsBar">
-              <i ref={cardsBarRef} />
-            </div>
-          </div>
-      </div>
-    </section>
-
     <section
       className="zEngineScroll"
       ref={sectionRef}
@@ -545,6 +451,5 @@ export default function EngineWorks() {
         </div>
       </div>
     </section>
-    </>
   );
 }

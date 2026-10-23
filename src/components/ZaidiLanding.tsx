@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ADDRESS_LINE, CONTACT, MAPS_URL, SOCIAL } from "@data/site";
 import { useEffect, useRef, useState } from "react";
 import EngineWorks from "./EngineWorks";
+import RealRides from "./RealRides";
 import Hero3D from "./Hero3D";
 import Bike360 from "./Bike360";
 import BlogTeaser from "./BlogTeaser";
@@ -475,6 +476,8 @@ export default function ZaidiLanding() {
             NTORQ <small>125</small>
           </div>
         </section>
+
+        <RealRides onBook={() => openBooking()} />
 
         <EngineWorks />
 
