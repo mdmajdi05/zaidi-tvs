@@ -1,66 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { ADDRESS_LINE, CONTACT, MAPS_URL, SOCIAL } from "@data/site";
+import {
+  ADDRESS_LINE,
+  CONTACT,
+  HOURS_SHORT,
+  MAP_EMBED_URL,
+  MAPS_URL,
+  SOCIAL,
+} from "@data/site";
 import { useEffect, useRef, useState } from "react";
 import EngineWorks from "./EngineWorks";
-import RealRides from "./RealRides";
-import Hero3D from "./Hero3D";
 import Bike360 from "./Bike360";
 import BlogTeaser from "./BlogTeaser";
 import BookingModal from "./BookingModal";
+import CompareTool from "./CompareTool";
 import BranchLocator from "./BranchLocator";
 import FaqAccordion from "./FaqAccordion";
 import GalleryGrid from "./GalleryGrid";
 import OffersHub from "./OffersHub";
-import Reviews from "./Reviews";
 import RideJourney from "./RideJourney";
 import ServiceFloor from "./ServiceFloor";
 import FinanceCalculator from "./FinanceCalculator";
 import StatsBand from "./StatsBand";
 import { BIKES, PRODUCT_IMAGES, vehicleHref } from "@/lib/catalog";
+import { AGGREGATE, REVIEWS } from "@/lib/reviews";
 import { TOP_FAQS } from "@/lib/faqs";
 import { spinFrames } from "@/lib/spinFrames";
-
-type ModelKey = "ntorq" | "jupiter" | "raider";
-
-const MODELS: Record<
-  ModelKey,
-  { name: string; engine: string; type: string; mileage: string; weight: string; price: string }
-> = {
-  ntorq: {
-    name: "TVS Ntorq 125",
-    engine: "124.8 cc",
-    type: "Sporty Scooter",
-    mileage: "Up to 40 km/l*",
-    weight: "116 kg*",
-    price: "Contact showroom",
-  },
-  jupiter: {
-    name: "TVS Jupiter",
-    engine: "113.3 cc",
-    type: "Family Scooter",
-    mileage: "Up to 50 km/l*",
-    weight: "109 kg*",
-    price: "Contact showroom",
-  },
-  raider: {
-    name: "TVS Raider",
-    engine: "124.8 cc",
-    type: "Performance Bike",
-    mileage: "Up to 56 km/l*",
-    weight: "123 kg*",
-    price: "Contact showroom",
-  },
-};
-
-const COMPARE_ROWS: Array<[string, keyof (typeof MODELS)[ModelKey]]> = [
-  ["Engine", "engine"],
-  ["Category", "type"],
-  ["Mileage", "mileage"],
-  ["Kerb Weight", "weight"],
-  ["Price", "price"],
-];
 
 /** "Discover Your Ride" rail — category tabs derived from the catalogue. */
 const RIDE_KIND_LABEL: Record<string, string> = {
@@ -71,10 +37,10 @@ const RIDE_KIND_LABEL: Record<string, string> = {
 };
 
 const RIDE_KIND_ICON: Record<string, string> = {
-  Motorcycle: "▲",
-  Scooter: "♧",
-  Electric: "⚡",
-  Moped: "◆",
+  Motorcycle: "",
+  Scooter: "",
+  Electric: "",
+  Moped: "",
 };
 
 const RIDE_TABS: Array<{ id: string; label: string }> = Array.from(
@@ -97,42 +63,62 @@ const BOOKING_BIKES = BIKES.map((b) => ({
   price: b.price,
 }));
 
-const QUIZ_ANSWERS: Record<string, string> = {
-  Daily: "TVS Jupiter is a great place to start.",
-  Sporty: "TVS Ntorq 125 could match your sporty side.",
-  Family: "TVS Jupiter fits comfort-focused family rides.",
-  Premium: "Explore the premium TVS range at our showroom.",
-};
-
-const TESTIMONIALS = [
-  { initials: "AV", quote: "“Amazing service and a great experience at Zaidi TVS. Highly recommended.”", name: "Aman Verma", tag: "TVS Rider" },
-  { initials: "NS", quote: "“The team helped me choose the perfect scooter for my daily commute. Love it!”", name: "Neha Singh", tag: "TVS Jupiter" },
-  { initials: "RK", quote: "“Best showroom in Chandpur. Smooth buying process and excellent support.”", name: "Rohit Kumar", tag: "TVS Apache" },
+const QUIZ_OPTIONS = [
+  {
+    label: "Daily",
+    hint: "City commutes, college runs, everyday errands",
+    result: "TVS Jupiter could be your perfect daily ride.",
+    href: "/scooters/jupiter",
+  },
+  {
+    label: "Sporty",
+    hint: "Quick acceleration, sharp handling, weekend fun",
+    result: "TVS Ntorq 125 matches your sporty side.",
+    href: "/scooters/ntorq-125",
+  },
+  {
+    label: "Family",
+    hint: "Comfort, stability and space for two",
+    result: "TVS Jupiter 125 fits comfort-focused family rides.",
+    href: "/scooters/jupiter-125",
+  },
+  {
+    label: "Premium",
+    hint: "Feature-first touring and long-distance comfort",
+    result: "Explore the premium TVS range at our showroom.",
+    href: "/bikes",
+  },
 ];
 
-/** Home hero — real TVS photography that auto cross-fades. */
 /**
- * Hero backgrounds. Only use images WITHOUT baked-in UI text.
- * `hero-bike-clean.jpg` is `hero-bike.jpg` with the stock site's fake header
- * (phone number, WhatsApp icon, "Book Test Ride") cropped off the top — using
- * the raw file made that contact info bleed through behind the real header.
- * `cta-bg.jpg` (banner text + WhatsApp icon) and `quiz-rider.jpg` (baked
- * slogan) were removed for the same reason.
+ * Home hero — every banner from the TVS Motor homepage hero slider.
+ * Each slide ships the desktop (1905×837) and mobile (375×586) artwork so the
+ * same carousel looks exactly like tvsmotor.com on every screen.
  */
-const HERO_SLIDES: Array<{ src: string; alt: string }> = [
-  { src: "/assets/hero-bike-clean.jpg", alt: "TVS bike on the open road" },
-  { src: "/assets/performance-bike.jpg", alt: "TVS Apache performance motorcycle" },
-  { src: "/assets/featured-bike.jpg", alt: "TVS Ntorq 125 scooter" },
-  { src: "/assets/family-rider.jpg", alt: "TVS scooter family ride" },
-  { src: "/assets/city-rider.jpg", alt: "TVS commuter in the city" },
-  { src: "/assets/style-scooter.jpg", alt: "TVS style scooter" },
+const HERO_SLIDES: Array<{ desktop: string; mobile: string; alt: string }> = [
+  { desktop: "/assets/hero-tvs/01-desktop.webp", mobile: "/assets/hero-tvs/01-mobile.webp", alt: "TVS Radeon" },
+  { desktop: "/assets/hero-tvs/02-desktop.webp", mobile: "/assets/hero-tvs/02-mobile.webp", alt: "TVS Apache RTR 310" },
+  { desktop: "/assets/hero-tvs/03-desktop.webp", mobile: "/assets/hero-tvs/03-mobile.webp", alt: "TVS Apache RR 310" },
+  { desktop: "/assets/hero-tvs/04-desktop.webp", mobile: "/assets/hero-tvs/04-mobile.webp", alt: "TVS Ronin" },
+  { desktop: "/assets/hero-tvs/05-desktop.webp", mobile: "/assets/hero-tvs/05-mobile.webp", alt: "TVS Apache RTR 160 4V" },
+  { desktop: "/assets/hero-tvs/06-desktop.webp", mobile: "/assets/hero-tvs/06-mobile.webp", alt: "TVS Jupiter" },
+  { desktop: "/assets/hero-tvs/07-desktop.webp", mobile: "/assets/hero-tvs/07-mobile.webp", alt: "TVS Jupiter 125" },
+  { desktop: "/assets/hero-tvs/08-desktop.webp", mobile: "/assets/hero-tvs/08-mobile.webp", alt: "TVS Apache RTX" },
+  { desktop: "/assets/hero-tvs/09-desktop.webp", mobile: "/assets/hero-tvs/09-mobile.webp", alt: "TVS Ronin Agonda edition" },
+  { desktop: "/assets/hero-tvs/10-desktop.webp", mobile: "/assets/hero-tvs/10-mobile.webp", alt: "Noise x TVS iQube smartwatch" },
+  { desktop: "/assets/hero-tvs/11-desktop.webp", mobile: "/assets/hero-tvs/11-mobile.webp", alt: "TVS Ntorq 150" },
+  { desktop: "/assets/hero-tvs/12-desktop.webp", mobile: "/assets/hero-tvs/12-mobile.webp", alt: "TVS Orbiter" },
+  { desktop: "/assets/hero-tvs/13-desktop.webp", mobile: "/assets/hero-tvs/13-mobile.webp", alt: "TVS Raider" },
+  { desktop: "/assets/hero-tvs/14-desktop.webp", mobile: "/assets/hero-tvs/14-mobile.webp", alt: "TVS iQube electric scooter" },
+  { desktop: "/assets/hero-tvs/15-desktop.webp", mobile: "/assets/hero-tvs/15-mobile.webp", alt: "TVS sustainability initiative" },
+  { desktop: "/assets/hero-tvs/16-desktop.webp", mobile: "/assets/hero-tvs/16-mobile.webp", alt: "TVS Sport" },
+  { desktop: "/assets/hero-tvs/17-desktop.webp", mobile: "/assets/hero-tvs/17-mobile.webp", alt: "TVS XL100" },
+  { desktop: "/assets/hero-tvs/18-desktop.webp", mobile: "/assets/hero-tvs/18-mobile.webp", alt: "TVS genuine service" },
 ];
 
 export default function ZaidiLanding() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [modelA, setModelA] = useState<ModelKey>("ntorq");
-  const [modelB, setModelB] = useState<ModelKey>("jupiter");
+  const [, setMenuOpen] = useState(false);
   const [quizResult, setQuizResult] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [activeThumb, setActiveThumb] = useState(0);
@@ -227,98 +213,78 @@ export default function ZaidiLanding() {
     };
   }, [modalOpen]);
 
-  const a = MODELS[modelA];
-  const b = MODELS[modelB];
-
   return (
     <div ref={rootRef}>
-      {/* Mobile-only hero — static, no animation. Desktop hero below is untouched. */}
-      <section className="hero-mobile" aria-label="Zaidi TVS">
-        <div
-          className="hero-mobile-bg"
-          style={{ backgroundImage: "url('/assets/hero-bike-clean.jpg')" }}
-          aria-hidden="true"
-        />
-        <div className="hero-mobile-shade" aria-hidden="true" />
-        <div className="hero-mobile-inner">
-          <div className="eyebrow">▣ &nbsp; WELCOME TO ZAIDI TVS</div>
-          <h1>
-            YOUR <em>RIDE.</em>
-            <br />
-            YOUR <strong>STYLE.</strong>
-          </h1>
-          <p>Discover the latest TVS bikes &amp; scooters at Zaidi TVS.</p>
-          <div className="hero-mobile-cta">
-            <Link className="btn primary" href="/bikes">
-              EXPLORE BIKES <span>→</span>
-            </Link>
-            <Link className="btn ghost" href="/scooters">
-              EXPLORE SCOOTERS <span>→</span>
-            </Link>
+      {/* Simple TVS-style image carousel hero */}
+      <section
+        className="hero-carousel"
+        aria-roledescription="carousel"
+        aria-label="Featured TVS models"
+      >
+        <h1 className="hero-sr-title">
+          Zaidi TVS — TVS bikes, scooters and genuine service in Chandpur
+        </h1>
+        <div className="hero-slides">
+          {HERO_SLIDES.map((slide, index) => {
+            const active = index === heroSlide;
+            return (
+              <div
+                key={slide.desktop}
+                className={`hero-slide${active ? " is-active" : ""}`}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${index + 1} of ${HERO_SLIDES.length}: ${slide.alt}`}
+                aria-hidden={!active}
+              >
+                <picture className="hero-slide-picture">
+                  <source media="(min-width: 768px)" srcSet={slide.desktop} />
+                  <img
+                    className="hero-slide-img"
+                    src={slide.mobile}
+                    alt={slide.alt}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                  />
+                </picture>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="hero-carousel-ui">
+          <div className="hero-dots" role="tablist" aria-label="Choose slide">
+            {HERO_SLIDES.map((slide, index) => (
+              <button
+                key={slide.desktop}
+                type="button"
+                role="tab"
+                aria-selected={index === heroSlide}
+                aria-label={`Slide ${index + 1}: ${slide.alt}`}
+                className={index === heroSlide ? "is-active" : undefined}
+                onClick={() => setHeroSlide(index)}
+              />
+            ))}
+          </div>
+          <div className="hero-arrows">
+            <button
+              type="button"
+              aria-label="Previous slide"
+              onClick={() =>
+                setHeroSlide((index) => (index - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)
+              }
+            >
+              
+            </button>
+            <button
+              type="button"
+              aria-label="Next slide"
+              onClick={() => setHeroSlide((index) => (index + 1) % HERO_SLIDES.length)}
+            >
+              →
+            </button>
           </div>
         </div>
       </section>
-
-      <section className="hero">
-        <div className="hero-pin">
-          {HERO_SLIDES.map((slide, index) => (
-            <div
-              key={slide.src}
-              className={`hero-image${index === heroSlide ? " active" : ""}`}
-              style={{ backgroundImage: `url('${slide.src}')` }}
-              aria-hidden="true"
-            />
-          ))}
-          <div className="hero-overlay" aria-hidden="true" />
-          <div className="hero-decor" aria-hidden="true">
-            <div className="grid-overlay" />
-            <span className="orb orb-1" />
-            <span className="orb orb-2" />
-            <Hero3D />
-          </div>
-          {/* No `reveal` here: the hero is above the fold, so it must never
-              depend on JS/IntersectionObserver to become visible. */}
-          <div className="hero-copy">
-            <div className="eyebrow">▣ &nbsp; WELCOME TO ZAIDI TVS</div>
-            <h1>
-              YOUR <em>RIDE.</em>
-              <br />
-              YOUR <strong>STYLE.</strong>
-            </h1>
-            <p>
-              Discover the latest TVS bikes &amp; scooters{" "}
-              <br />
-              at Zaidi TVS.
-            </p>
-            <div className="hero-buttons">
-              <Link className="btn primary" href="/bikes">
-                EXPLORE BIKES <span>→</span>
-              </Link>
-              <Link className="btn ghost" href="/scooters">
-                EXPLORE SCOOTERS <span>→</span>
-              </Link>
-            </div>
-          </div>
-          <div className="hero-bottom">
-            <div className="slides" aria-hidden="true">
-              <b className="active">{String(heroSlide + 1).padStart(2, "0")}</b>
-              <span />
-              <b>{String(HERO_SLIDES.length).padStart(2, "0")}</b>
-              <i className="slide-bar">
-                <em style={{ width: `${((heroSlide + 1) / HERO_SLIDES.length) * 100}%` }} />
-              </i>
-            </div>
-            <div className="scroll">
-              SCROLL
-              <br />
-              TO EXPLORE <i>↓</i>
-            </div>
-          </div>
-          <div className="tvs-mark">
-            TVS <i aria-hidden="true" />
-          </div>
-        </div>
-        </section>
 
         <div className="strip-marquee" aria-hidden="true">
           <div className="strip-track">
@@ -342,7 +308,7 @@ export default function ZaidiLanding() {
               "TVS Sport",
             ]).map((model, index) => (
               <span key={index}>
-                {model} <b>✦</b>
+                {model} <b></b>
               </span>
             ))}
           </div>
@@ -351,7 +317,7 @@ export default function ZaidiLanding() {
 
         <section className="ride-picker section-light" id="ride">
           <div className="section-head">
-            <div className="eyebrow red">▣ &nbsp; FIND YOUR PERFECT MATCH</div>
+            <div className="eyebrow red"> &nbsp; FIND YOUR PERFECT MATCH</div>
             <h2>DISCOVER YOUR RIDE</h2>
             <p>Every journey is different. What&apos;s yours?</p>
           </div>
@@ -371,10 +337,10 @@ export default function ZaidiLanding() {
                 </button>
               ))}
             </div>
-            <span className="ride-loc">⌖ &nbsp; Chandpur</span>
+            <span className="ride-loc"> &nbsp; Chandpur</span>
             <div className="ride-nav">
               <button type="button" aria-label="Previous vehicles" onClick={() => scrollRideRail(-1)}>
-                ←
+                
               </button>
               <button type="button" aria-label="Next vehicles" onClick={() => scrollRideRail(1)}>
                 →
@@ -391,7 +357,7 @@ export default function ZaidiLanding() {
                 </div>
                 <div className="pick-card-body">
                   <span className="pick-card-cat">
-                    <i aria-hidden="true">{RIDE_KIND_ICON[bike.kind] ?? "◆"}</i>{" "}
+                    <i aria-hidden="true">{RIDE_KIND_ICON[bike.kind] ?? ""}</i>{" "}
                     {RIDE_KIND_LABEL[bike.kind] ?? bike.kind}
                   </span>
                   <h3>{bike.name}</h3>
@@ -410,7 +376,7 @@ export default function ZaidiLanding() {
                     </div>
                     <div className="is-price">
                       <dt>Price</dt>
-                      <dd>{bike.price ?? "Contact showroom"}</dd>
+                      <dd>Contact showroom</dd>
                     </div>
                   </dl>
                   <div className="pick-card-actions">
@@ -422,40 +388,55 @@ export default function ZaidiLanding() {
                       className="pick-text-btn"
                       onClick={() => openBooking(bike.slug)}
                     >
-                      BOOK RIDE <span>→</span>
+                      CONTACT US <span>→</span>
                     </button>
                   </div>
                 </div>
               </article>
             ))}
           </div>
-          <p className="price-note">*Indicative ex-showroom price. Exact on-road price ke liye Zaidi TVS showroom se contact karein.</p>
+          <p className="price-note">Exact on-road price ke liye Zaidi TVS showroom se contact karein.</p>
         </section>
 
         <section className="featured dark" id="bikes">
           <div className="featured-copy reveal">
-            <div className="eyebrow red">▣ &nbsp; FEATURED MODELS</div>
-            <h2>TVS BIKES &amp; SCOOTERS</h2>
-            <p>Powerful. Stylish. Connected.</p>
+            <p className="eyebrow red">Featured models</p>
+            <h2>TVS bikes &amp; scooters</h2>
+            <p className="featured-lede">
+              Powerful. Stylish. Connected. Find the ride that fits the way you
+              move.
+            </p>
             <div className="model-title">
               <strong>
                 TVS <span>Ntorq</span>
               </strong>
-              <small>RIDE THE NEXT</small>
+              <small>Ride the next</small>
             </div>
-            <div className="spec-row">
-              <span>◉ 125 CC</span>
-              <span>✦ Sporty</span>
-              <span>⌁ Connected</span>
-            </div>
+            <ul className="spec-row">
+              <li>
+                <b>125 cc</b>
+                <span>Engine</span>
+              </li>
+              <li>
+                <b>Sporty</b>
+                <span>Design</span>
+              </li>
+              <li>
+                <b>Connected</b>
+                <span>Tech</span>
+              </li>
+            </ul>
             <div className="hero-buttons">
               <button type="button" className="btn primary" onClick={openModal}>
-                360° VIEW <span>↻</span>
+                360° view <span aria-hidden="true">→</span>
               </button>
-              <Link className="btn ghost" href="/compare">
-                EXPLORE MODEL <span>→</span>
+              <Link className="btn ghost" href="/scooters">
+                Explore models <span>→</span>
               </Link>
             </div>
+            <p className="featured-note">
+              Genuine TVS · Easy finance · Free test ride at Chandpur
+            </p>
           </div>
           <div className="bike-stage">
             <Bike360 frames={NTORQ_FRAMES} alt="TVS Ntorq 125 — 360° view" />
@@ -477,13 +458,11 @@ export default function ZaidiLanding() {
           </div>
         </section>
 
-        <RealRides onBook={() => openBooking()} />
-
         <EngineWorks />
 
         <section className="parts-strip dark" id="parts">
           <div>
-            <div className="eyebrow red">▣ &nbsp; GENUINE TVS SUPPORT</div>
+            <div className="eyebrow red"> &nbsp; GENUINE TVS SUPPORT</div>
             <h2>PARTS, ACCESSORIES &amp; CARE</h2>
             <p>
               Genuine TVS spare parts, accessories and dependable workshop
@@ -503,57 +482,81 @@ export default function ZaidiLanding() {
 
         <FinanceCalculator />
 
-        <section className="quiz section-light" id="scooters">
-          <div className="quiz-copy reveal">
-            <div className="eyebrow red">▣ &nbsp; FUN QUIZ</div>
-            <h2>
-              WHICH TVS
-              <br />
-              ARE YOU?
-            </h2>
-            <p>Answer a few quick questions and find your perfect ride.</p>
+        <section className="quiz quizPro section-light" id="scooters">
+          <div className="quizPro-copy reveal">
+            <p className="eyebrow red">Fun quiz</p>
+            <h2>Which TVS are you?</h2>
+            <p className="quizPro-lede">
+              One quick choice is all it takes. Pick the riding style that feels
+              most like your day and we&apos;ll point you to the right TVS.
+            </p>
+            <ul className="quizPro-points">
+              <li>30-second quiz</li>
+              <li>No sign-up needed</li>
+              <li>Instant model match</li>
+            </ul>
             <button
               type="button"
               ref={startQuizRef}
               className="btn primary"
               onClick={() =>
                 document
-                  .querySelector(".quiz-options button")
+                  .querySelector(".quizPro-options button")
                   ?.setAttribute("tabindex", "0")
               }
             >
-              LET&apos;S START <span>→</span>
+              Start the quiz <span aria-hidden="true">→</span>
             </button>
           </div>
-          <div className="quiz-box">
-            <div className="quiz-screen" id="quizScreen">
-              <strong>What&apos;s your riding style?</strong>
-              <p>Let&apos;s find your ride!</p>
-              <div className="quiz-options">
-                {Object.keys(QUIZ_ANSWERS).map((answer) => (
-                  <button
-                    type="button"
-                    key={answer}
-                    data-answer={answer}
-                    onClick={(event) =>
-                      setQuizResult(
-                        QUIZ_ANSWERS[event.currentTarget.dataset.answer ?? ""] ?? ""
-                      )
-                    }
-                  >
-                    {answer === "Daily" || answer === "Family" ? "♧ " : answer === "Sporty" ? "ϟ " : "☆ "}
-                    {answer}
-                  </button>
-                ))}
-              </div>
-              <div className="quiz-result" aria-live="polite">
-                {quizResult}
-              </div>
+
+          <div className="quizPro-card">
+            <div className="quizPro-top">
+              <span className="quizPro-step">Step 1 of 1</span>
+              <span className="quizPro-topic">Riding style</span>
             </div>
-          </div>
-          <div className="quiz-photo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/quiz-rider.jpg" alt="Rider on an open road" />
+            <h3>What&apos;s your riding style?</h3>
+            <p className="quizPro-sub">
+              Choose the option that describes your everyday ride.
+            </p>
+            <div className="quizPro-options">
+              {QUIZ_OPTIONS.map((option, index) => (
+                <button
+                  type="button"
+                  key={option.label}
+                  className={quizResult === option.label ? "is-active" : undefined}
+                  aria-pressed={quizResult === option.label}
+                  onClick={() => setQuizResult(option.label)}
+                >
+                  <span className="quizPro-index">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="quizPro-option-copy">
+                    <b>{option.label}</b>
+                    <small>{option.hint}</small>
+                  </span>
+                  <span className="quizPro-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <div className="quizPro-result" aria-live="polite">
+              {(() => {
+                const match = QUIZ_OPTIONS.find((o) => o.label === quizResult);
+                return match ? (
+                  <>
+                    <span>Your match</span>
+                    <strong>{match.result}</strong>
+                    <Link href={match.href}>
+                      Explore this model <span aria-hidden="true">→</span>
+                    </Link>
+                  </>
+                ) : (
+                  <p>Select an option above to see your match.</p>
+                );
+              })()}
+            </div>
           </div>
         </section>
 
@@ -561,129 +564,159 @@ export default function ZaidiLanding() {
 
         <ServiceFloor />
 
-        <section className="location" id="about">
-          <div className="location-bg" aria-hidden="true" />
-          <div className="location-overlay" aria-hidden="true" />
-          <div className="location-copy">
-            <div className="eyebrow">▣ &nbsp; LOCAL TO YOU</div>
-            <h2>
-              CHANDPUR,
-              <br />
-              YOUR RIDE IS HERE.
-            </h2>
-            <p>
-              Visit our showroom in Chandpur. Explore our range,
-              <br />
-              take a test ride and experience the TVS difference.
+        <section className="location locPro" id="about">
+          <div className="locPro-copy">
+            <p className="eyebrow red">Local to you</p>
+            <h2>Chandpur, your ride is here.</h2>
+            <p className="locPro-lede">
+              Walk in to see the full TVS range, take a free test ride and get
+              transparent on-road pricing — all in one visit.
             </p>
-            <a className="btn ghost" href={MAPS_URL} target="_blank" rel="noopener noreferrer">
-              GET DIRECTIONS <span>→</span>
-            </a>
-          </div>
-          <div className="map-card">
-            <div>
-              <strong>Zaidi TVS Showroom</strong>
-              <small>Chandpur</small>
+            <ul className="locPro-list">
+              <li>
+                <b>Showroom</b>
+                <span>{ADDRESS_LINE}</span>
+              </li>
+              <li>
+                <b>Timings</b>
+                <span>{HOURS_SHORT}</span>
+              </li>
+              <li>
+                <b>Call us</b>
+                <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+              </li>
+            </ul>
+            <div className="locPro-actions">
+              <a
+                className="btn primary"
+                href={MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get directions <span aria-hidden="true">→</span>
+              </a>
+              <button
+                type="button"
+                className="btn ghost"
+                onClick={() => openBooking()}
+              >
+                Book a test ride
+              </button>
             </div>
-            <p>⌖ {ADDRESS_LINE}</p>
-            <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">
-              View on Map&nbsp; →
-            </a>
-            <div className="pin" aria-hidden="true">
-              ●
-            </div>
           </div>
-        </section>
 
-        <section className="testimonials dark">
-          <div className="section-head">
-            <div className="eyebrow red">▣ &nbsp; REAL RIDES</div>
-            <h2>REAL RIDES. REAL PEOPLE.</h2>
-            <p>See what our customers have to say.</p>
-          </div>
-          <div className="testimonial-grid">
-            {TESTIMONIALS.map((t) => (
-              <article key={t.initials}>
-                <div className="avatar" aria-hidden="true">
-                  {t.initials}
-                </div>
-                <p>{t.quote}</p>
-                <strong>{t.name}</strong>
-                <small>{t.tag}</small>
-                <div className="stars" aria-label="5 out of 5 stars">
-                  ★★★★★
-                </div>
-              </article>
-            ))}
-            <div className="instagram-card">
-              <b aria-hidden="true">◎</b>
-              <strong>#ZaidiRiders</strong>
-              <p>
-                Join our rider club
-                <br />
-                and share your story.
-              </p>
-              <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">
-                Upload Your Ride →
+          <div className="locPro-map">
+            <iframe
+              src={MAP_EMBED_URL}
+              title="Zaidi TVS Chandpur on Google Maps"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <div className="locPro-mapbar">
+              <div>
+                <strong>Zaidi TVS Showroom</strong>
+                <small>Chandpur, Bijnor</small>
+              </div>
+              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">
+                Open in Google Maps <span aria-hidden="true">→</span>
               </a>
             </div>
           </div>
         </section>
 
-        <section className="compare section-light" id="compare">
-          <div className="section-head center">
-            <div className="eyebrow red">▣ &nbsp; SMART SHOPPING</div>
-            <h2>COMPARE TVS MODELS</h2>
-            <p>Select models and compare the essentials side by side.</p>
+        <section className="testimonials reviewsPro dark">
+          <div className="reviewsPro-head">
+            <div>
+              <p className="eyebrow red">Rider stories</p>
+              <h2>What riders say.</h2>
+              <p className="reviewsPro-lede">
+                Feedback from riders across Chandpur and nearby towns.
+              </p>
+            </div>
+            <div className="reviewsPro-score">
+              <b>{AGGREGATE.rating.toFixed(1)}</b>
+              <div>
+                <span className="reviewsPro-stars" aria-label={`${AGGREGATE.rating} out of 5 stars`}>
+                  ★★★★★
+                </span>
+                <small>{AGGREGATE.count}+ happy riders on Google</small>
+              </div>
+              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">
+                Read all on Google <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
-          <div className="compare-controls">
-            <label className="srOnly" htmlFor="modelA">
-              First model
-            </label>
-            <select
-              id="modelA"
-              value={modelA}
-              onChange={(event) => setModelA(event.target.value as ModelKey)}
-            >
-              <option value="ntorq">TVS Ntorq 125</option>
-              <option value="jupiter">TVS Jupiter</option>
-              <option value="raider">TVS Raider</option>
-            </select>
-            <span>VS</span>
-            <label className="srOnly" htmlFor="modelB">
-              Second model
-            </label>
-            <select
-              id="modelB"
-              value={modelB}
-              onChange={(event) => setModelB(event.target.value as ModelKey)}
-            >
-              <option value="jupiter">TVS Jupiter</option>
-              <option value="ntorq">TVS Ntorq 125</option>
-              <option value="raider">TVS Raider</option>
-            </select>
+
+          <div className="reviewsPro-grid">
+            {REVIEWS.slice(0, 3).map((review) => (
+              <article key={review.name} className="reviewsPro-card">
+                <div className="reviewsPro-top">
+                  <span className="reviewsPro-avatar" aria-hidden="true">
+                    {review.initials}
+                  </span>
+                  <div>
+                    <strong>{review.name}</strong>
+                    <small>
+                      {review.city} · {review.model}
+                    </small>
+                  </div>
+                  <span className="reviewsPro-google">Google</span>
+                </div>
+                <div className="reviewsPro-stars" aria-label={`${review.rating} out of 5 stars`}>
+                  {"★".repeat(review.rating)}
+                  <span>{"★".repeat(5 - review.rating)}</span>
+                </div>
+                <p>{review.text}</p>
+                <small className="reviewsPro-date">{review.date}</small>
+              </article>
+            ))}
           </div>
-          <div className="compare-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Feature</th>
-                  <th scope="col">{a.name}</th>
-                  <th scope="col">{b.name}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {COMPARE_ROWS.map(([label, key]) => (
-                  <tr key={label}>
-                    <td>
-                      <b>{label}</b>
-                    </td>
-                    <td>{a[key]}</td>
-                    <td>{b[key]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+          <div className="reviewsPro-foot">
+            <a
+              className="btn primary"
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              See all Google reviews <span aria-hidden="true">→</span>
+            </a>
+            <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">
+              #ZaidiRiders on Instagram
+            </a>
+          </div>
+        </section>
+
+        <section className="compare comparePro section-light" id="compare">
+          <div className="comparePro-head">
+            <div>
+              <p className="eyebrow red">Smart shopping</p>
+              <h2>Compare any ride.</h2>
+            </div>
+            <p>
+              Put any TVS model next to another brand — engine, power, mileage,
+              weight and price in one clear table.
+            </p>
+          </div>
+          <CompareTool />
+
+          <div className="comparePro-contact">
+            <div>
+              <b>Can&apos;t find your exact model?</b>
+              <span>
+                Tell us the bike or scooter you ride and we&apos;ll share current
+                pricing, availability and exchange value.
+              </span>
+            </div>
+            <div className="comparePro-contact-actions">
+              <Link className="btn primary" href="/contact">
+                Contact us <span aria-hidden="true">→</span>
+              </Link>
+              <a className="btn ghost" href={CONTACT.phoneHref}>
+                Call {CONTACT.phone}
+              </a>
+            </div>
           </div>
         </section>
 
@@ -691,10 +724,6 @@ export default function ZaidiLanding() {
 
         <section className="dark home-new" id="offers">
           <OffersHub limit={3} />
-        </section>
-
-        <section className="section-light home-new" id="reviews">
-          <Reviews limit={6} />
         </section>
 
         <section className="dark home-new" id="gallery">
@@ -705,29 +734,53 @@ export default function ZaidiLanding() {
           <BlogTeaser limit={3} />
         </section>
 
-        <section className="dark home-new" id="faq">
-          <div className="section-head">
-            <div className="eyebrow red">▣ &nbsp; GOOD TO KNOW</div>
-            <h2
-              style={{
-                fontFamily: "Oswald, Arial, sans-serif",
-                fontStyle: "italic",
-                fontSize: 30,
-                margin: 0,
-              }}
-            >
-              QUESTIONS, ANSWERED.
-            </h2>
-            <p style={{ color: "inherit", opacity: 0.68, fontSize: 13, margin: "8px 0 0" }}>
-              Buying, finance, service and electric — the questions riders ask us most.
+        <section className="section-light home-new faqPro" id="faq">
+          <div className="faqPro-copy">
+            <p className="eyebrow red">Good to know</p>
+            <h2>Questions, answered.</h2>
+            <p className="faqPro-lede">
+              Buying, finance, service and electric — the questions riders ask us
+              most, in plain language.
             </p>
+
+            <ul className="faqPro-points">
+              <li>
+                <b>Buying &amp; pricing</b>
+                <span>On-road price, variants and test rides</span>
+              </li>
+              <li>
+                <b>Finance &amp; exchange</b>
+                <span>Loans, insurance and old-vehicle exchange</span>
+              </li>
+              <li>
+                <b>Service &amp; electric</b>
+                <span>Genuine parts, pick-up and iQube care</span>
+              </li>
+            </ul>
+
+            <div className="faqPro-help">
+              <span>Still have a question?</span>
+              <div>
+                <a href={CONTACT.phoneHref}>Call {CONTACT.phone}</a>
+                <a
+                  href={CONTACT.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp us
+                </a>
+              </div>
+            </div>
           </div>
-          <FaqAccordion items={TOP_FAQS} defaultOpen={0} />
+
+          <div className="faqPro-panel">
+            <FaqAccordion items={TOP_FAQS} defaultOpen={0} />
+          </div>
         </section>
 
         <section className="section-light home-new" id="visit">
           <div className="section-head">
-            <div className="eyebrow red">▣ &nbsp; VISIT &amp; TIMINGS</div>
+            <div className="eyebrow red"> &nbsp; VISIT &amp; TIMINGS</div>
             <h2
               style={{
                 fontFamily: "Oswald, Arial, sans-serif",
@@ -750,7 +803,7 @@ export default function ZaidiLanding() {
         <section className="service dark" id="service">
           <div className="service-inner">
             <div>
-              <div className="eyebrow red">▣ &nbsp; SERVICE &amp; CARE</div>
+              <div className="eyebrow red"> &nbsp; SERVICE &amp; CARE</div>
               <h2>
                 KEEP YOUR RIDE
                 <br />
@@ -770,27 +823,55 @@ export default function ZaidiLanding() {
               </div>
             </div>
             <div className="service-grid">
-              <span>🔧 Periodic Service</span>
-              <span>🧩 Genuine Parts</span>
-              <span>📄 Insurance Renewal</span>
-              <span>🔄 Vehicle Exchange</span>
+              <span> Periodic Service</span>
+              <span> Genuine Parts</span>
+              <span> Insurance Renewal</span>
+              <span> Vehicle Exchange</span>
             </div>
           </div>
         </section>
 
-        <section className="cta" id="test-ride">
-          <div className="cta-bg" aria-hidden="true" />
-          <div className="cta-overlay" aria-hidden="true" />
-          <div className="cta-content">
-            <small>READY TO RIDE?</small>
-            <h2>
-              YOUR NEXT ADVENTURE
-              <br />
-              STARTS HERE.
-            </h2>
-            <Link className="btn primary" href="/contact">
-              BOOK A TEST RIDE <span>→</span>
-            </Link>
+        <section className="ctaPro" id="test-ride">
+          <div className="ctaPro-inner">
+            <div className="ctaPro-copy">
+              <p className="eyebrow red">Ready to ride?</p>
+              <h2>
+                Your next ride <span>starts here.</span>
+              </h2>
+              <p>
+                Visit the Zaidi TVS showroom in Chandpur, take a free test ride
+                and get a clear on-road price before you decide.
+              </p>
+              <ul className="ctaPro-points">
+                <li>Free test rides on popular models</li>
+                <li>Finance and exchange support in-house</li>
+                <li>Genuine TVS service after purchase</li>
+              </ul>
+            </div>
+
+            <div className="ctaPro-card">
+              <span className="ctaPro-tag">Book a visit</span>
+              <h3>Choose your ride, we&apos;ll handle the rest.</h3>
+              <p>
+                Tell us which TVS you want to ride. We&apos;ll keep it ready with
+                a valid licence and a few minutes to spare.
+              </p>
+              <div className="ctaPro-actions">
+                <button
+                  type="button"
+                  className="btn primary"
+                  onClick={() => openBooking()}
+                >
+                  Book a test ride <span aria-hidden="true">→</span>
+                </button>
+                <a className="btn ghost" href={CONTACT.phoneHref}>
+                  Call {CONTACT.phone}
+                </a>
+              </div>
+              <small className="ctaPro-hours">
+                Open {HOURS_SHORT}
+              </small>
+            </div>
           </div>
         </section>
 

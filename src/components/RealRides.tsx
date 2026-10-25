@@ -232,7 +232,7 @@ export default function RealRides({ onBook }: { onBook?: () => void }) {
       <div className="zReelsInner">
         <header className="zReelsHead reveal">
           <div>
-            <div className="eyebrow red">▣ &nbsp; REAL RIDES. REAL CARE.</div>
+            <div className="eyebrow red"> &nbsp; REAL RIDES. REAL CARE.</div>
             <h2 id="zReelsTitle">
               FROM OUR FLOOR.
               <br />
@@ -295,7 +295,7 @@ export default function RealRides({ onBook }: { onBook?: () => void }) {
             <div className="zReelsTickerRow" key={half}>
               {TICKER.map((item) => (
                 <span key={item}>
-                  {item} <b>◆</b>
+                  {item} <b></b>
                 </span>
               ))}
             </div>
@@ -326,7 +326,7 @@ export default function RealRides({ onBook }: { onBook?: () => void }) {
                 onClick={() => setOpenReel(null)}
                 aria-label="Close video"
               >
-                ✕
+                
               </button>
             </div>
             <div className="zReelsModalStage">
