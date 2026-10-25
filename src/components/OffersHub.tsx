@@ -18,7 +18,7 @@ export default function OffersHub({ limit }: { limit?: number }) {
   return (
     <div className={styles.hub}>
       <div className="section-head">
-        <div className="eyebrow red">▣ &nbsp; SAVE MORE, RIDE MORE</div>
+        <div className="eyebrow red"> &nbsp; SAVE MORE, RIDE MORE</div>
         <h2
           style={{
             fontFamily: "Oswald, Arial, sans-serif",
@@ -47,7 +47,7 @@ export default function OffersHub({ limit }: { limit?: number }) {
               </div>
               <h3 className={styles.cardTitle}>{offer.title}</h3>
               <p className={styles.cardText}>{offer.text}</p>
-              <span className={styles.valid}>⏱ {offer.valid}</span>
+              <span className={styles.valid}> {offer.valid}</span>
             </article>
           </Reveal>
         ))}
@@ -71,7 +71,7 @@ export default function OffersHub({ limit }: { limit?: number }) {
       <div className={styles.stepsStrip}>
         <div className={styles.stepsInner}>
           <div className={styles.stepsHead}>
-            <div className="eyebrow red">▣ &nbsp; EXCHANGE IN 4 STEPS</div>
+            <div className="eyebrow red"> &nbsp; EXCHANGE IN 4 STEPS</div>
             <h3
               style={{
                 fontFamily: "Oswald, Arial, sans-serif",

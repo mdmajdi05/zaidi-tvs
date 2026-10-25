@@ -98,12 +98,12 @@ export default function BranchLocator({ compact = false }: { compact?: boolean }
             <dl className={styles.meta}>
               <div className={styles.metaRow}>
                 <dt>Address</dt>
-                <dd>⌖ {branch.address}</dd>
+                <dd> {branch.address}</dd>
               </div>
               <div className={styles.metaRow}>
                 <dt>Phone</dt>
                 <dd>
-                  <a href={telHref(branch.phone)}>⌕ {branch.phone}</a>
+                  <a href={telHref(branch.phone)}> {branch.phone}</a>
                 </dd>
               </div>
               <div className={styles.metaRow}>
@@ -114,7 +114,7 @@ export default function BranchLocator({ compact = false }: { compact?: boolean }
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    ◉ Chat with us
+                     Chat with us
                   </a>
                 </dd>
               </div>
@@ -176,7 +176,7 @@ export default function BranchLocator({ compact = false }: { compact?: boolean }
 
       <div className={styles.doorstep}>
         <div className={styles.doorstepHead}>
-          <div className="eyebrow red">▣ &nbsp; WE COME TO YOU</div>
+          <div className="eyebrow red"> &nbsp; WE COME TO YOU</div>
           <h3 className={styles.doorstepTitle}>{DOORSTEP.title.toUpperCase()}</h3>
           <p className={styles.doorstepText}>{DOORSTEP.text}</p>
         </div>

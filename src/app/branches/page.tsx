@@ -26,21 +26,21 @@ const WA_LINK = wa(
 
 const QUICK_ACTIONS = [
   {
-    icon: "⌕",
+    icon: "",
     title: "Call us",
     text: "Talk to our team during showroom hours for models, prices and bookings.",
     href: CONTACT.phoneHref,
     cta: `CALL ${CONTACT.phone}`,
   },
   {
-    icon: "◉",
+    icon: "",
     title: "WhatsApp",
     text: "Send us a message any time — we usually reply within minutes.",
     href: WA_LINK,
     cta: "CHAT ON WHATSAPP",
   },
   {
-    icon: "⌖",
+    icon: "",
     title: "Get directions",
     text: `Find us on ${ADDRESS_LINE}.`,
     href: MAPS_URL,
@@ -76,7 +76,7 @@ export default function BranchesPage() {
 
       <section className="page-section section-light">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; QUICK ACTIONS</div>
+          <div className="eyebrow red"> &nbsp; QUICK ACTIONS</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",
@@ -116,7 +116,7 @@ export default function BranchesPage() {
         </div>
 
         <div className="section-head" style={{ marginTop: 56 }}>
-          <div className="eyebrow red">▣ &nbsp; DOORSTEP SERVICE</div>
+          <div className="eyebrow red"> &nbsp; DOORSTEP SERVICE</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",

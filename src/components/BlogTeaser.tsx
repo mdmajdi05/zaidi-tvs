@@ -8,11 +8,11 @@ export default function BlogTeaser({ limit = 3 }: { limit?: number }) {
   return (
     <div className={styles.wrap}>
       <div className="section-head">
-        <div className="eyebrow red">▣ &nbsp; NEWS &amp; TIPS</div>
+        <div className="eyebrow red"> &nbsp; NEWS &amp; TIPS</div>
         <h2
           style={{
             fontFamily: "Oswald, Arial, sans-serif",
-            fontStyle: "italic",
+            fontStyle: "normal",
             fontSize: 30,
             margin: 0,
           }}

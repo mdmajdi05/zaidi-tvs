@@ -57,7 +57,7 @@ export default function GalleryPage() {
 
       <section className="page-section section-light">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; FOLLOW THE RIDE · #ZaidiRiders</div>
+          <div className="eyebrow red"> &nbsp; FOLLOW THE RIDE · #ZaidiRiders</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",

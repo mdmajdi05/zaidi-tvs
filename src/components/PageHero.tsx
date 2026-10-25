@@ -14,7 +14,7 @@ export default function PageHero({
         <span className="orb orb-2" style={{ right: "-120px", top: "-160px", left: "auto" }} />
       </div>
       <div>
-        <div className="eyebrow red">▣ &nbsp; {eyebrow}</div>
+        <div className="eyebrow red"> &nbsp; {eyebrow}</div>
         <h1>{title}</h1>
         {subtitle ? <p>{subtitle}</p> : null}
       </div>

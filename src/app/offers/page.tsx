@@ -75,7 +75,7 @@ export default function OffersPage() {
 
       <section className="page-section section-light">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; FINANCE AT A GLANCE</div>
+          <div className="eyebrow red"> &nbsp; FINANCE AT A GLANCE</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",
@@ -99,7 +99,7 @@ export default function OffersPage() {
 
       <section className="page-section dark">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; GOOD TO KNOW</div>
+          <div className="eyebrow red"> &nbsp; GOOD TO KNOW</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",

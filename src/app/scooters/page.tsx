@@ -51,7 +51,7 @@ export default function ScootersPage() {
       <section className="page-section dark">
         <div className="banner-strip" style={{ ["--banner-bg" as string]: "url('/assets/style-scooter.jpg')", minHeight: 240 }}>
           <div>
-            <div className="eyebrow red">▣ &nbsp; RIDE THE CITY</div>
+            <div className="eyebrow red"> &nbsp; RIDE THE CITY</div>
             <h2>SCORE ON EVERY STREET.</h2>
             <p>Petrol &amp; electric · exchange &amp; EMI options available</p>
           </div>
@@ -59,14 +59,14 @@ export default function ScootersPage() {
 
         <Reveal>
           <div className="model360-wrap">
-            <div className="eyebrow red" style={{ textAlign: "center" }}>▣ &nbsp; REAL 360° · DRAG TO ROTATE</div>
+            <div className="eyebrow red" style={{ textAlign: "center" }}> &nbsp; REAL 360° · DRAG TO ROTATE</div>
             <Bike360 frames={spinFrames("ntorq")} alt="TVS Ntorq 125 — 360° view" />
             <p className="model360-tag">DRAG · TVS NTORQ 125</p>
           </div>
         </Reveal>
 
         <div className="section-head" style={{ marginTop: 70 }}>
-          <div className="eyebrow red">▣ &nbsp; THE LINE-UP</div>
+          <div className="eyebrow red"> &nbsp; THE LINE-UP</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 30, margin: 0 }}>
             {SCOOTERS.length} TVS SCOOTERS
           </h2>
@@ -82,7 +82,7 @@ export default function ScootersPage() {
                 </Link>
                 <div>
                   <div className="eyebrow red">
-                    ▣ &nbsp; {scooter.tagline}
+                     &nbsp; {scooter.tagline}
                   </div>
                   <h3>
                     <Link href={`/scooters/${scooter.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
@@ -90,9 +90,9 @@ export default function ScootersPage() {
                     </Link>
                   </h3>
                   <div className="spec-row">
-                    <span>◉ {scooter.engine}</span>
-                    <span>✦ {scooter.mileage}</span>
-                    <span>⌁ {scooter.weight}</span>
+                    <span> {scooter.engine}</span>
+                    <span> {scooter.mileage}</span>
+                    <span> {scooter.weight}</span>
                   </div>
                   <p>{scooter.desc}</p>
                   <div className="hero-buttons">

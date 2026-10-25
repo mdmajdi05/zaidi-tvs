@@ -32,8 +32,6 @@ export default function BookingModal({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -91,8 +89,6 @@ export default function BookingModal({
       `Name: ${name.trim()}`,
       `Phone: ${phone.trim()}`,
       `Email: ${email.trim() || "-"}`,
-      `Preferred Date: ${date || "-"}`,
-      `Preferred Time: ${time || "-"}`,
       `Message: ${message.trim() || "-"}`,
     ].join("\n");
 
@@ -200,31 +196,6 @@ export default function BookingModal({
             />
           </div>
 
-          <div className={styles.row2}>
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="bm-date">
-                Preferred Date
-              </label>
-              <input
-                id="bm-date"
-                type="date"
-                value={date}
-                onChange={(event) => setDate(event.target.value)}
-              />
-            </div>
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="bm-time">
-                Preferred Time
-              </label>
-              <input
-                id="bm-time"
-                type="time"
-                value={time}
-                onChange={(event) => setTime(event.target.value)}
-              />
-            </div>
-          </div>
-
           <div className={styles.field}>
             <label className={styles.label} htmlFor="bm-message">
               Message (optional)
@@ -245,7 +216,7 @@ export default function BookingModal({
           ) : null}
 
           <button type="submit" className={styles.submit}>
-            <span>Book on WhatsApp</span>
+            <span>Submit</span>
           </button>
 
           <p className={styles.note}>

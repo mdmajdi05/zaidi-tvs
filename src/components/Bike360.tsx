@@ -163,7 +163,7 @@ export default function Bike360({
     return (
       <div className={rootClassName} role="group" aria-label={alt}>
         <div className={styles.hint} aria-hidden="true">
-          <span className={styles.hintGlyph}>↻</span>
+          <span className={styles.hintGlyph}></span>
           No 360° frames
         </div>
       </div>
@@ -198,7 +198,7 @@ export default function Bike360({
       ))}
 
       <div className={styles.hint} aria-hidden="true">
-        <span className={styles.hintGlyph}>↻</span>
+        <span className={styles.hintGlyph}></span>
         Drag to rotate 360°
       </div>
 

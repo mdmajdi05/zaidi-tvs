@@ -78,7 +78,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
           <div className="vp-hero-grid">
             <div className="vp-copy">
               <div className="eyebrow red">
-                ▣ &nbsp; {m.kind.toUpperCase()} · {m.tagline}
+                 &nbsp; {m.kind.toUpperCase()} · {m.tagline}
               </div>
               <h1>{m.name}</h1>
               <p className="vp-sub">{m.desc}</p>
@@ -129,7 +129,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={cutout} alt={m.name} />
               <span className="vp-art-badge">{m.tagline}</span>
-              {spin.length > 0 ? <span className="vp-art-hint">360° VIEW NEECHE ↓</span> : null}
+              {spin.length > 0 ? <span className="vp-art-hint">360° VIEW NEECHE </span> : null}
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
       {/* ---------------- 360 viewer ---------------- */}
       <section className="page-section dark">
         <div className="section-head center">
-          <div className="eyebrow red">▣ &nbsp; {spin.length > 0 ? "REAL 360° · DRAG TO ROTATE" : "FULL VIEW"}</div>
+          <div className="eyebrow red"> &nbsp; {spin.length > 0 ? "REAL 360° · DRAG TO ROTATE" : "FULL VIEW"}</div>
           <h2>TAKE A CLOSER LOOK.</h2>
           <p>Rotate the {m.shortName} and check every angle before you come in.</p>
         </div>
@@ -172,7 +172,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
       {/* ---------------- features ---------------- */}
       <section className="page-section dark">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; WHY YOU WILL LOVE IT</div>
+          <div className="eyebrow red"> &nbsp; WHY YOU WILL LOVE IT</div>
           <h2>TOP FEATURES</h2>
           <p>What makes the {m.shortName} stand out in its class.</p>
         </div>
@@ -194,7 +194,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
       {/* ---------------- gallery ---------------- */}
       <section className="page-section dark">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; GALLERY</div>
+          <div className="eyebrow red"> &nbsp; GALLERY</div>
           <h2>SEE IT AROUND.</h2>
         </div>
         <div className="vp-gallery">
@@ -212,7 +212,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
       {/* ---------------- EMI + FAQ ---------------- */}
       <section className="page-section dark">
         <div className="section-head center">
-          <div className="eyebrow red">▣ &nbsp; PLAN YOUR BUY</div>
+          <div className="eyebrow red"> &nbsp; PLAN YOUR BUY</div>
           <h2>EMI ESTIMATOR</h2>
           <p>Slide to see what the {m.shortName} could cost you per month.</p>
         </div>
@@ -221,7 +221,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
         </Reveal>
 
         <div className="section-head center" style={{ marginTop: 60 }}>
-          <div className="eyebrow red">▣ &nbsp; GOOD TO KNOW</div>
+          <div className="eyebrow red"> &nbsp; GOOD TO KNOW</div>
           <h2>FAQs</h2>
         </div>
         <Reveal>
@@ -232,7 +232,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
       {related.length > 0 ? (
       <section className="page-section dark">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; KEEP EXPLORING</div>
+          <div className="eyebrow red"> &nbsp; KEEP EXPLORING</div>
           <h2>ALSO SEE.</h2>
         </div>
         <div className="vp-related">
@@ -269,7 +269,7 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
       <section className="vp-cta">
         <div className="vp-cta-inner">
           <div>
-            <div className="eyebrow red">▣ &nbsp; VISIT ZAIDI TVS · CHANDPUR</div>
+            <div className="eyebrow red"> &nbsp; VISIT ZAIDI TVS · CHANDPUR</div>
             <h2>READY TO RIDE THE {m.shortName.toUpperCase()}?</h2>
             <p>
               Walk in for a free test ride, or message us and we&apos;ll keep the {m.shortName} ready

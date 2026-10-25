@@ -66,7 +66,7 @@ export default function FinanceCalculator() {
   return (
     <section className="zFinance dark" id="finance">
       <div className="zFinanceHead reveal">
-        <div className="eyebrow red">▣ &nbsp; FINANCE &amp; EMI</div>
+        <div className="eyebrow red"> &nbsp; FINANCE &amp; EMI</div>
         <h2>
           RIDE NOW.
           <br />
@@ -82,19 +82,19 @@ export default function FinanceCalculator() {
         <div className="zFinanceCopy">
           <ul className="zFinanceList">
             <li>
-              <i aria-hidden="true">✦</i> Low down-payment plans with same-day
+              <i aria-hidden="true"></i> Low down-payment plans with same-day
               in-principle approval.
             </li>
             <li>
-              <i aria-hidden="true">✦</i> Flexible tenure from 6 to 48 months —
+              <i aria-hidden="true"></i> Flexible tenure from 6 to 48 months —
               pick what suits your budget.
             </li>
             <li>
-              <i aria-hidden="true">✦</i> Insurance, RTO and full paperwork
+              <i aria-hidden="true"></i> Insurance, RTO and full paperwork
               handled at our showroom.
             </li>
             <li>
-              <i aria-hidden="true">✦</i> Exchange bonus can be adjusted against
+              <i aria-hidden="true"></i> Exchange bonus can be adjusted against
               your down payment.
             </li>
           </ul>

@@ -70,7 +70,7 @@ export default function ContactForm() {
       </button>
       {sent ? (
         <p aria-live="polite" style={{ color: "#5de38d", fontSize: 11, margin: 0 }}>
-          ✅ WhatsApp opened with your enquiry — just press send!
+           WhatsApp opened with your enquiry — just press send!
         </p>
       ) : null}
     </form>

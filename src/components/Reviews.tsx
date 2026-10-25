@@ -120,7 +120,7 @@ export default function Reviews({ limit }: { limit?: number }) {
     <div className={styles.wrap}>
       <div className={styles.head}>
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; RIDER STORIES</div>
+          <div className="eyebrow red"> &nbsp; RIDER STORIES</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",

@@ -99,7 +99,7 @@ export default function PartsFinder({ compact = false }: { compact?: boolean }) 
   return (
     <div className={styles.wrap}>
       <div className="section-head">
-        <div className="eyebrow red">▣ &nbsp; PARTS &amp; ACCESSORIES</div>
+        <div className="eyebrow red"> &nbsp; PARTS &amp; ACCESSORIES</div>
         <h2 style={HEADING_STYLE}>FIND YOUR PART</h2>
         <p style={SUB_STYLE}>
           Search genuine TVS parts by name, or pick a category — then send your
@@ -216,7 +216,7 @@ export default function PartsFinder({ compact = false }: { compact?: boolean }) 
       {!compact && (
         <>
           <div className="section-head" style={{ marginTop: 64 }}>
-            <div className="eyebrow red">▣ &nbsp; SHOP ACCESSORIES</div>
+            <div className="eyebrow red"> &nbsp; SHOP ACCESSORIES</div>
             <h2 style={HEADING_STYLE}>GEAR UP YOUR RIDE</h2>
             <p style={SUB_STYLE}>
               Genuine accessories, care products and rider gear — enquire on

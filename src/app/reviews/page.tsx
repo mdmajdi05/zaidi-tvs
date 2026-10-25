@@ -60,7 +60,7 @@ export default function ReviewsPage() {
 
       <section className="page-section section-light">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; ALL REVIEWS</div>
+          <div className="eyebrow red"> &nbsp; ALL REVIEWS</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",

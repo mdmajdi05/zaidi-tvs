@@ -6,10 +6,10 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 
 const RIDE_CARDS = [
-  { filter: "city", bg: "/assets/city-rider.jpg", icon: "▥", title: "CITY RIDER", text: "Daily commute" },
-  { filter: "family", bg: "/assets/family-rider.jpg", icon: "♧", title: "FAMILY RIDE", text: "Comfort & practicality" },
-  { filter: "performance", bg: "/assets/performance-bike.jpg", icon: "ϟ", title: "PERFORMANCE", text: "Power & thrill" },
-  { filter: "style", bg: "/assets/style-scooter.jpg", icon: "☆", title: "STYLE", text: "Looks that stand out" },
+  { filter: "city", bg: "/assets/city-rider.jpg", icon: "", title: "CITY RIDER", text: "Daily commute" },
+  { filter: "family", bg: "/assets/family-rider.jpg", icon: "", title: "FAMILY RIDE", text: "Comfort & practicality" },
+  { filter: "performance", bg: "/assets/performance-bike.jpg", icon: "", title: "PERFORMANCE", text: "Power & thrill" },
+  { filter: "style", bg: "/assets/style-scooter.jpg", icon: "", title: "STYLE", text: "Looks that stand out" },
 ];
 
 const QUIZ_ANSWERS: Record<string, string> = {
@@ -41,7 +41,7 @@ export default function RidePage() {
 
       <section className="page-section dark">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; STEP 1 — YOUR LIFESTYLE</div>
+          <div className="eyebrow red"> &nbsp; STEP 1 — YOUR LIFESTYLE</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
             HOW DO YOU RIDE?
           </h2>
@@ -96,7 +96,7 @@ export default function RidePage() {
       <section className="page-section section-light" style={{ background: "#f5f5f3", color: "#111" }}>
         <Reveal>
           <div className="quiz-copy" style={{ width: "100%" }}>
-            <div className="eyebrow red">▣ &nbsp; STEP 2 — FUN QUIZ</div>
+            <div className="eyebrow red"> &nbsp; STEP 2 — FUN QUIZ</div>
             <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 29, margin: 0 }}>
               WHAT&apos;S YOUR
               <br />
@@ -128,7 +128,7 @@ export default function RidePage() {
                       key={answer}
                       onClick={() => setQuizResult(QUIZ_ANSWERS[answer])}
                     >
-                      {answer === "Daily" || answer === "Family" ? "♧ " : answer === "Sporty" ? "ϟ " : "☆ "}
+                      {answer === "Daily" || answer === "Family" ? " " : answer === "Sporty" ? " " : " "}
                       {answer}
                     </button>
                   ))}

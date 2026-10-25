@@ -4,7 +4,7 @@
   display: grid;
   place-items: center;
   padding: 18px;
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(16, 20, 27, 0.45);
   z-index: 3000;
   overflow-y: auto;
 }
@@ -13,12 +13,12 @@
   position: relative;
   width: 100%;
   max-width: 480px;
-  background: #0c1118;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e9e6df;
   border-radius: 18px;
   padding: 24px;
-  box-shadow: 0 60px 140px rgba(0, 0, 0, 0.7);
-  color: #fff;
+  box-shadow: 0 40px 100px rgba(16, 20, 27, 0.22);
+  color: #15181d;
 }
 
 .close {
@@ -31,8 +31,8 @@
   place-items: center;
   border-radius: 50%;
   background: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #0a0e15;
+  border: 1px solid #e9e6df;
+  color: #15181d;
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
@@ -47,13 +47,13 @@
 
 .title {
   margin: 0 0 16px;
-  font-family: var(--font-oswald, "Oswald"), sans-serif;
-  font-style: italic;
-  text-transform: uppercase;
+  font-family: var(--font-inter, "Inter", system-ui, sans-serif);
+  font-style: normal;
+  text-transform: none;
   font-weight: 700;
-  font-size: 26px;
-  letter-spacing: 0.02em;
-  color: #fff;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  color: #15181d;
 }
 
 .bikeRow {
@@ -62,9 +62,9 @@
   gap: 12px;
   margin-bottom: 16px;
   padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid #e9e6df;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.02);
+  background: #faf9f7;
 }
 
 .bikeRow img {
@@ -72,23 +72,24 @@
   height: 54px;
   object-fit: cover;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid #e9e6df;
   flex: 0 0 auto;
 }
 
 .bikeName {
-  font-family: var(--font-oswald, "Oswald"), sans-serif;
-  font-style: italic;
-  text-transform: uppercase;
+  font-family: var(--font-inter, "Inter", system-ui, sans-serif);
+  font-style: normal;
+  text-transform: none;
   font-size: 15px;
+  font-weight: 600;
   line-height: 1.2;
-  color: #fff;
+  color: #15181d;
 }
 
 .bikeMeta {
   margin-top: 3px;
   font-size: 12px;
-  color: var(--muted);
+  color: #5f6673;
 }
 
 .form {
@@ -103,18 +104,18 @@
 
 .label {
   font-size: 11px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #5f6673;
 }
 
 .field input,
 .field select,
 .field textarea {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e9e6df;
   border-radius: 8px;
-  color: #fff;
+  color: #15181d;
   padding: 11px 12px;
   font-size: 14px;
   font-family: inherit;
@@ -124,14 +125,14 @@
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: #9aa0ae;
 }
 
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
   border-color: #ef2931;
-  box-shadow: 0 0 0 3px rgba(239, 41, 49, 0.25);
+  box-shadow: 0 0 0 3px rgba(239, 41, 49, 0.14);
 }
 
 .field textarea {
@@ -147,37 +148,36 @@
 
 .submit {
   width: 100%;
-  background: linear-gradient(135deg, #ef2931, #ff5e3a);
+  background: #ef2931;
   color: #fff;
   border: 0;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 14px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  text-transform: none;
   cursor: pointer;
-  transform: skewX(-8deg);
-  box-shadow: 0 14px 30px rgba(239, 41, 49, 0.28);
+  box-shadow: 0 14px 30px rgba(239, 41, 49, 0.24);
 }
 
 .submit:hover {
-  filter: brightness(1.06);
+  filter: brightness(1.05);
 }
 
 .submit > span {
   display: inline-block;
-  transform: skewX(8deg);
 }
 
 .error {
-  color: #ff8a72;
+  color: #c41e24;
   font-size: 12.5px;
   margin: 0;
 }
 
 .note {
   font-size: 11px;
-  color: var(--muted);
+  color: #5f6673;
   text-align: center;
   margin: 0;
 }
@@ -186,4 +186,41 @@
   .row2 {
     grid-template-columns: 1fr;
   }
+}
+
+/* Night mode */
+:global(html[data-theme="dark"]) .card {
+  background: #141922;
+  border-color: #262c37;
+  color: #f2f4f8;
+}
+
+:global(html[data-theme="dark"]) .close {
+  background: #1a2029;
+  border-color: #262c37;
+  color: #f2f4f8;
+}
+
+:global(html[data-theme="dark"]) .title,
+:global(html[data-theme="dark"]) .bikeName {
+  color: #f2f4f8;
+}
+
+:global(html[data-theme="dark"]) .bikeRow,
+:global(html[data-theme="dark"]) .field input,
+:global(html[data-theme="dark"]) .field select,
+:global(html[data-theme="dark"]) .field textarea {
+  background: #1a2029;
+  border-color: #262c37;
+  color: #f2f4f8;
+}
+
+:global(html[data-theme="dark"]) .bikeRow img {
+  border-color: #262c37;
+}
+
+:global(html[data-theme="dark"]) .bikeMeta,
+:global(html[data-theme="dark"]) .label,
+:global(html[data-theme="dark"]) .note {
+  color: #a7aebc;
 }

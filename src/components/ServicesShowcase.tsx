@@ -16,7 +16,7 @@ type Service = {
 const SERVICES: Service[] = [
   {
     no: "S — 01",
-    icon: "🔧",
+    icon: "",
     title: "Periodic Service",
     desc: "Scheduled maintenance by factory-trained technicians with a clear, upfront estimate.",
     points: ["Engine oil & filter", "Chain / belt care", "Full safety check"],
@@ -24,7 +24,7 @@ const SERVICES: Service[] = [
   },
   {
     no: "S — 02",
-    icon: "🧩",
+    icon: "",
     title: "Genuine Spare Parts",
     desc: "OEM TVS parts and accessories, sourced and fitted to keep your ride factory-fresh.",
     points: ["100% genuine parts", "Perfect fitment", "Warranty support"],
@@ -32,7 +32,7 @@ const SERVICES: Service[] = [
   },
   {
     no: "S — 03",
-    icon: "📄",
+    icon: "",
     title: "Insurance Renewal",
     desc: "Quick policy renewal and claim assistance, handled end-to-end at the showroom.",
     points: ["Instant renewal", "Claim help", "Paperwork done"],
@@ -40,7 +40,7 @@ const SERVICES: Service[] = [
   },
   {
     no: "S — 04",
-    icon: "🔄",
+    icon: "",
     title: "Vehicle Exchange",
     desc: "Fair valuation for your old two-wheeler and a smooth upgrade to a new TVS.",
     points: ["Best exchange value", "Same-day process", "New ride upgrade"],
@@ -48,7 +48,7 @@ const SERVICES: Service[] = [
   },
   {
     no: "S — 05",
-    icon: "💳",
+    icon: "",
     title: "Finance & EMI",
     desc: "Low down-payment finance options with quick approvals and simple documentation.",
     points: ["Easy EMI plans", "Fast approval", "Minimal paperwork"],
@@ -56,7 +56,7 @@ const SERVICES: Service[] = [
   },
   {
     no: "S — 06",
-    icon: "🚑",
+    icon: "",
     title: "Roadside Assistance",
     desc: "Stuck on the road? Our team helps you get moving again with quick support.",
     points: ["Rapid response", "On-call support", "Peace of mind"],
@@ -64,7 +64,7 @@ const SERVICES: Service[] = [
   },
   {
     no: "S — 07",
-    icon: "🧴",
+    icon: "",
     title: "Wash & Detailing",
     desc: "Deep wash, polish and detailing that brings back the showroom shine.",
     points: ["Foam wash", "Polish & wax", "Showroom finish"],
@@ -72,7 +72,7 @@ const SERVICES: Service[] = [
   },
   {
     no: "S — 08",
-    icon: "🚚",
+    icon: "",
     title: "Pickup & Drop",
     desc: "Doorstep pickup and drop for your service appointment — book in a minute.",
     points: ["Doorstep pickup", "Track your job", "On-time drop"],
@@ -134,7 +134,7 @@ export default function ServicesShowcase() {
   return (
     <section className="zServices dark" id="services">
       <div className="zServicesHead reveal">
-        <div className="eyebrow red">▣ &nbsp; EVERYTHING YOUR RIDE NEEDS</div>
+        <div className="eyebrow red"> &nbsp; EVERYTHING YOUR RIDE NEEDS</div>
         <h2>
           ONE SHOWROOM.
           <br />

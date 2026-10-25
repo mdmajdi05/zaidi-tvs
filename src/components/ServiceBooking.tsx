@@ -18,17 +18,17 @@ const TIME_SLOTS = ["10-12", "12-2", "2-4", "4-6"];
 
 const INFO_CARDS = [
   {
-    icon: "🚚",
+    icon: "",
     title: "Free pickup & drop within city",
     text: "Doorstep collection and return, so you never lose a day.",
   },
   {
-    icon: "🔧",
+    icon: "",
     title: "Trained TVS technicians",
     text: "Factory-guided service by the people who know your ride.",
   },
   {
-    icon: "🧩",
+    icon: "",
     title: "Genuine parts & transparent estimate",
     text: "A clear quote before any work starts — no surprises.",
   },
@@ -265,7 +265,7 @@ export default function ServiceBooking() {
 
         {sent ? (
           <p className={styles.success} aria-live="polite">
-            ✅ WhatsApp opened with your booking — just press send and we will
+             WhatsApp opened with your booking — just press send and we will
             confirm your slot.
           </p>
         ) : null}

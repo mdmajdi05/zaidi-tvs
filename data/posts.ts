@@ -19,7 +19,7 @@ export const POSTS: Post[] = [
     category: "Maintenance",
     date: "2026-09-18",
     readTime: "4 min read",
-    cover: "/assets/reference.jpg",
+    cover: "/tvs/shop/vehicle-care.webp",
     author: "Zaidi TVS Service Team",
     body: [
       {
@@ -70,7 +70,7 @@ export const POSTS: Post[] = [
     category: "Buying Guide",
     date: "2026-08-30",
     readTime: "5 min read",
-    cover: "/assets/city-rider.jpg",
+    cover: "/tvs/products/jupiter.webp",
     author: "Zaidi TVS Sales Team",
     body: [
       {
@@ -116,7 +116,7 @@ export const POSTS: Post[] = [
     category: "Finance",
     date: "2026-08-12",
     readTime: "5 min read",
-    cover: "/assets/featured-bike.jpg",
+    cover: "/tvs/products/raider.webp",
     author: "Zaidi TVS Finance Desk",
     body: [
       {
@@ -157,7 +157,7 @@ export const POSTS: Post[] = [
     category: "Electric",
     date: "2026-07-25",
     readTime: "5 min read",
-    cover: "/assets/style-scooter.jpg",
+    cover: "/tvs/products/iqube.webp",
     author: "Zaidi TVS Sales Team",
     body: [
       {
@@ -200,7 +200,7 @@ export const POSTS: Post[] = [
     category: "Maintenance",
     date: "2026-07-05",
     readTime: "4 min read",
-    cover: "/assets/performance-bike.jpg",
+    cover: "/tvs/products/radeon.webp",
     author: "Zaidi TVS Service Team",
     body: [
       {
@@ -242,7 +242,7 @@ export const POSTS: Post[] = [
     category: "Rider Guide",
     date: "2026-06-20",
     readTime: "4 min read",
-    cover: "/assets/family-rider.jpg",
+    cover: "/tvs/products/ntorq-125.webp",
     author: "Zaidi TVS Sales Team",
     body: [
       {

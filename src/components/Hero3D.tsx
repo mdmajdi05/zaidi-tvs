@@ -130,9 +130,9 @@ export default function Hero3D() {
           <div className="h3d-cap" />
           <div className="h3d-lcd">
             <div className="h3d-indis">
-              <span className="h3d-indi left">◀</span>
-              <span className="h3d-beam">≣</span>
-              <span className="h3d-indi right">▶</span>
+              <span className="h3d-indi left"></span>
+              <span className="h3d-beam"></span>
+              <span className="h3d-indi right"></span>
             </div>
             <div className="h3d-speedrow">
               <span className="h3d-digits" ref={digitsRef}>000</span>
@@ -154,7 +154,7 @@ export default function Hero3D() {
         <div className="h3d-mount" aria-hidden="true" />
         <div className="h3d-badge">
           <b>SCROLL</b>
-          <small>METER HIGH KARO ↓</small>
+          <small>METER HIGH KARO </small>
         </div>
       </div>
     </div>

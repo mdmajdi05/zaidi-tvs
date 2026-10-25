@@ -94,7 +94,7 @@ export default async function SitemapHtmlPage({
       <section className="page-section dark">
         <div className="section-head">
           <div className="eyebrow red">
-            ▣ &nbsp; ALL PAGES · PAGE {current} OF {TOTAL_PAGES}
+             &nbsp; ALL PAGES · PAGE {current} OF {TOTAL_PAGES}
           </div>
           <h2
             style={{
@@ -144,7 +144,7 @@ export default async function SitemapHtmlPage({
               tabIndex={current === 1 ? -1 : undefined}
               rel="prev"
             >
-              ← Prev
+               Prev
             </Link>
 
             {pages.map((item, index) =>

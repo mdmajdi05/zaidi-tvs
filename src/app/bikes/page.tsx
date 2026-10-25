@@ -56,7 +56,7 @@ export default function BikesPage() {
       <section className="page-section dark">
         <div className="banner-strip" style={{ ["--banner-bg" as string]: "url('/assets/city-rider.jpg')", minHeight: 240 }}>
           <div>
-            <div className="eyebrow red">▣ &nbsp; RIDE THE RANGE</div>
+            <div className="eyebrow red"> &nbsp; RIDE THE RANGE</div>
             <h2>FROM COMMUTERS TO RACERS.</h2>
             <p>Free test rides all week · finance & exchange available</p>
           </div>
@@ -64,14 +64,14 @@ export default function BikesPage() {
 
         <Reveal>
           <div className="model360-wrap">
-            <div className="eyebrow red" style={{ textAlign: "center" }}>▣ &nbsp; REAL 360° · DRAG TO ROTATE</div>
+            <div className="eyebrow red" style={{ textAlign: "center" }}> &nbsp; REAL 360° · DRAG TO ROTATE</div>
             <Bike360 frames={spinFrames("apache-rtr-310")} alt="TVS Apache RTR 310 — 360° view" />
             <p className="model360-tag">DRAG · TVS APACHE RTR 310</p>
           </div>
         </Reveal>
 
         <div className="section-head" style={{ marginTop: 70 }}>
-          <div className="eyebrow red">▣ &nbsp; THE LINE-UP</div>
+          <div className="eyebrow red"> &nbsp; THE LINE-UP</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 30, margin: 0 }}>
             {lineUp.length} TVS MOTORCYCLES &amp; MOPEDS
           </h2>
@@ -86,7 +86,7 @@ export default function BikesPage() {
                 </Link>
                 <div>
                   <div className="eyebrow red">
-                    ▣ &nbsp; {bike.tagline}
+                     &nbsp; {bike.tagline}
                   </div>
                   <h3>
                     <Link href={`/bikes/${bike.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
@@ -94,9 +94,9 @@ export default function BikesPage() {
                     </Link>
                   </h3>
                   <div className="spec-row">
-                    <span>◉ {bike.engine}</span>
-                    <span>✦ {bike.mileage}</span>
-                    <span>⌁ {bike.weight}</span>
+                    <span> {bike.engine}</span>
+                    <span> {bike.mileage}</span>
+                    <span> {bike.weight}</span>
                   </div>
                   <p>{bike.desc}</p>
                   <div className="hero-buttons">

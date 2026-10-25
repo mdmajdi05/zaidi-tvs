@@ -136,7 +136,7 @@ export default function TimedOfferPopup() {
         <div className={styles.banner}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/performance-bike.jpg"
+            src="/TVS%20BIKES/tvs%20ronin/ronin.jpg"
             alt=""
             aria-hidden="true"
             loading="lazy"
@@ -172,7 +172,7 @@ export default function TimedOfferPopup() {
               rel="noopener noreferrer"
               onClick={close}
             >
-              <span aria-hidden="true">✆</span> Chat on WhatsApp
+              Chat on WhatsApp
             </a>
           </div>
 

@@ -2,12 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Oswald } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ScrollBike from "@/components/ScrollBike";
 import ChatWidget from "@/components/ChatWidget";
 import TimedOfferPopup from "@/components/TimedOfferPopup";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import { SITE, SITE_URL } from "@data/site";
 import "./globals.css";
+import "./theme.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -97,8 +97,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   // Keeps the browser chrome in step with the favicon above.
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#080b0f" },
-    { media: "(prefers-color-scheme: light)", color: "#f4f2ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
 };
 
@@ -110,11 +110,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
       className={`${inter.variable} ${oswald.variable}`}
     >
       <body>
+        {/* Apply the saved day/night choice before anything paints. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('zaidi-theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;}}catch(e){}})();",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={organizationSchema()}
@@ -126,7 +134,6 @@ export default function RootLayout({
         <a className="skipLink" href="#main-content">
           Skip to main content
         </a>
-        <ScrollBike />
         <Header />
         <main id="main-content">{children}</main>
         <Footer />

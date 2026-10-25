@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { BIKES, vehicleHref } from "@/lib/catalog";
 import { ADDRESS_LINE, CONTACT } from "@data/site";
 import BrandLogo from "./BrandLogo";
+import ThemeToggle from "./ThemeToggle";
 
 type ProductItem = { name: string; img: string; href: string };
 
@@ -318,7 +319,7 @@ export default function Header() {
                   aria-expanded={isOpen}
                   onFocus={() => openMega(item.label, item.menu![0].id)}
                 >
-                  {item.label} <span aria-hidden="true">▾</span>
+                  {item.label}
                 </Link>
                 {isOpen ? (
                   <div onMouseEnter={() => openMega(item.label, hoverTab)}>
@@ -332,8 +333,9 @@ export default function Header() {
       </nav>
 
       <div className="header-actions">
+        <ThemeToggle />
         <a className="phone" href={CONTACT.phoneHref}>
-          ⌕ {CONTACT.phone}
+          {CONTACT.phone}
         </a>
         <Link className="book-mini" href="/contact">
           Book Test Ride
@@ -394,10 +396,11 @@ export default function Header() {
           </div>
         </nav>
         <div className="drawer-foot">
+          <ThemeToggle className="theme-toggle-drawer" />
           <a href={CONTACT.phoneHref} tabIndex={open ? 0 : -1}>
-            ⌕ {CONTACT.phone}
+            {CONTACT.phone}
           </a>
-          <span>⌖ {ADDRESS_LINE}</span>
+          <span>{ADDRESS_LINE}</span>
         </div>
       </div>
     </header>

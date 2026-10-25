@@ -49,7 +49,7 @@ export default function BlogPage() {
 
       <section className="page-section section-light">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; LATEST STORIES</div>
+          <div className="eyebrow red"> &nbsp; LATEST STORIES</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",

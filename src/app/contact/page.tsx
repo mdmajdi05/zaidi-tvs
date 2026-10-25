@@ -62,16 +62,16 @@ export default function ContactPage() {
                 SHOWROOM DETAILS
               </h2>
               <h3>Address</h3>
-              <p>⌖ {ADDRESS_LINE}</p>
+              <p> {ADDRESS_LINE}</p>
               <h3>Phone</h3>
-              <a href={CONTACT.phoneHref}>⌕ {CONTACT.phone}</a>
+              <a href={CONTACT.phoneHref}> {CONTACT.phone}</a>
               <h3>WhatsApp</h3>
               <a
                 href={CONTACT.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                ◉ Chat with us on WhatsApp
+                 Chat with us on WhatsApp
               </a>
               <h3>Hours</h3>
               <p>{HOURS_SHORT}</p>
@@ -111,7 +111,7 @@ export default function ContactPage() {
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
             />
-            <legend aria-hidden="true">⌖ Zaidi TVS — {ADDRESS_LINE}</legend>
+            <legend aria-hidden="true"> Zaidi TVS — {ADDRESS_LINE}</legend>
           </div>
         </Reveal>
 

@@ -118,7 +118,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
       <section className="page-section dark">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; NEED HELP?</div>
+          <div className="eyebrow red"> &nbsp; NEED HELP?</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",
@@ -150,7 +150,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
       <section className="page-section section-light">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; KEEP READING</div>
+          <div className="eyebrow red"> &nbsp; KEEP READING</div>
           <h2
             style={{
               fontFamily: "Oswald, Arial, sans-serif",

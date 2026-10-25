@@ -13,36 +13,29 @@ type GalleryItem = {
 };
 
 const ITEMS: GalleryItem[] = [
-  { src: "/assets/location-bg.jpg", alt: "Zaidi TVS showroom in Chandpur", cat: "Showroom" },
-  { src: "/assets/reference.jpg", alt: "Customer area at the Zaidi TVS showroom", cat: "Showroom" },
-  { src: "/assets/cta-bg.jpg", alt: "Sales floor at Zaidi TVS, Chandpur", cat: "Showroom" },
-
-  { src: "/tvs/products/apache-rtr-310.webp", alt: "TVS Apache RTR 310 studio shot", cat: "Bikes" },
+  { src: "/tvs/products/apache-rtr-310.webp", alt: "TVS Apache RTR 310", cat: "Bikes" },
+  { src: "/tvs/products/apache-rtr-160-4v.webp", alt: "TVS Apache RTR 160 4V", cat: "Bikes" },
+  { src: "/tvs/products/apache-rtr-200-4v.webp", alt: "TVS Apache RTR 200 4V", cat: "Bikes" },
+  { src: "/tvs/products/apache-rr-310.webp", alt: "TVS Apache RR 310", cat: "Bikes" },
   { src: "/tvs/products/apache-rtx.png", alt: "TVS Apache RTX", cat: "Bikes" },
-  { src: "/tvs/products/ntorq-125.webp", alt: "TVS NTORQ 125 scooter", cat: "Bikes" },
-  { src: "/tvs/products/ronin.webp", alt: "TVS Ronin motorcycle", cat: "Bikes" },
-  { src: "/tvs/products/raider.webp", alt: "TVS Raider motorcycle", cat: "Bikes" },
+  { src: "/tvs/products/ronin.webp", alt: "TVS Ronin", cat: "Bikes" },
+  { src: "/tvs/products/raider.webp", alt: "TVS Raider 125", cat: "Bikes" },
+  { src: "/tvs/products/radeon.webp", alt: "TVS Radeon", cat: "Bikes" },
+  { src: "/tvs/products/sport.webp", alt: "TVS Sport", cat: "Bikes" },
+  { src: "/tvs/products/jupiter.webp", alt: "TVS Jupiter", cat: "Bikes" },
+  { src: "/tvs/products/jupiter-125.webp", alt: "TVS Jupiter 125", cat: "Bikes" },
+  { src: "/tvs/products/ntorq-125.webp", alt: "TVS NTORQ 125", cat: "Bikes" },
+  { src: "/tvs/products/ntorq-150.png", alt: "TVS NTORQ 150", cat: "Bikes" },
+  { src: "/tvs/products/zest-110.webp", alt: "TVS Zest 110", cat: "Bikes" },
   { src: "/tvs/products/iqube.webp", alt: "TVS iQube electric scooter", cat: "Bikes" },
-  { src: "/TVS%20BIKES/Apache%20RTR310/DOHC1037_573.webp", alt: "TVS Apache RTR 310 engine detail", cat: "Bikes" },
+  { src: "/tvs/products/orbiter.webp", alt: "TVS Orbiter electric scooter", cat: "Bikes" },
+  { src: "/tvs/products/tvs-x.webp", alt: "TVS X electric scooter", cat: "Bikes" },
+  { src: "/tvs/products/xl100.webp", alt: "TVS XL100 moped", cat: "Bikes" },
   { src: "/TVS%20BIKES/Apache%20rtx310/RIDER%20WITH%20BIKE-D.webp", alt: "Rider with the TVS Apache RTX", cat: "Bikes" },
-  { src: "/TVS%20BIKES/Apache%20rr310%20-%20Copy/apacherr310.jpg", alt: "TVS Apache RR 310 on the road", cat: "Bikes" },
-  { src: "/TVS%20BIKES/tvs%20ronin/ronin.jpg", alt: "TVS Ronin lifestyle shot", cat: "Bikes" },
-
-  { src: "/tvs/shop/vehicle-care.webp", alt: "Vehicle care products at Zaidi TVS", cat: "Service" },
-  { src: "/tvs/shop/protection-security.webp", alt: "Protection and security accessories", cat: "Service" },
-  { src: "/tvs/shop/riding-gear.webp", alt: "Riding gear available at the store", cat: "Service" },
-  { src: "/tvs/shop/touring-accessories.webp", alt: "Touring accessories for two-wheelers", cat: "Service" },
-  { src: "/tvs/shop/helmets.webp", alt: "TVS helmets on display", cat: "Service" },
-
-  { src: "/assets/family-rider.jpg", alt: "Family riders at a Zaidi TVS event", cat: "Events" },
-  { src: "/assets/city-rider.jpg", alt: "City rider in Chandpur", cat: "Events" },
-  { src: "/assets/quiz-rider.jpg", alt: "Rider at a Zaidi TVS community ride", cat: "Events" },
-  { src: "/assets/performance-bike.jpg", alt: "Performance ride event", cat: "Events" },
-  { src: "/assets/style-scooter.jpg", alt: "Scooter styling at a Zaidi TVS meet", cat: "Events" },
-  { src: "/assets/hero-bike.jpg", alt: "TVS rider on the open road", cat: "Events" },
+  { src: "/TVS%20BIKES/tvs%20ronin/ronin.jpg", alt: "TVS Ronin on the road", cat: "Bikes" },
 ];
 
-const CATEGORIES: Category[] = ["Showroom", "Bikes", "Service", "Events"];
+const CATEGORIES: Category[] = ["Bikes"];
 const ALL = "All" as const;
 type Filter = typeof ALL | Category;
 
@@ -136,23 +129,14 @@ export default function GalleryGrid({ limit }: { limit?: number }) {
   return (
     <div className={styles.wrap}>
       <div className="section-head">
-        <div className="eyebrow red">▣ &nbsp; GALLERY</div>
-        <h2
-          style={{
-            fontFamily: "Oswald, Arial, sans-serif",
-            fontStyle: "italic",
-            fontSize: 30,
-            margin: 0,
-          }}
-        >
-          INSIDE ZAIDI TVS
-        </h2>
+        <div className="eyebrow red"> &nbsp; GALLERY</div>
+        <h2>Inside Zaidi TVS</h2>
         <p style={{ color: "inherit", opacity: 0.68, fontSize: 13, margin: "8px 0 0" }}>
-          Moments from the showroom, the workshop and the road.
+          Every TVS motorcycle, scooter and electric available at our Chandpur showroom.
         </p>
       </div>
 
-      {!limit ? (
+      {!limit && CATEGORIES.length > 1 ? (
         <div className={styles.chips} role="group" aria-label="Filter gallery by category">
           {[ALL, ...CATEGORIES].map((cat) => (
             <button

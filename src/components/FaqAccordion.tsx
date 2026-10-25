@@ -84,7 +84,7 @@ export default function FaqAccordion({
       <div className={styles.toolbar}>
         <div className={styles.searchField}>
           <span className={styles.searchIcon} aria-hidden="true">
-            ⌕
+            
           </span>
           <label className={styles.searchLabel} htmlFor={`${uid}-search`}>
             Search questions
@@ -164,7 +164,7 @@ export default function FaqAccordion({
                       {item.q}
                     </span>
                     <span className={styles.chevron} aria-hidden="true">
-                      ⌄
+                      
                     </span>
                   </button>
                 </h3>

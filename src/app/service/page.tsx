@@ -27,14 +27,14 @@ const STEPS = [
 ];
 
 const SERVICES = [
-  "🔧 Periodic Service",
-  "🧩 Genuine Parts",
-  "📄 Insurance Renewal",
-  "🔄 Vehicle Exchange",
-  "🛞 Tyre & Wheel Care",
-  "🔋 Battery & Electrics",
-  "🧴 Wash & Polish",
-  "🚑 Emergency Support",
+  " Periodic Service",
+  " Genuine Parts",
+  " Insurance Renewal",
+  " Vehicle Exchange",
+  " Tyre & Wheel Care",
+  " Battery & Electrics",
+  " Wash & Polish",
+  " Emergency Support",
 ];
 
 export default function ServicePage() {
@@ -66,14 +66,14 @@ export default function ServicePage() {
       <section className="page-section dark">
         <div className="banner-strip" style={{ ["--banner-bg" as string]: "url('/assets/cta-bg.jpg')", minHeight: 260 }}>
           <div>
-            <div className="eyebrow red">▣ &nbsp; OUR WORKSHOP</div>
+            <div className="eyebrow red"> &nbsp; OUR WORKSHOP</div>
             <h2>TRUSTED WORKSHOP. HONEST SERVICE.</h2>
             <p>Factory-trained technicians · genuine TVS parts · transparent pricing</p>
           </div>
         </div>
 
         <div className="section-head" style={{ marginTop: 70 }}>
-          <div className="eyebrow red">▣ &nbsp; HOW IT WORKS</div>
+          <div className="eyebrow red"> &nbsp; HOW IT WORKS</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
             SERVICE IN 4 EASY STEPS
           </h2>
@@ -96,7 +96,7 @@ export default function ServicePage() {
         </div>
 
         <div className="section-head" style={{ marginTop: 70 }}>
-          <div className="eyebrow red">▣ &nbsp; BOOK A SLOT</div>
+          <div className="eyebrow red"> &nbsp; BOOK A SLOT</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
             BOOK A SERVICE SLOT
           </h2>
@@ -116,7 +116,7 @@ export default function ServicePage() {
               padding: 24,
             }}
           >
-            <div className="eyebrow red">▣ &nbsp; WHAT WE DO</div>
+            <div className="eyebrow red"> &nbsp; WHAT WE DO</div>
             <h2
               style={{
                 fontFamily: "Oswald, Arial, sans-serif",

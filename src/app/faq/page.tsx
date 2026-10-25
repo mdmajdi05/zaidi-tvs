@@ -63,7 +63,7 @@ export default function FaqPage() {
 
       <section className="page-section dark">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; QUICK ANSWERS</div>
+          <div className="eyebrow red"> &nbsp; QUICK ANSWERS</div>
           <h2 style={HEADING_STYLE}>FREQUENTLY ASKED QUESTIONS</h2>
           <p style={{ color: "inherit", opacity: 0.68, fontSize: 13, margin: "8px 0 0" }}>
             Search below or browse by topic.
@@ -77,7 +77,7 @@ export default function FaqPage() {
 
       <section className="page-section section-light">
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; STILL NEED HELP?</div>
+          <div className="eyebrow red"> &nbsp; STILL NEED HELP?</div>
           <h2 style={HEADING_STYLE}>TALK TO A REAL PERSON.</h2>
           <p style={{ color: "inherit", opacity: 0.68, fontSize: 13, margin: "8px 0 0" }}>
             Call, message or drop by the showroom — we will help you sort it out.
@@ -88,7 +88,7 @@ export default function FaqPage() {
           <Reveal>
             <div className={styles.helpCard}>
               <span className={styles.helpIcon} aria-hidden="true">
-                ⌕
+                
               </span>
               <h3>Call us</h3>
               <p>
@@ -102,7 +102,7 @@ export default function FaqPage() {
           <Reveal>
             <div className={styles.helpCard}>
               <span className={styles.helpIcon} aria-hidden="true">
-                ◉
+                
               </span>
               <h3>WhatsApp us</h3>
               <p>
@@ -123,7 +123,7 @@ export default function FaqPage() {
           <Reveal>
             <div className={styles.helpCard}>
               <span className={styles.helpIcon} aria-hidden="true">
-                ⌖
+                
               </span>
               <h3>Visit the showroom</h3>
               <p>

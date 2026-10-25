@@ -22,14 +22,14 @@ export const metadata: Metadata = createMetadata({
 });
 
 const CATEGORIES = [
-  { icon: "⚙", title: "Engine Parts", text: "Pistons, valves, clutch and engine kits — always genuine TVS." },
-  { icon: "◧", title: "Body Panels", text: "Fenders, side panels and fairings in factory colors." },
-  { icon: "⌁", title: "Electrics", text: "Batteries, bulbs, wiring harnesses and spark plugs." },
-  { icon: "◇", title: "Brake & Clutch", text: "Discs, brake shoes, cables and lever assemblies." },
-  { icon: "▱", title: "Tyres & Tubes", text: "TVS-approved tyres and tubes for every model." },
-  { icon: "☆", title: "Accessories", text: "Seat covers, luggage, smartphone mounts and more." },
-  { icon: "▲", title: "Safety Gear", text: "Helmets, gloves and protective gear for every rider." },
-  { icon: "♥", title: "Lubricants", text: "TVS genuine engine oils and coolants, fit for your engine." },
+  { icon: "", title: "Engine Parts", text: "Pistons, valves, clutch and engine kits — always genuine TVS." },
+  { icon: "", title: "Body Panels", text: "Fenders, side panels and fairings in factory colors." },
+  { icon: "", title: "Electrics", text: "Batteries, bulbs, wiring harnesses and spark plugs." },
+  { icon: "", title: "Brake & Clutch", text: "Discs, brake shoes, cables and lever assemblies." },
+  { icon: "", title: "Tyres & Tubes", text: "TVS-approved tyres and tubes for every model." },
+  { icon: "", title: "Accessories", text: "Seat covers, luggage, smartphone mounts and more." },
+  { icon: "", title: "Safety Gear", text: "Helmets, gloves and protective gear for every rider." },
+  { icon: "", title: "Lubricants", text: "TVS genuine engine oils and coolants, fit for your engine." },
 ];
 
 export default function PartsPage() {
@@ -61,14 +61,14 @@ export default function PartsPage() {
       <section className="page-section dark">
         <div className="banner-strip" style={{ ["--banner-bg" as string]: "url('/assets/location-bg.jpg')", minHeight: 240 }}>
           <div>
-            <div className="eyebrow red">▣ &nbsp; PARTS &amp; ACCESSORIES STORE</div>
+            <div className="eyebrow red"> &nbsp; PARTS &amp; ACCESSORIES STORE</div>
             <h2>REAL PARTS. REAL FITTING.</h2>
             <p>Ask for a part by model name — we stock it, we fit it.</p>
           </div>
         </div>
 
         <div className="section-head" style={{ marginTop: 70 }}>
-          <div className="eyebrow red">▣ &nbsp; WHAT WE CARRY</div>
+          <div className="eyebrow red"> &nbsp; WHAT WE CARRY</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
             EVERYTHING YOUR RIDE NEEDS
           </h2>
@@ -91,7 +91,7 @@ export default function PartsPage() {
         </div>
 
         <div className="section-head" style={{ marginTop: 70 }}>
-          <div className="eyebrow red">▣ &nbsp; IN STOCK</div>
+          <div className="eyebrow red"> &nbsp; IN STOCK</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
             POPULAR GENUINE PARTS
           </h2>
@@ -116,7 +116,7 @@ export default function PartsPage() {
         </div>
 
         <div className="section-head" style={{ marginTop: 70 }}>
-          <div className="eyebrow red">▣ &nbsp; SHOP BY MODEL</div>
+          <div className="eyebrow red"> &nbsp; SHOP BY MODEL</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
             FIND PARTS FOR YOUR TVS
           </h2>
@@ -132,7 +132,7 @@ export default function PartsPage() {
         <Reveal>
           <div className="parts-strip" style={{ border: "1px solid #161c22", borderRadius: 10, marginTop: 45 }}>
             <div>
-              <div className="eyebrow red">▣ &nbsp; NEED A PART?</div>
+              <div className="eyebrow red"> &nbsp; NEED A PART?</div>
               <h2>ORDER IT IN MINUTES</h2>
               <p>
                 Send us your model and part name on WhatsApp — we will confirm

@@ -19,9 +19,9 @@ export const metadata: Metadata = createMetadata({
 });
 
 const VALUES = [
-  { icon: "✓", title: "Genuine & Trusted", text: "Authorized TVS dealership with 100% genuine products and transparent pricing." },
-  { icon: "⚙", title: "Service First", text: "Trained technicians, factory-grade tools and quick turnaround on every service." },
-  { icon: "⌁", title: "Always Connected", text: "Helpful support before, during and after your purchase — one call away." },
+  { icon: "", title: "Genuine & Trusted", text: "Authorized TVS dealership with 100% genuine products and transparent pricing." },
+  { icon: "", title: "Service First", text: "Trained technicians, factory-grade tools and quick turnaround on every service." },
+  { icon: "", title: "Always Connected", text: "Helpful support before, during and after your purchase — one call away." },
   { icon: "★", title: "Rider Community", text: "Test rides, service camps and a growing family of happy Zaidi riders." },
 ];
 
@@ -59,7 +59,7 @@ export default function AboutPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/assets/reference.jpg" alt="Inside the Zaidi TVS showroom" />
               <div className="about-photo-cap">
-                <i>●</i> Our showroom — {ADDRESS_LINE}
+                <i></i> Our showroom — {ADDRESS_LINE}
               </div>
             </div>
             <div>
@@ -111,7 +111,7 @@ export default function AboutPage() {
 
       <section className="page-section" style={{ background: "#f5f5f3", color: "#111" }}>
         <div className="section-head">
-          <div className="eyebrow red">▣ &nbsp; WHAT WE STAND FOR</div>
+          <div className="eyebrow red"> &nbsp; WHAT WE STAND FOR</div>
           <h2 style={{ fontFamily: "Oswald, Arial, sans-serif", fontStyle: "italic", fontSize: 26, margin: 0 }}>
             OUR VALUES
           </h2>
