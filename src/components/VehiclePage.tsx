@@ -118,8 +118,8 @@ export default function VehiclePage({ vehicle: m }: { vehicle: Vehicle }) {
                 <a className="btn ghost" href={wa(`Please share the on-road price of the ${m.name}.`)} target="_blank" rel="noopener noreferrer">
                   GET ON-ROAD PRICE <span>→</span>
                 </a>
-                <a className="btn ghost" href={CONTACT.phoneHref}>
-                  CALL {CONTACT.phone} <span>→</span>
+                <a className="btn ghost" href={CONTACT.salesPhoneHref}>
+                  CALL {CONTACT.salesPhone} <span>→</span>
                 </a>
               </div>
             </div>

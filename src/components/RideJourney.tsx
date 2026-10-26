@@ -155,10 +155,10 @@ export default function RideJourney() {
             </a>
             <a
               className={styles.secondaryCta}
-              href={CONTACT.phoneHref}
-              aria-label={`Call ${CONTACT.phone}`}
+              href={CONTACT.servicePhoneHref}
+              aria-label={`Call ${CONTACT.servicePhone}`}
             >
-              Call {CONTACT.phone}
+              Call {CONTACT.servicePhone}
             </a>
           </div>
         </footer>

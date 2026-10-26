@@ -1,31 +1,32 @@
 /**
- * Zaidi TVS wordmark — theme aware.
+ * Zaidi TVS logo — theme aware.
  *
- * Two transparent PNGs ship with the site: a white "ZAIDI" lockup for dark
- * surfaces and a black one for light surfaces. Both are rendered and swapped
- * with CSS, so the correct logo paints on the very first frame — no JS, no
- * hydration hop and no flash of the wrong colour.
+ * The square "ZAIDI / TVS / CHANDPUR" logo is used in the header and footer.
+ * Two transparent PNGs are generated from the showroom logo so the black
+ * "CHANDPUR" line stays readable on both surfaces: the dark variant recolours
+ * the neutral text white, the light variant keeps it black.
+ *
+ * Both are rendered and swapped with CSS, so the correct logo paints on the
+ * very first frame — no JS, no hydration hop and no flash of the wrong colour.
  *
  * Precedence:
- *   1. default             -> white lockup (this site is dark)
+ *   1. default             -> white text lockup (this site is dark)
  *   2. :root[data-theme]   -> follows the site theme set on <html>
  *   3. `surface` prop      -> follows the surface this instance sits on
  *
  * Size comes from the `--logo-h` custom property (any CSS length), so a parent
- * can scale every instance with one rule, e.g. `.footer-brand { --logo-h: 34px }`.
+ * can scale every instance with one rule, e.g. `.footer-brand { --logo-h: 60px }`.
  */
 import type { CSSProperties } from "react";
 
-/** White "ZAIDI" + red TVS — for dark surfaces. */
-export const LOGO_ON_DARK =
-  "/Website_Logo/Transparent/ZAIDI_TVS_Logo_ZAIDI_White_TVS_Red_Transparent.png";
+/** White "CHANDPUR" text — for dark surfaces. */
+export const LOGO_ON_DARK = "/Website_Logo/zaidi-tvs-logo-dark.png";
 
-/** Black "ZAIDI" + red TVS — for light surfaces. */
-export const LOGO_ON_LIGHT =
-  "/Website_Logo/Transparent/ZAIDI_TVS_Logo_ZAIDI_Black_TVS_Red_Transparent.png";
+/** Black "CHANDPUR" text — for light surfaces. */
+export const LOGO_ON_LIGHT = "/Website_Logo/zaidi-tvs-logo-light.png";
 
 /** Intrinsic size of both PNGs, used to reserve layout space (no CLS). */
-export const LOGO_INTRINSIC = { width: 822, height: 136 } as const;
+export const LOGO_INTRINSIC = { width: 294, height: 262 } as const;
 
 type Props = {
   /** Extra class on the wrapper. */

@@ -185,7 +185,8 @@
 }
 
 .primary,
-.whatsapp {
+.whatsapp,
+.call {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -226,8 +227,20 @@
   background: rgba(37, 211, 102, 0.08);
 }
 
+.call {
+  border: 1px solid rgba(239, 41, 49, 0.35);
+  background: #ffffff;
+  color: #c41e24;
+}
+
+.call:hover {
+  border-color: #ef2931;
+  background: rgba(239, 41, 49, 0.07);
+}
+
 .primary:focus-visible,
-.whatsapp:focus-visible {
+.whatsapp:focus-visible,
+.call:focus-visible {
   outline: 2px solid #ef2931;
   outline-offset: 2px;
 }
@@ -298,7 +311,8 @@
   }
 
   .primary,
-  .whatsapp {
+  .whatsapp,
+  .call {
     min-height: 48px;
   }
 }
@@ -354,4 +368,10 @@
 :global(html[data-theme="dark"]) .text,
 :global(html[data-theme="dark"]) .note {
   color: #a7aebc;
+}
+
+:global(html[data-theme="dark"]) .call {
+  background: transparent;
+  border-color: rgba(239, 41, 49, 0.5);
+  color: #ff6b70;
 }

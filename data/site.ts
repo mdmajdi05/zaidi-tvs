@@ -81,7 +81,7 @@ export const SITE = {
   /** Default social share (OpenGraph/Twitter) image, site-root ke relative. */
   ogImage: "/assets/hero-bike.jpg",
   /** Organization logo (schema.org). */
-  logo: "/Website_Logo/Transparent/ZAIDI_TVS_Logo_ZAIDI_White_TVS_Red_Transparent.png",
+  logo: "/Website_Logo/zaidi-tvs-logo.png",
 };
 
 /* ---------------------------------------------------------------------------
@@ -91,11 +91,18 @@ export const SITE = {
  *    whatsapp   = country code ke saath, sirf digits
  * -------------------------------------------------------------------------*/
 export const CONTACT = {
+  /** Sales / showroom number — bikes, scooters, test rides, pricing. */
+  salesPhone: "+91 74029 62786",
+  salesPhoneHref: "tel:+917402962786",
+  /** Service / workshop number — servicing, repairs, spare parts. */
+  servicePhone: "+91 90090 10050",
+  servicePhoneHref: "tel:+919009010050",
+  /** Generic main desk (service reception) — legacy alias. */
   phone: "+91 90090 10050",
   phoneHref: "tel:+919009010050",
   whatsapp: "919009010050",
   whatsappHref: "https://wa.me/919009010050",
-  /** VISIT & TIMES / branch cards me dikhne wala number. */
+  /** Sales number for VISIT & TIMES / branch cards (legacy alias). */
   visitPhone: "+91 74029 62786",
   /** Email add karna ho to yahan likho (khaali chhodne par kahin nahi dikhega). */
   email: "",
@@ -143,17 +150,17 @@ export const MAP_EMBED_URL =
  *    ⚠️ Order mat badlo: Monday pehle, Sunday sabse aakhir me.
  * -------------------------------------------------------------------------*/
 export const HOURS: Array<{ day: string; time: string }> = [
-  { day: "Monday", time: "10:00 AM – 8:00 PM" },
-  { day: "Tuesday", time: "10:00 AM – 8:00 PM" },
-  { day: "Wednesday", time: "10:00 AM – 8:00 PM" },
-  { day: "Thursday", time: "10:00 AM – 8:00 PM" },
-  { day: "Friday", time: "10:00 AM – 8:00 PM" },
-  { day: "Saturday", time: "10:00 AM – 8:00 PM" },
-  { day: "Sunday", time: "11:00 AM – 5:00 PM" },
+  { day: "Monday", time: "10:00 AM – 6:00 PM" },
+  { day: "Tuesday", time: "10:00 AM – 6:00 PM" },
+  { day: "Wednesday", time: "10:00 AM – 6:00 PM" },
+  { day: "Thursday", time: "10:00 AM – 6:00 PM" },
+  { day: "Friday", time: "10:00 AM – 6:00 PM" },
+  { day: "Saturday", time: "10:00 AM – 6:00 PM" },
+  { day: "Sunday", time: "10:00 AM – 6:00 PM" },
 ];
 
 /** Ek line wali timings (cards me dikhti hai). */
-export const HOURS_SHORT = "Mon – Sat: 10:00 AM – 8:00 PM · Sun: 11:00 AM – 5:00 PM";
+export const HOURS_SHORT = "Mon – Sun: 10:00 AM – 6:00 PM";
 
 /* ---------------------------------------------------------------------------
  * 6) SOCIAL MEDIA
@@ -198,6 +205,8 @@ export const CHATBOT = {
     "Service booking + pickup",
     "EMI / finance options",
     "Showroom timing & address",
+    "Aaj ke offers",
+    "Electric scooter (iQube)",
   ],
   /** ServiBot (ya similar) key — sirf provider = "servibot" hone par chahiye. */
   servibotKey: "",

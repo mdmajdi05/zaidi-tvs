@@ -95,7 +95,7 @@ export default function FaqPage() {
                 Speak to our team during showroom hours for prices, offers and
                 availability.
               </p>
-              <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+              <a href={CONTACT.salesPhoneHref}>{CONTACT.salesPhone}</a>
             </div>
           </Reveal>
 

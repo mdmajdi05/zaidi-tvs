@@ -10,7 +10,7 @@ import { DOORSTEP } from "@/lib/branches";
 export const metadata: Metadata = createMetadata({
   title: "Showroom, Timings & Location",
   description:
-    "Visit Zaidi TVS in Chandpur, Uttar Pradesh — main showroom, service centre and parts & accessories counter, with timings, directions and doorstep pickup & drop.",
+    "Visit Zaidi TVS in Chandpur, Uttar Pradesh — sales showroom plus service and spare parts, with timings, directions and doorstep pickup & drop.",
   path: "/branches",
   keywords: [
     "Zaidi TVS address Chandpur",
@@ -29,8 +29,8 @@ const QUICK_ACTIONS = [
     icon: "",
     title: "Call us",
     text: "Talk to our team during showroom hours for models, prices and bookings.",
-    href: CONTACT.phoneHref,
-    cta: `CALL ${CONTACT.phone}`,
+    href: CONTACT.salesPhoneHref,
+    cta: `CALL ${CONTACT.salesPhone}`,
   },
   {
     icon: "",
@@ -65,7 +65,7 @@ export default function BranchesPage() {
       <PageHero
         eyebrow="SHOWROOM & TIMINGS"
         title="FIND US IN CHANDPUR."
-        subtitle={`One dealership, three counters — sales, service and genuine parts — all in ${ADDRESS_SHORT}.`}
+        subtitle={`One dealership, two counters — sales and service with genuine spare parts — all in ${ADDRESS_SHORT}.`}
       />
 
       <section className="page-section dark">

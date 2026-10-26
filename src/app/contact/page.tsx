@@ -17,7 +17,7 @@ import {
 
 export const metadata: Metadata = createMetadata({
   title: "Contact & Showroom",
-  description: `Contact Zaidi TVS, Chandpur (Uttar Pradesh) — call ${CONTACT.phone}, chat on WhatsApp or visit the showroom on ${ADDRESS_LINE}. Book a free test ride, service slot or check today's price.`,
+  description: `Contact Zaidi TVS, Chandpur (Uttar Pradesh) — call ${CONTACT.salesPhone} for sales or ${CONTACT.servicePhone} for service, chat on WhatsApp or visit the showroom on ${ADDRESS_LINE}.`,
   path: "/contact",
   keywords: [
     "contact Zaidi TVS",
@@ -63,8 +63,10 @@ export default function ContactPage() {
               </h2>
               <h3>Address</h3>
               <p> {ADDRESS_LINE}</p>
-              <h3>Phone</h3>
-              <a href={CONTACT.phoneHref}> {CONTACT.phone}</a>
+              <h3>Sales &amp; test rides</h3>
+              <a href={CONTACT.salesPhoneHref}> {CONTACT.salesPhone}</a>
+              <h3>Service &amp; spare parts</h3>
+              <a href={CONTACT.servicePhoneHref}> {CONTACT.servicePhone}</a>
               <h3>WhatsApp</h3>
               <a
                 href={CONTACT.whatsappHref}
@@ -121,8 +123,8 @@ export default function ContactPage() {
               Prefer talking? Call us directly during showroom hours — real
               people, real answers, no waiting.
             </p>
-            <a className="btn primary" href={CONTACT.phoneHref} style={{ marginTop: 16 }}>
-              CALL {CONTACT.phone} <span>→</span>
+            <a className="btn primary" href={CONTACT.salesPhoneHref} style={{ marginTop: 16 }}>
+              CALL {CONTACT.salesPhone} <span>→</span>
             </a>
           </div>
         </Reveal>

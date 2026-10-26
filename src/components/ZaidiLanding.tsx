@@ -10,8 +10,6 @@ import {
   SOCIAL,
 } from "@data/site";
 import { useEffect, useRef, useState } from "react";
-import EngineWorks from "./EngineWorks";
-import Bike360 from "./Bike360";
 import BlogTeaser from "./BlogTeaser";
 import BookingModal from "./BookingModal";
 import CompareTool from "./CompareTool";
@@ -26,7 +24,6 @@ import StatsBand from "./StatsBand";
 import { BIKES, PRODUCT_IMAGES, vehicleHref } from "@/lib/catalog";
 import { AGGREGATE, REVIEWS } from "@/lib/reviews";
 import { TOP_FAQS } from "@/lib/faqs";
-import { spinFrames } from "@/lib/spinFrames";
 
 /** "Discover Your Ride" rail — category tabs derived from the catalogue. */
 const RIDE_KIND_LABEL: Record<string, string> = {
@@ -50,9 +47,6 @@ const RIDE_TABS: Array<{ id: string; label: string }> = Array.from(
   label: RIDE_KIND_LABEL[kind] ?? kind,
 }));
 
-/** Real TVS 360° turntable frames for the featured scooter showcase. */
-const NTORQ_FRAMES = spinFrames("ntorq");
-
 /** Bikes offered in the booking form. */
 const BOOKING_BIKES = BIKES.map((b) => ({
   slug: b.slug,
@@ -62,33 +56,6 @@ const BOOKING_BIKES = BIKES.map((b) => ({
   power: b.power,
   price: b.price,
 }));
-
-const QUIZ_OPTIONS = [
-  {
-    label: "Daily",
-    hint: "City commutes, college runs, everyday errands",
-    result: "TVS Jupiter could be your perfect daily ride.",
-    href: "/scooters/jupiter",
-  },
-  {
-    label: "Sporty",
-    hint: "Quick acceleration, sharp handling, weekend fun",
-    result: "TVS Ntorq 125 matches your sporty side.",
-    href: "/scooters/ntorq-125",
-  },
-  {
-    label: "Family",
-    hint: "Comfort, stability and space for two",
-    result: "TVS Jupiter 125 fits comfort-focused family rides.",
-    href: "/scooters/jupiter-125",
-  },
-  {
-    label: "Premium",
-    hint: "Feature-first touring and long-distance comfort",
-    result: "Explore the premium TVS range at our showroom.",
-    href: "/bikes",
-  },
-];
 
 /**
  * Home hero — every banner from the TVS Motor homepage hero slider.
@@ -119,16 +86,10 @@ const HERO_SLIDES: Array<{ desktop: string; mobile: string; alt: string }> = [
 export default function ZaidiLanding() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [, setMenuOpen] = useState(false);
-  const [quizResult, setQuizResult] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [activeThumb, setActiveThumb] = useState(0);
   const [heroSlide, setHeroSlide] = useState(0);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingSlug, setBookingSlug] = useState<string | null>(null);
   const [rideTab, setRideTab] = useState<string>(RIDE_TABS[0].id);
-  const startQuizRef = useRef<HTMLButtonElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
-  const closeBtnRef = useRef<HTMLButtonElement>(null);
   const rideRailRef = useRef<HTMLDivElement>(null);
 
   const rideCards = BIKES.filter((b) => b.kind === rideTab);
@@ -175,17 +136,6 @@ export default function ZaidiLanding() {
     return () => window.clearInterval(id);
   }, []);
 
-  // Modal: escape, backdrop click, focus management
-  useEffect(() => {
-    if (!modalOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setModalOpen(false);
-    };
-    document.addEventListener("keydown", onKeyDown);
-    closeBtnRef.current?.focus();
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [modalOpen]);
-
   // Mobile menu close on resize
   useEffect(() => {
     const onResize = () => {
@@ -195,23 +145,10 @@ export default function ZaidiLanding() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const openModal = () => {
-    setModalOpen(true);
-    setActiveThumb(0);
-  };
-
   const openBooking = (slug?: string | null) => {
     setBookingSlug(slug ?? null);
     setBookingOpen(true);
   };
-
-  // Body scroll lock while modal is open
-  useEffect(() => {
-    document.body.style.overflow = modalOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [modalOpen]);
 
   return (
     <div ref={rootRef}>
@@ -249,6 +186,25 @@ export default function ZaidiLanding() {
               </div>
             );
           })}
+
+          <div className="hero-slide-nav">
+            <button
+              type="button"
+              aria-label="Previous slide"
+              onClick={() =>
+                setHeroSlide((index) => (index - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)
+              }
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              aria-label="Next slide"
+              onClick={() => setHeroSlide((index) => (index + 1) % HERO_SLIDES.length)}
+            >
+              →
+            </button>
+          </div>
         </div>
 
         <div className="hero-carousel-ui">
@@ -264,24 +220,6 @@ export default function ZaidiLanding() {
                 onClick={() => setHeroSlide(index)}
               />
             ))}
-          </div>
-          <div className="hero-arrows">
-            <button
-              type="button"
-              aria-label="Previous slide"
-              onClick={() =>
-                setHeroSlide((index) => (index - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)
-              }
-            >
-              
-            </button>
-            <button
-              type="button"
-              aria-label="Next slide"
-              onClick={() => setHeroSlide((index) => (index + 1) % HERO_SLIDES.length)}
-            >
-              →
-            </button>
           </div>
         </div>
       </section>
@@ -398,68 +336,6 @@ export default function ZaidiLanding() {
           <p className="price-note">Exact on-road price ke liye Zaidi TVS showroom se contact karein.</p>
         </section>
 
-        <section className="featured dark" id="bikes">
-          <div className="featured-copy reveal">
-            <p className="eyebrow red">Featured models</p>
-            <h2>TVS bikes &amp; scooters</h2>
-            <p className="featured-lede">
-              Powerful. Stylish. Connected. Find the ride that fits the way you
-              move.
-            </p>
-            <div className="model-title">
-              <strong>
-                TVS <span>Ntorq</span>
-              </strong>
-              <small>Ride the next</small>
-            </div>
-            <ul className="spec-row">
-              <li>
-                <b>125 cc</b>
-                <span>Engine</span>
-              </li>
-              <li>
-                <b>Sporty</b>
-                <span>Design</span>
-              </li>
-              <li>
-                <b>Connected</b>
-                <span>Tech</span>
-              </li>
-            </ul>
-            <div className="hero-buttons">
-              <button type="button" className="btn primary" onClick={openModal}>
-                360° view <span aria-hidden="true">→</span>
-              </button>
-              <Link className="btn ghost" href="/scooters">
-                Explore models <span>→</span>
-              </Link>
-            </div>
-            <p className="featured-note">
-              Genuine TVS · Easy finance · Free test ride at Chandpur
-            </p>
-          </div>
-          <div className="bike-stage">
-            <Bike360 frames={NTORQ_FRAMES} alt="TVS Ntorq 125 — 360° view" />
-            <div className="stage-glow" aria-hidden="true" />
-          </div>
-          <div className="model-thumbs">
-            {[0, 1, 2, 3].map((thumb) => (
-              <button
-                type="button"
-                key={thumb}
-                className={`thumb${activeThumb === thumb ? " active" : ""}`}
-                aria-label={`View ${thumb + 1}`}
-                onClick={() => setActiveThumb(thumb)}
-              />
-            ))}
-          </div>
-          <div className="model-logo">
-            NTORQ <small>125</small>
-          </div>
-        </section>
-
-        <EngineWorks />
-
         <section className="parts-strip dark" id="parts">
           <div>
             <div className="eyebrow red"> &nbsp; GENUINE TVS SUPPORT</div>
@@ -481,84 +357,6 @@ export default function ZaidiLanding() {
         </section>
 
         <FinanceCalculator />
-
-        <section className="quiz quizPro section-light" id="scooters">
-          <div className="quizPro-copy reveal">
-            <p className="eyebrow red">Fun quiz</p>
-            <h2>Which TVS are you?</h2>
-            <p className="quizPro-lede">
-              One quick choice is all it takes. Pick the riding style that feels
-              most like your day and we&apos;ll point you to the right TVS.
-            </p>
-            <ul className="quizPro-points">
-              <li>30-second quiz</li>
-              <li>No sign-up needed</li>
-              <li>Instant model match</li>
-            </ul>
-            <button
-              type="button"
-              ref={startQuizRef}
-              className="btn primary"
-              onClick={() =>
-                document
-                  .querySelector(".quizPro-options button")
-                  ?.setAttribute("tabindex", "0")
-              }
-            >
-              Start the quiz <span aria-hidden="true">→</span>
-            </button>
-          </div>
-
-          <div className="quizPro-card">
-            <div className="quizPro-top">
-              <span className="quizPro-step">Step 1 of 1</span>
-              <span className="quizPro-topic">Riding style</span>
-            </div>
-            <h3>What&apos;s your riding style?</h3>
-            <p className="quizPro-sub">
-              Choose the option that describes your everyday ride.
-            </p>
-            <div className="quizPro-options">
-              {QUIZ_OPTIONS.map((option, index) => (
-                <button
-                  type="button"
-                  key={option.label}
-                  className={quizResult === option.label ? "is-active" : undefined}
-                  aria-pressed={quizResult === option.label}
-                  onClick={() => setQuizResult(option.label)}
-                >
-                  <span className="quizPro-index">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="quizPro-option-copy">
-                    <b>{option.label}</b>
-                    <small>{option.hint}</small>
-                  </span>
-                  <span className="quizPro-arrow" aria-hidden="true">
-                    →
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            <div className="quizPro-result" aria-live="polite">
-              {(() => {
-                const match = QUIZ_OPTIONS.find((o) => o.label === quizResult);
-                return match ? (
-                  <>
-                    <span>Your match</span>
-                    <strong>{match.result}</strong>
-                    <Link href={match.href}>
-                      Explore this model <span aria-hidden="true">→</span>
-                    </Link>
-                  </>
-                ) : (
-                  <p>Select an option above to see your match.</p>
-                );
-              })()}
-            </div>
-          </div>
-        </section>
 
         <StatsBand />
 
@@ -583,7 +381,7 @@ export default function ZaidiLanding() {
               </li>
               <li>
                 <b>Call us</b>
-                <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+                <a href={CONTACT.salesPhoneHref}>{CONTACT.salesPhone}</a>
               </li>
             </ul>
             <div className="locPro-actions">
@@ -713,8 +511,8 @@ export default function ZaidiLanding() {
               <Link className="btn primary" href="/contact">
                 Contact us <span aria-hidden="true">→</span>
               </Link>
-              <a className="btn ghost" href={CONTACT.phoneHref}>
-                Call {CONTACT.phone}
+              <a className="btn ghost" href={CONTACT.salesPhoneHref}>
+                Call {CONTACT.salesPhone}
               </a>
             </div>
           </div>
@@ -792,7 +590,7 @@ export default function ZaidiLanding() {
               FIND US IN CHANDPUR.
             </h2>
             <p style={{ color: "inherit", opacity: 0.68, fontSize: 13, margin: "8px 0 0" }}>
-              Showroom, service centre and parts counter — with doorstep pickup and drop.
+              Showroom sales and service with genuine spare parts — with doorstep pickup and drop.
             </p>
           </div>
           <BranchLocator compact />
@@ -864,8 +662,8 @@ export default function ZaidiLanding() {
                 >
                   Book a test ride <span aria-hidden="true">→</span>
                 </button>
-                <a className="btn ghost" href={CONTACT.phoneHref}>
-                  Call {CONTACT.phone}
+                <a className="btn ghost" href={CONTACT.salesPhoneHref}>
+                  Call {CONTACT.salesPhone}
                 </a>
               </div>
               <small className="ctaPro-hours">
@@ -874,49 +672,6 @@ export default function ZaidiLanding() {
             </div>
           </div>
         </section>
-
-      <div
-        className={`modal${modalOpen ? " open" : ""}`}
-        id="showcaseModal"
-        ref={modalRef}
-        aria-hidden={!modalOpen}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modalTitle"
-      >
-        <div className="modal-card">
-          <button
-            type="button"
-            className="modal-close"
-            ref={closeBtnRef}
-            onClick={() => setModalOpen(false)}
-            aria-label="Close showcase"
-          >
-            ×
-          </button>
-          <Bike360 frames={NTORQ_FRAMES} alt="TVS Ntorq 150 — 360° view" autoSpin={false} />
-          <div>
-            <div className="eyebrow red">INTERACTIVE SHOWCASE</div>
-            <h2 id="modalTitle">TVS NTORQ 125</h2>
-            <p>
-              Drag left or right to spin the scooter through a real 360°
-              turntable shot — every angle captured straight from TVS.
-            </p>
-            <div className="hero-buttons" style={{ marginTop: 18 }}>
-              <button
-                type="button"
-                className="btn primary"
-                onClick={() => {
-                  setModalOpen(false);
-                  openBooking("ntorq");
-                }}
-              >
-                BOOK RIDE <span>→</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <BookingModal
         open={bookingOpen}

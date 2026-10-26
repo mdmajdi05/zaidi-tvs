@@ -35,7 +35,6 @@ export default function EngineWorks() {
       <div className="ew-inner">
         <header className="ew-head">
           <div>
-            <p className="eyebrow red"> &nbsp; 01.5 / Under the tank</p>
             <h2>How a TVS engine works.</h2>
           </div>
           <p className="ew-lede">

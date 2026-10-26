@@ -83,8 +83,16 @@ const OPENING_HOURS = HOURS.map(({ day, time }) => {
 
 const CONTACT_POINT = {
   "@type": "ContactPoint",
-  telephone: CONTACT.phone,
+  telephone: CONTACT.salesPhone,
   contactType: "sales",
+  areaServed: "IN",
+  availableLanguage: ["en", "hi"],
+};
+
+const SERVICE_POINT = {
+  "@type": "ContactPoint",
+  telephone: CONTACT.servicePhone,
+  contactType: "customer service",
   areaServed: "IN",
   availableLanguage: ["en", "hi"],
 };
@@ -107,11 +115,11 @@ export function organizationSchema(): JsonLdProps {
     image: absoluteUrl(SITE.ogImage),
     description: SITE.defaultDescription,
     ...(CONTACT.email ? { email: CONTACT.email } : {}),
-    telephone: CONTACT.phone,
+    telephone: CONTACT.salesPhone,
     address: POSTAL_ADDRESS,
     ...(SAME_AS.length ? { sameAs: SAME_AS } : {}),
     areaServed: { "@type": "Country", name: "India" },
-    contactPoint: [CONTACT_POINT],
+    contactPoint: [CONTACT_POINT, SERVICE_POINT],
   });
 }
 
@@ -135,7 +143,7 @@ export function localBusinessSchema(): JsonLdProps {
     name: SITE.name,
     image: [absoluteUrl(SITE.ogImage), absoluteUrl(SITE.logo)],
     url: absoluteUrl("/"),
-    telephone: CONTACT.phone,
+    telephone: CONTACT.salesPhone,
     ...(CONTACT.email ? { email: CONTACT.email } : {}),
     address: POSTAL_ADDRESS,
     ...(OPENING_HOURS.length
@@ -275,7 +283,7 @@ export function contactPageSchema(): JsonLdProps {
       "@id": ORG_ID,
       name: SITE.name,
       ...(CONTACT.email ? { email: CONTACT.email } : {}),
-      telephone: CONTACT.phone,
+      telephone: CONTACT.salesPhone,
       url: absoluteUrl("/"),
       address: POSTAL_ADDRESS,
     },

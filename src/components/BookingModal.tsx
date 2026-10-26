@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 
-import { wa } from "@data/site";
+import { CONTACT, wa } from "@data/site";
 
 import styles from "./BookingModal.module.css";
 
@@ -218,6 +218,10 @@ export default function BookingModal({
           <button type="submit" className={styles.submit}>
             <span>Submit</span>
           </button>
+
+          <a className={styles.call} href={CONTACT.salesPhoneHref}>
+            Prefer to talk? Call {CONTACT.salesPhone}
+          </a>
 
           <p className={styles.note}>
             We&apos;ll confirm your slot on WhatsApp. No spam, ever.

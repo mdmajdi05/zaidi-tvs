@@ -148,7 +148,10 @@ export default function Footer() {
               <span>{ADDRESS_LINE}</span>
             </li>
             <li>
-              <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+              <a href={CONTACT.salesPhoneHref}>Sales: {CONTACT.salesPhone}</a>
+            </li>
+            <li>
+              <a href={CONTACT.servicePhoneHref}>Service: {CONTACT.servicePhone}</a>
             </li>
             <li>
               <span>{HOURS_SHORT}</span>

@@ -7,10 +7,7 @@ import { CONTACT, wa } from "@data/site";
 
 import styles from "./TimedOfferPopup.module.css";
 
-/** Appears 30s after the first paint — once per browser tab. */
-const SHOW_AFTER_MS = 30_000;
-const STORAGE_KEY = "zv-offer-popup-shown";
-
+/** Opens immediately on every page load / refresh. */
 const WHATSAPP_MESSAGE =
   "Hello Zaidi TVS! I saw the offer popup. Please share today's on-road price, EMI options and free test-ride details.";
 
@@ -28,40 +25,18 @@ export default function TimedOfferPopup() {
     }, 0);
   }, []);
 
-  // 30-second timer. `?popup=1` opens it immediately for testing.
+  // Show once, right away, on every page load / refresh.
   useEffect(() => {
-    const force = new URLSearchParams(window.location.search).get("popup") === "1";
+    const timer = window.setTimeout(() => {
+      // Never interrupt the mobile menu or a booking form already on screen.
+      const busy = document.querySelector(
+        '.mobile-drawer.open, .modal.open, [role="dialog"][aria-modal="true"]:not([aria-hidden="true"])'
+      );
+      if (busy) return;
 
-    if (!force) {
-      try {
-        if (window.sessionStorage.getItem(STORAGE_KEY) === "1") return;
-      } catch {
-        /* private mode / storage blocked — ignore */
-      }
-    }
-
-    const timer = window.setTimeout(
-      () => {
-        // Never interrupt the mobile menu, a booking form or the 360 viewer.
-        const busy = document.querySelector(
-          '.mobile-drawer.open, .modal.open, [role="dialog"][aria-modal="true"]:not([aria-hidden="true"])'
-        );
-        if (busy) return;
-
-        // The contact page already lists every way to reach us.
-        if (window.location.pathname === "/contact") return;
-
-        try {
-          window.sessionStorage.setItem(STORAGE_KEY, "1");
-        } catch {
-          /* ignore */
-        }
-
-        lastFocused.current = document.activeElement;
-        setOpen(true);
-      },
-      force ? 0 : SHOW_AFTER_MS
-    );
+      lastFocused.current = document.activeElement;
+      setOpen(true);
+    }, 0);
 
     return () => window.clearTimeout(timer);
   }, []);
@@ -174,10 +149,13 @@ export default function TimedOfferPopup() {
             >
               Chat on WhatsApp
             </a>
+            <a className={styles.call} href={CONTACT.salesPhoneHref} onClick={close}>
+              Call now · {CONTACT.salesPhone}
+            </a>
           </div>
 
           <p className={styles.note}>
-            No spam · We usually reply within minutes · {CONTACT.phone}
+            No spam · We usually reply within minutes · {CONTACT.salesPhone}
           </p>
         </div>
       </div>

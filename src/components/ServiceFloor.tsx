@@ -103,8 +103,8 @@ export default function ServiceFloor() {
             <a className="btn primary" href="/service">
               Book a service <span aria-hidden="true">→</span>
             </a>
-            <a className="btn ghost" href={CONTACT.phoneHref}>
-              Call {CONTACT.phone}
+            <a className="btn ghost" href={CONTACT.salesPhoneHref}>
+              Call {CONTACT.salesPhone}
             </a>
           </div>
         </div>

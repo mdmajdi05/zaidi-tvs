@@ -169,6 +169,33 @@
   display: inline-block;
 }
 
+.call {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 14px;
+  border: 1px solid rgba(239, 41, 49, 0.35);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #c41e24;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.call:hover {
+  border-color: #ef2931;
+  background: rgba(239, 41, 49, 0.07);
+}
+
+.call:focus-visible {
+  outline: 2px solid #ef2931;
+  outline-offset: 2px;
+}
+
 .error {
   color: #c41e24;
   font-size: 12.5px;
@@ -223,4 +250,10 @@
 :global(html[data-theme="dark"]) .label,
 :global(html[data-theme="dark"]) .note {
   color: #a7aebc;
+}
+
+:global(html[data-theme="dark"]) .call {
+  background: transparent;
+  border-color: rgba(239, 41, 49, 0.5);
+  color: #ff6b70;
 }

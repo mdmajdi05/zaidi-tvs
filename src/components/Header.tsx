@@ -334,8 +334,8 @@ export default function Header() {
 
       <div className="header-actions">
         <ThemeToggle />
-        <a className="phone" href={CONTACT.phoneHref}>
-          {CONTACT.phone}
+        <a className="phone" href={CONTACT.salesPhoneHref}>
+          {CONTACT.salesPhone}
         </a>
         <Link className="book-mini" href="/contact">
           Book Test Ride
@@ -397,8 +397,8 @@ export default function Header() {
         </nav>
         <div className="drawer-foot">
           <ThemeToggle className="theme-toggle-drawer" />
-          <a href={CONTACT.phoneHref} tabIndex={open ? 0 : -1}>
-            {CONTACT.phone}
+          <a href={CONTACT.salesPhoneHref} tabIndex={open ? 0 : -1}>
+            {CONTACT.salesPhone}
           </a>
           <span>{ADDRESS_LINE}</span>
         </div>

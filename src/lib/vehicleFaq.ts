@@ -13,7 +13,7 @@ export function vehicleFaq(m: Vehicle): Array<[string, string]> {
   return [
     [
       `What is the on-road price of the ${m.shortName}?`,
-      `${priceLine} On-road price depends on the variant, insurance and the offers running today — message us on WhatsApp or call ${CONTACT.phone} for the exact Chandpur price.`,
+      `${priceLine} On-road price depends on the variant, insurance and the offers running today — message us on WhatsApp or call ${CONTACT.salesPhone} for the exact Chandpur price.`,
     ],
     [
       "Can I take a free test ride?",

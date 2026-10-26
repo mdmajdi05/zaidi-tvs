@@ -1,167 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CHATBOT } from "@data/site";
 import {
-  ADDRESS_LINE,
-  CHATBOT,
-  HOURS_SHORT,
-  MAPS_URL,
-  wa,
-} from "@data/site";
+  loadChatData,
+  replyTo,
+  type ChatContext,
+  type ChatCta,
+  type ChatData,
+} from "@/lib/chatBrain";
 
-type Cta = { label: string; href: string };
-type Msg = { id: number; from: "bot" | "user"; text: string; cta?: Cta };
-type Reply = { text: string; cta?: Cta };
-
-type ChatData = {
-  faqs: Array<{ q: string; a: string }>;
-  schemes: Array<{ title: string; rate: string }>;
-  offers: Array<{ title: string; text: string }>;
-  bikes: Array<{
-    name: string;
-    shortName: string;
-    engine: string;
-    power: string;
-    mileage: string;
-    price?: string;
-  }>;
-};
-
-/** Lazily loaded only when the chat is first opened (keeps the page light). */
-async function loadData(): Promise<ChatData> {
-  const [faqsMod, offersMod, catalogMod] = await Promise.all([
-    import("@/lib/faqs"),
-    import("@/lib/offers"),
-    import("@/lib/catalog"),
-  ]);
-  return {
-    faqs: faqsMod.FAQ_GROUPS.flatMap((group) => group.items),
-    schemes: offersMod.FINANCE_SCHEMES,
-    offers: offersMod.OFFERS,
-    bikes: catalogMod.BIKES,
-  };
-}
-
-function bestFaq(q: string, faqs: Array<{ q: string; a: string }>): string | null {
-  const tokens = q.split(/[^a-z0-9]+/).filter((t) => t.length > 3);
-  if (!tokens.length) return null;
-  let best = { score: 0, a: "" };
-  for (const faq of faqs) {
-    const hay = `${faq.q} ${faq.a}`.toLowerCase();
-    let score = 0;
-    for (const token of tokens) if (hay.includes(token)) score++;
-    if (score > best.score) best = { score, a: faq.a };
-  }
-  const need = tokens.length === 1 ? 1 : 2;
-  return best.score >= need ? best.a : null;
-}
-
-function answer(raw: string, data: ChatData): Reply {
-  const q = raw.toLowerCase();
-  const has = (...words: string[]) => words.some((w) => q.includes(w));
-  const handoff = (text: string, msg?: string): Reply => ({
-    text,
-    cta: { label: "WhatsApp par poochho →", href: wa(msg ?? raw) },
-  });
-
-  if (/^(hi|hello|hey|namaste|namaskar|salam|assalam)/.test(q.trim()) || has("namaste")) {
-    return { text: CHATBOT.greeting };
-  }
-
-  if (has("timing", "time", "hour", "open", "khul", "band", "close", "samay", "address", "location", "kahan", "where", "map", "direction", "pata", "jagah")) {
-    return {
-      text: `Showroom timings: ${HOURS_SHORT}.\nAddress: ${ADDRESS_LINE}.`,
-      cta: { label: "Google Maps par kholein →", href: MAPS_URL },
-    };
-  }
-
-  if (has("test ride", "test-ride", "testride", "trial")) {
-    return handoff(
-      "Bilkul! Free test ride available hai — bas valid driving licence laaiye. Slot book karne ke liye WhatsApp karein.",
-      "Hi Zaidi TVS! I'd like to book a free test ride."
-    );
-  }
-
-  if (has("emi", "finance", "loan", "installment", "instalment", "down payment", "down-payment", "interest", "kist")) {
-    const list = data.schemes
-      .slice(0, 3)
-      .map((s) => `• ${s.title} — ${s.rate}`)
-      .join("\n");
-    return handoff(
-      `Haan, finance available hai:\n${list}\nLow down-payment aur 48 months tak tenure. Exact EMI ke liye WhatsApp karein.`,
-      "Hi Zaidi TVS! I need EMI / finance details."
-    );
-  }
-
-  if (has("exchange", "old bike", "purani", "trade")) {
-    return handoff(
-      "Ji haan — purani gaadi (kisi bhi brand) ki free evaluation karke value naye purchase me adjust ki jaati hai.",
-      "Hi Zaidi TVS! I want to exchange my old vehicle."
-    );
-  }
-
-  if (has("insurance", "policy", "claim")) {
-    return handoff(
-      "New insurance delivery par, aur renewal + claim me poora support milta hai.",
-      "Hi Zaidi TVS! I need insurance help."
-    );
-  }
-
-  if (has("service", "servicing", "repair", "workshop", "pickup", "pick up", "maintenance")) {
-    return handoff(
-      "Service booking, genuine parts aur free doorstep pickup/drop available hai. WhatsApp par apna model + address bhejein.",
-      "Hi Zaidi TVS! I'd like to book a service."
-    );
-  }
-
-  if (has("iqube", "electric", "charge", "charging", " ev", "orbiter")) {
-    return handoff(
-      "TVS iQube aur Orbiter electric scooters available hain. Ghar ke 5A socket se charge hote hain — petrol se kaafi sasta running cost.",
-      "Hi Zaidi TVS! I'd like iQube / electric details."
-    );
-  }
-
-  if (has("document", "aadhaar", "paperwork", "licence", "license")) {
-    return handoff(
-      "Aam taur par ID (Aadhaar), address proof aur photo chahiye. Finance me thoda extra paperwork — hum poora guide karte hain.",
-      "Hi Zaidi TVS! What documents do I need?"
-    );
-  }
-
-  const bike = data.bikes.find((b) => {
-    const short = b.shortName.toLowerCase();
-    const full = b.name.toLowerCase();
-    return (short.length > 2 && q.includes(short)) || (full.length > 3 && q.includes(full));
-  });
-  if (bike) {
-    return handoff(
-      `${bike.name}\n• Engine: ${bike.engine}\n• Power: ${bike.power}\n• Mileage: ${bike.mileage}\n• Price: ${bike.price ?? "on-road price ke liye WhatsApp karein"}`,
-      `Hi Zaidi TVS! I'm interested in the ${bike.name}. Please share the price.`
-    );
-  }
-
-  if (has("price", "cost", "rate", "kitna", "kitne", "on-road", "onroad", "keemat")) {
-    return handoff(
-      "Price model aur variant par depend karta hai. Aap kaun sa model dekh rahe hain? Exact on-road price WhatsApp par bhej denge.",
-      "Hi Zaidi TVS! Please share the price list."
-    );
-  }
-
-  if (has("offer", "discount", "scheme", "deal", "bonus", "festive")) {
-    const list = data.offers
-      .slice(0, 3)
-      .map((o) => `• ${o.title} — ${o.text}`)
-      .join("\n");
-    return handoff(`Abhi ke offers:\n${list}`, "Hi Zaidi TVS! What offers are running right now?");
-  }
-
-  const faq = bestFaq(q, data.faqs);
-  if (faq) return handoff(faq);
-
-  return handoff(
-    "Ye sawal main theek se samajh nahi paya. WhatsApp par hamari team se seedha poochho — turant jawab milega."
-  );
-}
+type Msg = { id: number; from: "bot" | "user"; text: string; ctas?: ChatCta[] };
 
 function WhatsAppIcon({ size = 20 }: { size?: number }) {
   return (
@@ -169,6 +18,37 @@ function WhatsAppIcon({ size = 20 }: { size?: number }) {
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
     </svg>
   );
+}
+
+function PhoneIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" aria-hidden="true">
+      <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2Z" />
+    </svg>
+  );
+}
+
+function PinIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" aria-hidden="true">
+      <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
+    </svg>
+  );
+}
+
+function ArrowIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+function CtaIcon({ kind }: { kind: ChatCta["kind"] }) {
+  if (kind === "whatsapp") return <WhatsAppIcon size={14} />;
+  if (kind === "call") return <PhoneIcon />;
+  if (kind === "map") return <PinIcon />;
+  return <ArrowIcon />;
 }
 
 function CustomScriptWidget({ src }: { src: string }) {
@@ -192,7 +72,9 @@ function BuiltinChat() {
   const [messages, setMessages] = useState<Msg[]>(() => [
     { id: 0, from: "bot", text: CHATBOT.greeting },
   ]);
+  const [suggestions, setSuggestions] = useState<string[]>(CHATBOT.quickReplies);
   const dataRef = useRef<ChatData | null>(null);
+  const ctxRef = useRef<ChatContext>({});
   const idRef = useRef(1);
   const bodyRef = useRef<HTMLDivElement>(null);
 
@@ -212,12 +94,22 @@ function BuiltinChat() {
     setMessages((prev) => [...prev, { id: idRef.current++, from: "user", text }]);
     setThinking(true);
     try {
-      if (!dataRef.current) dataRef.current = await loadData();
-      const reply = answer(text, dataRef.current);
-      await new Promise((r) => setTimeout(r, 420));
+      if (!dataRef.current) dataRef.current = await loadChatData();
+      const reply = replyTo(text, ctxRef.current, dataRef.current);
+      await new Promise((r) => setTimeout(r, 360));
       setMessages((prev) => [
         ...prev,
-        { id: idRef.current++, from: "bot", text: reply.text, cta: reply.cta },
+        { id: idRef.current++, from: "bot", text: reply.text, ctas: reply.ctas },
+      ]);
+      if (reply.suggestions?.length) setSuggestions(reply.suggestions);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: idRef.current++,
+          from: "bot",
+          text: "Sorry, ek technical issue aa gaya. Aap seedha WhatsApp par poochh sakte hain.",
+        },
       ]);
     } finally {
       setThinking(false);
@@ -258,16 +150,25 @@ function BuiltinChat() {
                   {m.text.split("\n").map((line, i) => (
                     <span key={i}>{line}</span>
                   ))}
-                  {m.cta && (
-                    <a
-                      className="zChatCta"
-                      href={m.cta.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <WhatsAppIcon size={15} />
-                      {m.cta.label}
-                    </a>
+                  {m.ctas && m.ctas.length > 0 && (
+                    <span className="zChatCtas">
+                      {m.ctas.map((cta) => {
+                        const newTab = cta.kind === "whatsapp" || cta.kind === "map";
+                        return (
+                          <a
+                            key={`${cta.label}-${cta.href}`}
+                            className={`zChatCta ${cta.kind}`}
+                            href={cta.href}
+                            {...(newTab
+                              ? { target: "_blank", rel: "noopener noreferrer" }
+                              : {})}
+                          >
+                            <CtaIcon kind={cta.kind} />
+                            {cta.label}
+                          </a>
+                        );
+                      })}
+                    </span>
                   )}
                 </div>
               </div>
@@ -284,7 +185,7 @@ function BuiltinChat() {
           </div>
 
           <div className="zChatReplies">
-            {CHATBOT.quickReplies.map((reply) => (
+            {suggestions.map((reply) => (
               <button key={reply} type="button" onClick={() => send(reply)}>
                 {reply}
               </button>
@@ -345,6 +246,6 @@ export default function ChatWidget() {
     return <CustomScriptWidget src={CHATBOT.customScript} />;
   }
   // "builtin" (and "servibot" until a key/vendor is configured) uses the local
-  // rule-based assistant built from the FAQ, offers and showroom data.
+  // intent-based assistant built from the site data.
   return <BuiltinChat />;
 }

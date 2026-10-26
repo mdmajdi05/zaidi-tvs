@@ -289,36 +289,52 @@ p {
     width: 20px;
   }
 
-  .hero-arrows button {
+  .hero-slide-nav button {
     width: 34px;
     height: 34px;
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
-.hero-arrows {
+.hero-slide-nav {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
   display: flex;
-  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(8px, 2vw, 24px);
+  pointer-events: none;
 }
 
-.hero-arrows button {
-  width: 40px;
-  height: 40px;
+.hero-slide-nav button {
+  pointer-events: auto;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(16, 20, 27, 0.42);
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 1;
   cursor: pointer;
-  backdrop-filter: blur(4px);
-  transition: background 0.2s ease, color 0.2s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(16, 20, 27, 0.25);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.hero-arrows button:hover {
+.hero-slide-nav button:hover {
   background: var(--red);
   border-color: var(--red);
+  transform: scale(1.06);
+}
+
+.hero-slide-nav button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 /* Remove the old animated hero from layout flow if it is ever rendered */

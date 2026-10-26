@@ -4,7 +4,7 @@
 // Address / phone / hours / maps badalne ke liye `data/site.ts` edit karo —
 // yahan kuch chhune ki zaroorat nahi.
 //
-// All three facilities are departments of the ONE Zaidi TVS dealership in
+// Both facilities are departments of the ONE Zaidi TVS dealership in
 // Chandpur, Uttar Pradesh — they are NOT separate branches in other cities.
 // TODO(owner): confirm the exact landmark / pin for each counter and update
 // `data/site.ts` if the map location changes.
@@ -34,10 +34,10 @@ export type Branch = {
 export const BRANCHES: Branch[] = [
   {
     id: "showroom",
-    name: `${SITE.name} — Main Showroom`,
+    name: `${SITE.name} — Sales`,
     kind: "Sales & test rides",
     address: ADDRESS_LINE,
-    phone: CONTACT.visitPhone,
+    phone: CONTACT.salesPhone,
     whatsapp: CONTACT.whatsappHref,
     hours: HOURS,
     mapsQuery: MAPS_URL,
@@ -46,27 +46,15 @@ export const BRANCHES: Branch[] = [
   },
   {
     id: "service",
-    name: `${SITE.name} — Service Centre`,
-    kind: "Workshop",
+    name: `${SITE.name} — Service and Spare Parts`,
+    kind: "Service, spares & repairs",
     address: ADDRESS_LINE,
-    phone: CONTACT.visitPhone,
+    phone: CONTACT.servicePhone,
     whatsapp: CONTACT.whatsappHref,
     hours: HOURS,
     mapsQuery: MAPS_URL,
     mapEmbed: MAP_EMBED_URL,
-    note: "Periodic service, repairs and battery/electrical work by trained TVS technicians.",
-  },
-  {
-    id: "parts",
-    name: `${SITE.name} — Parts & Accessories Counter`,
-    kind: "Genuine parts & accessories",
-    address: ADDRESS_LINE,
-    phone: CONTACT.visitPhone,
-    whatsapp: CONTACT.whatsappHref,
-    hours: HOURS,
-    mapsQuery: MAPS_URL,
-    mapEmbed: MAP_EMBED_URL,
-    note: "Genuine TVS spares, lubricants and riding accessories — ask at the counter.",
+    note: "Periodic service, repairs, battery/electrical work and genuine TVS spare parts — all at one counter.",
   },
 ];
 
