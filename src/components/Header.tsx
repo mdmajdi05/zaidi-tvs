@@ -22,7 +22,7 @@ const PRODUCT_TABS: MegaTab[] = [
   {
     id: "motorcycles",
     label: "Motorcycles",
-    href: "/bikes",
+    href: "/#ride",
     items: [
       { name: "Apache RTX", img: "/tvs/products/apache-rtx.png", href: "/bikes/apache-rtx-300" },
       { name: "Apache RR 310", img: "/tvs/products/apache-rr-310.webp", href: "/bikes/apache-rr-310" },
@@ -63,7 +63,7 @@ const PRODUCT_TABS: MegaTab[] = [
   {
     id: "mopeds",
     label: "Mopeds",
-    href: "/bikes",
+    href: "/#ride",
     items: [
       { name: "TVS XL100", img: "/tvs/products/xl100.webp", href: vehicleHref("xl100") },
     ],
@@ -133,7 +133,7 @@ type NavItem = { label: string; href: string; menu?: MegaTab[]; wide?: boolean }
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Products", href: "/bikes", menu: PRODUCT_TABS, wide: true },
+  { label: "Products", href: "/#ride", menu: PRODUCT_TABS, wide: true },
   { label: "Offers", href: "/offers" },
   { label: "Compare", href: "/compare" },
   { label: "Shop", href: "/parts", menu: SHOP_TABS },
@@ -238,7 +238,7 @@ export default function Header() {
               </li>
             ))}
             <li className="mega-tab-all">
-              <Link href={tabs[0].href ?? "/bikes"}>
+              <Link href={tabs[0].href ?? "/#ride"}>
                 {wide ? "Explore All Vehicles →" : "Explore Shop →"}
               </Link>
             </li>
@@ -247,7 +247,7 @@ export default function Header() {
           <div className="mega-products">
             <h3>
               All ({current.items.length})
-              <Link href={current.href ?? "/bikes"}>
+              <Link href={current.href ?? "/#ride"}>
                 View all <span aria-hidden="true">→</span>
               </Link>
             </h3>

@@ -100,7 +100,7 @@ export default function AboutPage() {
                 <Link className="btn primary" href="/contact">
                   GET IN TOUCH <span>→</span>
                 </Link>
-                <Link className="btn ghost" href="/bikes">
+                <Link className="btn ghost" href="/#ride">
                   VIEW MODELS <span>→</span>
                 </Link>
               </div>

@@ -43,6 +43,13 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    return [
+      // The /bikes listing page was removed; keep old links working by
+      // sending them to the "Discover your ride" section on the home page.
+      { source: "/bikes", destination: "/#ride", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: SECURITY_HEADERS },

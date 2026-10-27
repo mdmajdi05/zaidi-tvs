@@ -923,7 +923,7 @@ function generalReply(intent: IntentId, data: ChatData): ChatReply {
         ctas: [
           waCta("Get price list", "Hello Zaidi TVS! Please share the latest price list."),
           CALL_SALES,
-          linkCta("See all models →", "/bikes"),
+          linkCta("See all models →", "/#ride"),
         ],
         suggestions: ["Raider 125 ka price", "Jupiter 125 ka price", "Apache 160 ka price", "Budget me options"],
       };
@@ -1151,14 +1151,14 @@ function generalReply(intent: IntentId, data: ChatData): ChatReply {
           "Scooters me Jupiter 125 ~57 km/l* aur Zest 110 ~62 km/l* dete hain.",
           "Electric chahiye to iQube ~145 km/charge* — petrol kharch zero.",
         ].join("\n"),
-        ctas: [linkCta("See all models →", "/bikes"), waCta("Best mileage for me", "Hello Zaidi TVS! Which TVS model gives the best mileage for my daily running?")],
+        ctas: [linkCta("See all models →", "/#ride"), waCta("Best mileage for me", "Hello Zaidi TVS! Which TVS model gives the best mileage for my daily running?")],
         suggestions: ["Sport ka price", "Raider 125", "iQube details"],
       };
 
     case "models":
       return {
         text: ["Hamare paas ye TVS range available hai:", "", allModelsText(data)].join("\n"),
-        ctas: [linkCta("Browse bikes →", "/bikes"), linkCta("Browse scooters →", "/scooters"), CALL_SALES],
+        ctas: [linkCta("Browse bikes →", "/#ride"), linkCta("Browse scooters →", "/scooters"), CALL_SALES],
         suggestions: ["Aaj ka price list", "Best for family", "Electric models"],
       };
 
@@ -1185,7 +1185,7 @@ function generalReply(intent: IntentId, data: ChatData): ChatReply {
           "Kis model ki details chahiye?",
           "Main engine, power, mileage, features aur price — sab bata dunga.",
         ].join("\n"),
-        ctas: [linkCta("See all models →", "/bikes")],
+        ctas: [linkCta("See all models →", "/#ride")],
         suggestions: ["Apache RTR 200 details", "Jupiter 125 details", "iQube details"],
       };
 
@@ -1314,7 +1314,7 @@ export function replyTo(raw: string, ctx: ChatContext, data: ChatData): ChatRepl
       suggestions: apaches.slice(0, 5).map((v) => v.shortName),
       ctas: [
         waCta("Ask about Apache", "Hello Zaidi TVS! I'm interested in a TVS Apache."),
-        linkCta("Browse Apache models →", "/bikes"),
+        linkCta("Browse Apache models →", "/#ride"),
       ],
     };
   }

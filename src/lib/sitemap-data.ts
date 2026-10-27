@@ -52,7 +52,6 @@ const GROUP_BLOG = "Blog & Guides";
 
 const STATIC_ROUTES: SitemapEntry[] = [
   { label: "Home", path: "/", group: GROUP_MAIN, priority: 1, changeFrequency: "weekly" },
-  { label: "Our Bikes", path: "/bikes", group: GROUP_MAIN, priority: 0.9, changeFrequency: "weekly" },
   { label: "Our Scooters", path: "/scooters", group: GROUP_MAIN, priority: 0.9, changeFrequency: "weekly" },
   { label: "Offers, Finance & Exchange", path: "/offers", group: GROUP_MAIN, priority: 0.9, changeFrequency: "weekly" },
   { label: "Compare Models", path: "/compare", group: GROUP_MAIN, priority: 0.8, changeFrequency: "monthly" },

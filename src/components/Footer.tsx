@@ -17,7 +17,7 @@ const FOOTER_GROUPS: Array<{ title: string; links: FooterLink[] }> = [
     title: "Explore",
     links: [
       { href: "/", label: "Home" },
-      { href: "/bikes", label: "Our Bikes" },
+      { href: "/#ride", label: "Our Bikes" },
       { href: "/scooters", label: "Our Scooters" },
       { href: "/compare", label: "Compare Models" },
       { href: "/offers", label: "Offers & Finance" },

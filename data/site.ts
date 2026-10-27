@@ -92,18 +92,18 @@ export const SITE = {
  * -------------------------------------------------------------------------*/
 export const CONTACT = {
   /** Sales / showroom number — bikes, scooters, test rides, pricing. */
-  salesPhone: "+91 74029 62786",
-  salesPhoneHref: "tel:+917402962786",
+  salesPhone: "+91 90090 10050",
+  salesPhoneHref: "tel:+919009010050",
   /** Service / workshop number — servicing, repairs, spare parts. */
-  servicePhone: "+91 90090 10050",
-  servicePhoneHref: "tel:+919009010050",
-  /** Generic main desk (service reception) — legacy alias. */
+  servicePhone: "+91 74029 62786",
+  servicePhoneHref: "tel:+917402962786",
+  /** Generic main desk (sales reception) — legacy alias. */
   phone: "+91 90090 10050",
   phoneHref: "tel:+919009010050",
   whatsapp: "919009010050",
   whatsappHref: "https://wa.me/919009010050",
   /** Sales number for VISIT & TIMES / branch cards (legacy alias). */
-  visitPhone: "+91 74029 62786",
+  visitPhone: "+91 90090 10050",
   /** Email add karna ho to yahan likho (khaali chhodne par kahin nahi dikhega). */
   email: "",
 };
